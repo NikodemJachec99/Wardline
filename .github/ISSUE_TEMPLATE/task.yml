@@ -1,0 +1,37 @@
+name: Task (chore / docs / test)
+description: Praca techniczna, dokumentacja albo testy
+title: "<Czasownik w trybie rozkazującym>"
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Rodzaj
+      options: [chore, docs, test, ci, refactor]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Co trzeba zrobić
+      description: Z odwołaniem do docs/PLAN.md, jeśli dotyczy.
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Kryteria ukończenia
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Rozmiar
+      options: ["XS (< 1h)", "S (~pół dnia)", "M (1-2 dni)", "L (3-4 dni)", "XL (tydzień, rozbij)"]
+  - type: textarea
+    id: deps
+    attributes:
+      label: Zależności
+      placeholder: "Blocked by #..."

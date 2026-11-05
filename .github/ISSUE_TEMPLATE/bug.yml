@@ -1,0 +1,57 @@
+name: Bug
+description: Coś nie działa tak, jak powinno
+title: "Napraw: <krótki opis>"
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Kroki do odtworzenia
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Oczekiwane zachowanie
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Rzeczywiste zachowanie
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Urządzenie i wersja OS
+      placeholder: "np. iPhone 13, iOS 26.1 / Pixel 7, Android 16 / emulator"
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Commit / wersja aplikacji
+      placeholder: "np. main@abc1234 albo v1.0-core"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logi i zrzuty ekranu
+      description: Bez tokenów, kluczy i haseł.
+      render: text
+  - type: dropdown
+    id: second_device
+    attributes:
+      label: Czy da się odtworzyć na drugim urządzeniu?
+      options: ["Tak", "Nie", "Nie sprawdzałem/am"]
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Obszar
+      options: [backend, security, nfc, qr, ui, realtime, offline, map, analytics, ci, docs, testing]
