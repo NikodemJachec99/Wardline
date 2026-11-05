@@ -1,0 +1,25 @@
+# Normalize line endings: LF in the repo, team works on Windows and macOS.
+* text=auto eol=lf
+
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+gradlew text eol=lf
+
+# Binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.jar  binary
+*.ttf  binary
+*.otf  binary
+*.webp binary
+
+# Generated, collapse in PR diffs
+*.g.dart              linguist-generated=true
+*.freezed.dart        linguist-generated=true
+app/pubspec.lock      linguist-generated=true
+app/ios/Runner.xcodeproj/**       linguist-generated=true
+app/ios/Runner.xcworkspace/**     linguist-generated=true

@@ -1,0 +1,58 @@
+name: Feature
+description: Nowa funkcja albo wymaganie z planu
+title: "<Czasownik w trybie rozkazującym, np. Dodaj ekran konfliktu transferu>"
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Cel
+      description: Co ma działać po zamknięciu issue i dla kogo (Nurse / Doctor / wszyscy).
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Kontekst z planu
+      description: Sekcja docs/PLAN.md i numer wymagania, np. "§2 wym. 32, §6.1".
+      placeholder: "docs/PLAN.md §..."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Kryteria akceptacji
+      description: Checklista sprawdzalnych warunków.
+      value: |
+        - [ ]
+        - [ ]
+        - [ ] Testy (unit / widget / pgTAP) dodane albo uzasadnione, czemu nie
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Obszar
+      options: [backend, security, nfc, qr, ui, realtime, offline, map, analytics, ci, docs, testing]
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorytet
+      description: P0 = bez tego oblewamy (PLAN §15).
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Rozmiar
+      options: ["XS (< 1h)", "S (~pół dnia)", "M (1-2 dni)", "L (3-4 dni)", "XL (tydzień, rozbij)"]
+    validations:
+      required: true
+  - type: textarea
+    id: deps
+    attributes:
+      label: Zależności
+      placeholder: "Blocked by #..."

@@ -1,0 +1,24 @@
+name: wardline
+description: "Wardline — Hospital Patient Tracking System. SIMULATION ONLY, fictional data."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.7
+
+# Only what the skeleton needs to compile. Feature issues add their own packages
+# (supabase_flutter, drift, nfc_manager, mobile_scanner, ...).
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: ^3.4.3
+  go_router: ^18.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

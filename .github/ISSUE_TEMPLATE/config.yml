@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Plan projektu (docs/PLAN.md)
+    url: https://github.com/NikodemJachec99/Wardline/blob/main/docs/PLAN.md
+    about: Źródło prawdy dla wymagań, priorytetów i harmonogramu.
+  - name: Zgłoszenie podatności
+    url: https://github.com/NikodemJachec99/Wardline/security/advisories/new
+    about: Problemy bezpieczeństwa zgłaszaj prywatnie, nie w publicznym issue.
