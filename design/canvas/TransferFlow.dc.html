@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Transfer journey · Nurse</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button,.wl input{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:.02em}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;align-items:center;gap:10px}
+.lab i{font-style:normal;width:28px;height:28px;border-radius:14px;background:#0F1720;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lab b{font-size:15px;font-weight:600;display:block}.lab small{font-size:13px;color:#5B6675;display:block}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column}
+.top{padding:59px 8px 0;display:grid;grid-template-columns:110px 1fr 110px;align-items:center;min-height:107px}
+.ttl{text-align:center;font-size:17px;font-weight:600}
+.back{height:48px;border:none;background:transparent;display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;padding:0 8px;color:#0A7F85!important}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i16{width:16px;height:16px}.i24{width:24px;height:24px}
+.btn{height:56px;width:100%;border:none;border-radius:12px;background:#0A7F85;color:#fff!important;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn2{height:48px;width:100%;border:1px solid #CBD2DB;border-radius:12px;background:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn3{height:48px;width:100%;border:none;background:transparent;font-size:15px;font-weight:600}
+.scrim{position:absolute;inset:0;background:rgba(15,23,32,.32)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -8px 32px rgba(15,23,32,.12);padding:8px 16px 34px;display:flex;flex-direction:column;gap:14px}
+.handle{align-self:center;width:36px;height:5px;border-radius:3px;background:#CBD2DB;flex-shrink:0}
+.card{background:#fff;border:1px solid #E4E8EE;border-radius:16px}
+.ov{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6675}
+.sub{font-size:13px;color:#5B6675}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600}
+.s-tr{background:#F1ECFC;color:#6236C0}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.avp{background:#F3F5F8;border:1px solid #E4E8EE;color:#5B6675}
+.avn{background:#E4F5F6;box-shadow:inset 0 0 0 2px #0E9FA6;color:#0A7F85}
+.srch{height:48px;border-radius:12px;background:#F3F5F8;display:flex;align-items:center;gap:10px;padding:0 14px;color:#5B6675;font-size:16px}
+.dr{width:100%;min-height:58px;border:none;border-bottom:1px solid #E4E8EE;background:#fff;display:flex;align-items:center;gap:12px;padding:6px 2px;text-align:left}
+.dn{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}.dn b{font-size:15px;font-weight:600}.dn span{font-size:12px;color:#5B6675}
+.occ{display:flex;flex-direction:column;align-items:flex-end;gap:4px;width:52px;font-size:13px;font-weight:600}
+.trk{display:block;width:48px;height:4px;border-radius:2px;background:#F3F5F8;overflow:hidden}.trk span{display:block;height:4px}
+.kv{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 14px;font-size:14px;border-top:1px solid #E4E8EE}.kv:first-child{border-top:none}.kv>span:first-child{color:#5B6675}
+.loc{border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.mv{position:absolute;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:5px;background:#0E9FA6;animation:wlmove 1.6s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes wlmove{0%{top:2px;opacity:0}20%{opacity:1}80%{opacity:1}100%{top:34px;opacity:0}}
+.fast{animation-duration:.9s}
+.spin{animation:wlspin .8s linear infinite}@keyframes wlspin{to{transform:rotate(360deg)}}
+.draw circle{stroke-dasharray:164;stroke-dashoffset:164;animation:wldraw 380ms cubic-bezier(.33,1,.68,1) forwards}
+.draw path{stroke-dasharray:40;stroke-dashoffset:40;animation:wldraw 260ms cubic-bezier(.33,1,.68,1) 300ms forwards}
+@keyframes wldraw{to{stroke-dashoffset:0}}
+.banner{margin:0 16px;border-radius:12px;background:#FFF6E8;border:1px solid #F6D9A8;padding:10px 12px;display:flex;gap:10px;align-items:center;font-size:13px;color:#8A5207}
+mark{background:#E4F5F6;color:#0A7F85;border-radius:3px;padding:0 1px}
+@media (prefers-reduced-motion: reduce){.mv{animation:none;top:18px}.draw circle,.draw path{animation:none;stroke-dashoffset:0}.spin{animation-duration:1.6s}}
+</style>
+</helmet>
+<div class="wl" style="width: 3480px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <!-- 1 Choose destination -->
+  <div class="col">
+    <div class="lab"><i>1</i><div><b>Choose destination</b><small>Suggestions + full list by floor, live occupancy</small></div></div>
+    <div class="ph">
+      <div class="top"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Patients</button></div>
+      <div style="padding: 0 16px; font-size: 26px; font-weight: 700">Jan Kowalczyk</div>
+      <div class="scrim"></div>
+      <div class="sheet" style="top: 92px; gap: 10px" role="dialog" aria-label="Choose destination">
+        <div class="handle"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center"><div><div style="font-size: 20px; font-weight: 600">Move Jan Kowalczyk</div><div class="sub">From Laboratory · Ground floor</div></div><button type="button" aria-label="Close" style="width: 48px; height: 48px; border: none; background: transparent; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Search departments" style="border: none; background: transparent; outline: none; font-size: 16px; flex: 1; min-width: 0"></label>
+        <div style="display: flex; flex-direction: column; overflow: hidden">
+          <div class="ov" style="padding: 6px 2px">Suggested</div>
+          <div style="display: flex; gap: 8px; padding-bottom: 8px">
+            <button type="button" class="btn2" style="height: 40px; width: auto; padding: 0 12px; font-size: 14px">Radiology</button>
+            <button type="button" class="btn2" style="height: 40px; width: auto; padding: 0 12px; font-size: 14px">Internal Med.</button>
+            <button type="button" class="btn2" style="height: 40px; width: auto; padding: 0 12px; font-size: 14px">Cardiology</button>
+          </div>
+          <div class="ov" style="padding: 10px 2px 2px">Ground floor</div>
+          <button type="button" class="dr"><span class="dn"><b>Emergency Department</b><span class="tn">ER · 19/24 beds · 5 free</span></span><span class="occ tn">79%<span class="trk"><span style="width: 79%; background: #F29A2E"></span></span></span></button>
+          <button type="button" class="dr"><span class="dn"><b>Admissions</b><span class="tn">ADM · 5/10 beds · 5 free</span></span><span class="occ tn">50%<span class="trk"><span style="width: 50%; background: #22B573"></span></span></span></button>
+          <button type="button" class="dr"><span class="dn"><b>Radiology</b><span class="tn">RAD · 6/14 beds · 8 free</span></span><span class="occ tn">43%<span class="trk"><span style="width: 43%; background: #22B573"></span></span></span></button>
+          <div class="dr" style="background: #FAFBFC"><span class="dn"><b style="color: #5B6675">Laboratory</b><span>LAB · patient is here now</span></span><span class="chip" style="background: #E4F5F6; color: #0A7F85">Current</span></div>
+          <div class="ov" style="padding: 12px 2px 2px">Floor 1</div>
+          <button type="button" class="dr"><span class="dn"><b>Internal Medicine</b><span class="tn">INT · 29/32 beds · 3 free</span></span><span class="occ tn">91%<span class="trk"><span style="width: 91%; background: #E5484D"></span></span></span></button>
+          <button type="button" class="dr"><span class="dn"><b>Cardiology</b><span class="tn">CAR · 13/20 beds · 7 free</span></span><span class="occ tn">65%<span class="trk"><span style="width: 65%; background: #F29A2E"></span></span></span></button>
+          <button type="button" class="dr"><span class="dn"><b>Surgery</b><span class="tn">SUR · 14/24 beds · 10 free</span></span><span class="occ tn">58%<span class="trk"><span style="width: 58%; background: #22B573"></span></span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1b search -->
+  <div class="col">
+    <div class="lab"><i>1b</i><div><b>Search "rad"</b><small>Matches name and code, keyboard up</small></div></div>
+    <div class="ph">
+      <div class="top"></div>
+      <div class="scrim"></div>
+      <div class="sheet" style="top: 92px; bottom: 291px; border-radius: 24px 24px 0 0; padding-bottom: 12px; gap: 10px">
+        <div class="handle"></div>
+        <div><div style="font-size: 20px; font-weight: 600">Move Jan Kowalczyk</div><div class="sub">From Laboratory · Ground floor</div></div>
+        <label class="srch" style="background: #fff; border: 1px solid #0E9FA6; box-shadow: 0 0 0 3px #E4F5F6; color: #0F1720"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input value="rad" aria-label="Search departments" style="border: none; background: transparent; outline: none; font-size: 16px; flex: 1; min-width: 0"><svg class="i" viewBox="0 0 24 24" style="color: #5B6675"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></label>
+        <div class="ov" style="padding: 4px 2px 0">1 match</div>
+        <button type="button" class="dr" style="background: #F5FBFB; border-radius: 12px; border: 1px solid #E4E8EE; padding: 8px 12px"><span class="dn"><b><mark>Rad</mark>iology</b><span class="tn"><mark>RAD</mark> · Ground · 6/14 beds · 8 free</span></span><span class="occ tn">43%<span class="trk"><span style="width: 43%; background: #22B573"></span></span></span></button>
+        <div class="sub" style="text-align: center; padding-top: 6px">Not here? Search by code, e.g. "ICU"</div>
+      </div>
+      <div role="img" aria-label="Keyboard placeholder" style="position: absolute; left: 0; right: 0; bottom: 0; height: 291px; background: #D9DDE3; border-top: 1px dashed #9AA3AF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4F5967">iOS keyboard · system UI</div>
+    </div>
+  </div>
+
+  <!-- 2 Confirm -->
+  <div class="col">
+    <div class="lab"><i>2</i><div><b>Confirm transfer</b><small>From → To, who, and what stays the same</small></div></div>
+    <div class="ph">
+      <div class="top"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Destination</button><span class="ttl">Confirm transfer</span></div>
+      <div style="padding: 4px 16px 0; display: flex; flex-direction: column; gap: 14px; flex: 1">
+        <div style="display: flex; align-items: center; gap: 12px"><div class="av avp" style="width: 44px; height: 44px; font-size: 16px">JK</div><div style="flex: 1"><div style="font-size: 17px; font-weight: 600">Jan Kowalczyk</div><div class="sub id">HPT-7K3M9QX2</div></div><span class="chip s-tr"><svg class="i i16" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>In Treatment</span></div>
+        <div style="display: flex; flex-direction: column">
+          <div class="loc" style="background: #F3F5F8"><span class="ov">From · now</span><span style="font-size: 20px; font-weight: 600">Laboratory</span><span class="sub tn">Ground floor · since 10:31 (15 min)</span></div>
+          <div aria-hidden="true" style="position: relative; height: 44px"><div style="position: absolute; left: 50%; top: 4px; bottom: 4px; border-left: 2px dashed #CBD2DB"></div><div class="mv"></div></div>
+          <div class="loc" style="background: #E4F5F6; border: 1.5px solid #0E9FA6"><span class="ov" style="color: #0A7F85">To</span><span style="font-size: 20px; font-weight: 600">Radiology</span><span class="sub tn">Ground floor · 6/14 beds · 43%</span></div>
+        </div>
+        <div class="card">
+          <div class="kv"><span>Performed by</span><span style="display: flex; align-items: center; gap: 8px; font-weight: 600"><span class="av avn" style="width: 26px; height: 26px; font-size: 10px">AN</span>Anna Nowak · Nurse</span></div>
+          <div class="kv"><span>Recorded at</span><span style="font-weight: 600">When the server confirms</span></div>
+          <div class="kv"><span>Status</span><span style="font-weight: 600">In Treatment · unchanged</span></div>
+        </div>
+      </div>
+      <div style="padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 6px"><button type="button" class="btn"><svg class="i" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>Confirm transfer</button><button type="button" class="btn3">Cancel</button></div>
+    </div>
+  </div>
+
+  <!-- 3 Saving -->
+  <div class="col">
+    <div class="lab"><i>3</i><div><b>Saving</b><small>Locked: back, cancel and repeat taps do nothing</small></div></div>
+    <div class="ph">
+      <div class="top"><span></span><span class="ttl">Confirm transfer</span></div>
+      <div style="padding: 4px 16px 0; display: flex; flex-direction: column; gap: 14px; flex: 1; opacity: .72">
+        <div style="display: flex; align-items: center; gap: 12px"><div class="av avp" style="width: 44px; height: 44px; font-size: 16px">JK</div><div style="flex: 1"><div style="font-size: 17px; font-weight: 600">Jan Kowalczyk</div><div class="sub id">HPT-7K3M9QX2</div></div></div>
+        <div style="display: flex; flex-direction: column">
+          <div class="loc" style="background: #F3F5F8"><span class="ov">From · now</span><span style="font-size: 20px; font-weight: 600">Laboratory</span><span class="sub">Ground floor</span></div>
+          <div aria-hidden="true" style="position: relative; height: 44px"><div style="position: absolute; left: 50%; top: 4px; bottom: 4px; border-left: 2px dashed #CBD2DB"></div><div class="mv fast"></div></div>
+          <div class="loc" style="background: #E4F5F6; border: 1.5px solid #0E9FA6"><span class="ov" style="color: #0A7F85">To</span><span style="font-size: 20px; font-weight: 600">Radiology</span><span class="sub">Ground floor</span></div>
+        </div>
+      </div>
+      <div style="position: relative; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 6px">
+        <button type="button" class="btn" aria-busy="true" aria-disabled="true" style="background: #086A6F; cursor: progress"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg>Confirming…</button>
+        <div class="sub" style="height: 48px; display: flex; align-items: center; justify-content: center">Waiting for the server · usually under 2 s</div>
+        <div aria-hidden="true" style="position: absolute; left: 238px; top: 18px; width: 44px; height: 44px; border-radius: 22px; border: 2px dashed rgba(255,255,255,.9); background: rgba(255,255,255,.18)"></div>
+        <div aria-hidden="true" style="position: absolute; right: 18px; top: -26px; height: 26px; padding: 0 10px; border-radius: 13px; background: #0F1720; color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center">2nd tap ignored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Success -->
+  <div class="col">
+    <div class="lab"><i>4</i><div><b>Success</b><small>Check draws only after 200 OK; views update live</small></div></div>
+    <div class="ph">
+      <div class="top"></div>
+      <div role="status" style="padding: 8px 24px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <svg class="draw" width="88" height="88" viewBox="0 0 56 56" aria-hidden="true" style="fill: none; stroke: #14A35B; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round"><circle cx="28" cy="28" r="26" style="stroke: #14A35B; fill: #E6F6EE"/><path d="M17 29l7 7 15-15"/></svg>
+        <span style="font-size: 24px; line-height: 30px; font-weight: 700; letter-spacing: -.01em">Patient moved to Radiology</span>
+        <span class="sub tn" style="font-size: 14px">Confirmed by the server at 10:46. Every device sees it now.</span>
+      </div>
+      <div style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 8px">
+        <span class="ov">Updated automatically</span>
+        <div class="card">
+          <div class="kv"><span>Location</span><span style="display: flex; align-items: center; gap: 6px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0E9FA6"></span>Radiology · just now</span></div>
+          <div class="kv"><span>Status</span><span class="chip s-tr">In Treatment</span></div>
+        </div>
+        <div class="card" style="padding: 12px 14px; display: flex; gap: 12px; align-items: center; background: #F5FBFB">
+          <span class="av" style="width: 32px; height: 32px; background: #E4F5F6; color: #0A7F85"><svg class="i i16" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span>
+          <div style="flex: 1"><div style="font-size: 14px; font-weight: 600">Laboratory → Radiology</div><div class="sub">History · Anna Nowak · Nurse</div></div>
+          <span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:46</span>
+        </div>
+      </div>
+      <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 8px"><button type="button" class="btn">Back to patient</button><button type="button" class="btn2">Scan next patient</button></div>
+    </div>
+  </div>
+
+  <!-- 5 Conflict -->
+  <div class="col">
+    <div class="lab"><i>5</i><div><b>Conflict</b><small>Someone moved him first. Never a silent retry.</small></div></div>
+    <div class="ph">
+      <div class="top"><span></span><span class="ttl">Confirm transfer</span></div>
+      <div style="padding: 0 16px"><div class="loc" style="background: #F3F5F8"><span class="ov">From</span><span style="font-size: 20px; font-weight: 600">Laboratory</span></div></div>
+      <div class="scrim"></div>
+      <div class="sheet" role="alertdialog" aria-label="Patient was already moved">
+        <div class="handle"></div>
+        <div style="display: flex; gap: 12px; align-items: flex-start"><span class="av" style="width: 44px; height: 44px; background: #FFF6E8; color: #8A5207"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></span><div><div style="font-size: 20px; line-height: 26px; font-weight: 600">Patient was already moved</div><div class="sub" style="font-size: 15px">Your change wasn't saved.</div></div></div>
+        <div class="card">
+          <div class="kv"><span>Who</span><span style="display: flex; align-items: center; gap: 8px; font-weight: 600"><span class="av avn" style="width: 26px; height: 26px; font-size: 10px">MK</span>Marek Kowal · Nurse</span></div>
+          <div class="kv"><span>When</span><span class="tn" style="font-weight: 600">Today, 10:41</span></div>
+          <div class="kv"><span>Where</span><span style="font-weight: 600"><span style="color: #5B6675; font-weight: 500">Laboratory →</span> Cardiology</span></div>
+        </div>
+        <div class="sub">You opened this record at 10:40, before that move.</div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><button type="button" class="btn"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.8 9.8 0 0 1 6.7 2.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-9 9 9.8 9.8 0 0 1-6.7-2.7L3 16M8 16H3v5"/></svg>Refresh and choose again</button><button type="button" class="btn3">Back to patient</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 Timeout -->
+  <div class="col">
+    <div class="lab"><i>6</i><div><b>Timeout</b><small>Unknown result. Checking is safe: same request ID</small></div></div>
+    <div class="ph">
+      <div class="top"><span></span><span class="ttl">Confirm transfer</span></div>
+      <div style="padding: 0 16px"><div class="loc" style="background: #F3F5F8"><span class="ov">From</span><span style="font-size: 20px; font-weight: 600">Laboratory</span></div></div>
+      <div class="scrim"></div>
+      <div class="sheet" role="alertdialog" aria-label="Transfer not confirmed">
+        <div class="handle"></div>
+        <span class="av" style="width: 48px; height: 48px; background: #F0F2F5; color: #4F5967"><svg class="i i24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 20px; line-height: 26px; font-weight: 600">We couldn't confirm the transfer</span><span style="font-size: 15px; line-height: 21px; color: #5B6675">The server didn't answer within 10 seconds. It may already be saved. Checking won't move Jan twice.</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 12px; background: #F3F5F8; font-size: 12px; color: #5B6675"><span>Request reference</span><span class="id" style="font-weight: 600; color: #0F1720">TX-8M2Q-4K7D</span></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><button type="button" class="btn">Check status</button><button type="button" class="btn2">Back to patient</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 Offline -->
+  <div class="col">
+    <div class="lab"><i>7</i><div><b>Offline</b><small>Confirm is replaced, not greyed out</small></div></div>
+    <div class="ph">
+      <div class="top"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Destination</button><span class="ttl">Confirm transfer</span></div>
+      <div class="banner" role="alert"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg><span><b>You're offline.</b> Data from <span class="tn">10:42</span> may be out of date.</span></div>
+      <div style="padding: 14px 16px 0; display: flex; flex-direction: column">
+        <div class="loc" style="background: #F3F5F8"><span class="ov">From · last known</span><span style="font-size: 20px; font-weight: 600">Laboratory</span><span class="sub tn">since 10:31 · may have changed</span></div>
+        <div aria-hidden="true" style="position: relative; height: 44px"><div style="position: absolute; left: 50%; top: 4px; bottom: 4px; border-left: 2px dashed #CBD2DB"></div></div>
+        <div class="loc" style="background: #fff; border: 1.5px solid #CBD2DB"><span class="ov">To</span><span style="font-size: 20px; font-weight: 600">Radiology</span><span class="sub">Ground floor · occupancy unknown offline</span></div>
+      </div>
+      <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 8px">
+        <div style="min-height: 56px; border-radius: 12px; background: #F3F5F8; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #4F5967"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg>Changes need a connection</div>
+        <button type="button" class="btn2">Back to patient</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":3480,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

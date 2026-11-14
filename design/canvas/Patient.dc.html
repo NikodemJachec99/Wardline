@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Patient and history components</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:0.02em}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.wl button{font-family:inherit;color:inherit;text-align:left}
+a{color:#0A7F85}a:hover{color:#086A6F}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1360px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">06 · Components</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Patient &amp; history</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 540px; text-align: right">Location always has a map-pin and plain text. Status is always a chip. They sit in separate slots and never share a colour.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 16px; font-weight: 600">WlPatientCard · compact</span>
+          <span style="font-size: 13px; color: #5B6675">80 high · 4 px status bar · whole row tappable</span>
+        </div>
+        <button type="button" style="position: relative; width: 100%; display: flex; align-items: center; gap: 12px; height: 80px; padding: 0 12px 0 20px; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+          <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #7C4DDB"></span>
+          <span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #5B6675">JK</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span style="display: flex; gap: 6px; align-items: baseline"><span style="font-size: 16px; font-weight: 600">Jan Kowalczyk</span><span class="tn" style="font-size: 14px; color: #5B6675">54</span></span>
+            <span class="id" style="font-size: 13px; color: #5B6675">HPT-7K3M9QX2 · Pneumonia</span>
+          </span>
+          <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+            <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6675" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>Laboratory</span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #F1ECFC; color: #6236C0; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>In Treatment</span>
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+        <button type="button" style="position: relative; width: 100%; display: flex; align-items: center; gap: 12px; height: 80px; padding: 0 12px 0 20px; background: #F3F5F8; border: 1px solid #CBD2DB; border-radius: 16px; overflow: hidden; transform: scale(0.99)">
+          <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #2F6FEB"></span>
+          <span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #FFFFFF; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #5B6675">MZ</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span style="display: flex; gap: 6px; align-items: baseline"><span style="font-size: 16px; font-weight: 600">Maria Zielińska</span><span class="tn" style="font-size: 14px; color: #5B6675">67</span><span style="font-size: 11px; font-weight: 600; color: #5B6675; margin-left: 6px">PRESSED</span></span>
+            <span class="id" style="font-size: 13px; color: #5B6675">HPT-4QW8N2KD · COPD exacerbation</span>
+          </span>
+          <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+            <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6675" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>Emergency</span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #EAF1FD; color: #1F55C2; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>Admitted</span>
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+        <button type="button" style="position: relative; width: 100%; display: flex; align-items: center; gap: 12px; height: 80px; padding: 0 12px 0 20px; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+          <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #7C4DDB"></span>
+          <span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #5B6675">JK</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span style="display: flex; gap: 6px; align-items: baseline"><span style="font-size: 16px; font-weight: 600">Jan Kowalczyk</span><span class="tn" style="font-size: 14px; color: #5B6675">54</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; height: 20px; padding: 0 6px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 11px; font-weight: 600" class="tn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg>Cached · synced 10:42</span>
+          </span>
+          <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+            <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6675" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>Laboratory</span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #F1ECFC; color: #6236C0; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>In Treatment</span>
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+      </section>
+
+      <section style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 16px; font-weight: 600">WlPatientCard · expanded</span>
+          <span style="font-size: 13px; color: #5B6675">Footer depends on role. The other role's action is absent.</span>
+        </div>
+        <div style="position: relative; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+          <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #7C4DDB"></div>
+          <div style="padding: 20px 20px 20px 24px; display: flex; flex-direction: column; gap: 18px">
+            <div style="display: flex; gap: 14px; align-items: center">
+              <div style="width: 56px; height: 56px; border-radius: 28px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: #5B6675">JK</div>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex: 1">
+                <span style="font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em">Jan Kowalczyk</span>
+                <span style="font-size: 14px; color: #5B6675"><span class="tn">54</span> · Pneumonia · admitted today <span class="tn">08:12</span></span>
+              </div>
+              <span class="id" style="font-size: 13px; font-weight: 500; color: #5B6675; padding: 6px 10px; border-radius: 8px; background: #F3F5F8">HPT-7K3M9QX2</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #E4E8EE; border-radius: 12px">
+              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #E4E8EE">
+                <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Location</span>
+                <span style="display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F1720" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>Laboratory</span>
+                <span style="font-size: 13px; color: #5B6675">Ground floor · since <span class="tn">10:31</span></span>
+              </div>
+              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+                <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Status</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; background: #F1ECFC; color: #6236C0; font-size: 14px; font-weight: 600; align-self: flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>In Treatment</span>
+                <span style="font-size: 13px; color: #5B6675">since <span class="tn">09:52</span> · Dr Piotr Zając</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Today's route</span>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: #5B6675">
+                <span style="padding: 4px 8px; border-radius: 6px; background: #F3F5F8">Emergency</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <span style="padding: 4px 8px; border-radius: 6px; background: #F3F5F8">Radiology</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <span style="padding: 4px 8px; border-radius: 6px; background: #F3F5F8">Internal Medicine</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <span style="padding: 4px 8px; border-radius: 6px; background: #E4F5F6; color: #0A7F85; font-weight: 600">Laboratory</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #E4E8EE">
+            <div style="padding: 14px 16px 16px 24px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid #E4E8EE">
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #0A7F85"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0E9FA6"></span>Signed in as Nurse</span>
+              <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg>Transfer patient</button>
+            </div>
+            <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #6236C0"><span style="width: 8px; height: 8px; border-radius: 4px; background: #7C4DDB"></span>Signed in as Doctor</span>
+              <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>Change status</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 16px; font-weight: 600">WlTransferPath</span>
+          <span style="font-size: 12px; color: #5B6675">From is neutral · To is teal</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675">Confirmed</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <div style="flex: 1; padding: 10px 12px; border-radius: 12px; background: #F3F5F8; display: flex; flex-direction: column"><span style="font-size: 11px; font-weight: 600; color: #5B6675">INT · Floor 1</span><span style="font-size: 15px; font-weight: 600">Internal Medicine</span></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            <div style="flex: 1; padding: 10px 12px; border-radius: 12px; background: #E4F5F6; display: flex; flex-direction: column"><span style="font-size: 11px; font-weight: 600; color: #0A7F85">LAB · Ground</span><span style="font-size: 15px; font-weight: 600">Laboratory</span></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675">Pending · destination not chosen</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <div style="flex: 1; padding: 10px 12px; border-radius: 12px; background: #F3F5F8; display: flex; flex-direction: column"><span style="font-size: 11px; font-weight: 600; color: #5B6675">LAB · Ground</span><span style="font-size: 15px; font-weight: 600">Laboratory</span></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            <div style="flex: 1; padding: 10px 12px; border-radius: 12px; border: 1.5px dashed #CBD2DB; display: flex; flex-direction: column"><span style="font-size: 11px; font-weight: 600; color: #5B6675">To</span><span style="font-size: 15px; font-weight: 500; color: #5B6675">Choose department</span></div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding-top: 10px; border-top: 1px solid #E4E8EE">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675; width: 64px">Inline</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500"><span style="color: #5B6675">Internal Medicine</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg><span style="font-weight: 600">Laboratory</span></span>
+          <span style="margin-left: auto; font-size: 13px; font-weight: 600; color: #5B6675">INT → LAB</span>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 16px; font-weight: 600">WlTimelineItem</span>
+          <span style="font-size: 12px; color: #5B6675">Jan Kowalczyk · today, newest first</span>
+        </div>
+        <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+          <li style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center"><div style="width: 32px; height: 32px; border-radius: 16px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg></div><div style="width: 2px; flex: 1; background: #E4E8EE; margin: 4px 0"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 14px; flex: 1"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 600">Transferred</span><span class="tn" style="font-size: 13px; color: #5B6675">10:31</span></div><span style="font-size: 14px"><span style="color: #5B6675">Internal Medicine →</span> <span style="font-weight: 600">Laboratory</span></span><span style="font-size: 12px; color: #5B6675">Ewa Lis · Nurse</span></div>
+          </li>
+          <li style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center"><div style="width: 32px; height: 32px; border-radius: 16px; background: #F1ECFC; color: #6236C0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div><div style="width: 2px; flex: 1; background: #E4E8EE; margin: 4px 0"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; flex: 1"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 600">Status changed</span><span class="tn" style="font-size: 13px; color: #5B6675">09:52</span></div><span style="display: flex; align-items: center; gap: 6px"><span style="height: 22px; padding: 0 6px; border-radius: 6px; background: #EAF1FD; color: #1F55C2; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Admitted</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg><span style="height: 22px; padding: 0 6px; border-radius: 6px; background: #F1ECFC; color: #6236C0; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">In Treatment</span></span><span style="font-size: 12px; color: #5B6675">Dr Piotr Zając · Doctor</span></div>
+          </li>
+          <li style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center"><div style="width: 32px; height: 32px; border-radius: 16px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg></div><div style="width: 2px; flex: 1; background: #E4E8EE; margin: 4px 0"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 14px; flex: 1"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 600">Transferred</span><span class="tn" style="font-size: 13px; color: #5B6675">09:35</span></div><span style="font-size: 14px"><span style="color: #5B6675">Radiology →</span> <span style="font-weight: 600">Internal Medicine</span></span><span style="font-size: 12px; color: #5B6675">Anna Nowak · Nurse</span></div>
+          </li>
+          <li style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center"><div style="width: 32px; height: 32px; border-radius: 16px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg></div><div style="width: 2px; flex: 1; background: #E4E8EE; margin: 4px 0"></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 14px; flex: 1"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 600">Transferred</span><span class="tn" style="font-size: 13px; color: #5B6675">08:47</span></div><span style="font-size: 14px"><span style="color: #5B6675">Emergency →</span> <span style="font-weight: 600">Radiology</span></span><span style="font-size: 12px; color: #5B6675">Marek Kowal · Nurse</span></div>
+          </li>
+          <li style="display: flex; gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: center"><div style="width: 32px; height: 32px; border-radius: 16px; background: #EAF1FD; color: #1F55C2; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg></div></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; flex: 1"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 600">Admitted</span><span class="tn" style="font-size: 13px; color: #5B6675">08:12</span></div><span style="font-size: 14px; font-weight: 600">Emergency Department</span><span style="font-size: 12px; color: #5B6675">Anna Nowak · Nurse</span></div>
+          </li>
+        </ol>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 8px 0; display: flex; flex-direction: column">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 12px 20px 8px">
+          <span class="mono" style="font-size: 16px; font-weight: 600">WlActivityFeedItem</span>
+          <span style="font-size: 12px; color: #5B6675">Live · first row just arrived</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 12px 20px; background: #E4F5F6">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #0A7F85">EL</div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px"><span style="font-weight: 600">Ewa Lis</span> moved <span style="font-weight: 600">Jan Kowalczyk</span></span><span style="font-size: 13px; color: #5B6675">Internal Medicine → Laboratory</span></div>
+          <div style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0E9FA6"></span><span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:31</span></div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 12px 20px; border-top: 1px solid #E4E8EE">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #F1ECFC; box-shadow: inset 0 0 0 2px #7C4DDB; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #6236C0">PZ</div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px"><span style="font-weight: 600">Dr Piotr Zając</span> changed status of <span style="font-weight: 600">Jan Kowalczyk</span></span><span style="font-size: 13px; color: #5B6675">Admitted → In Treatment</span></div>
+          <span class="tn" style="font-size: 13px; color: #5B6675">09:52</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 12px 20px; border-top: 1px solid #E4E8EE">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #0A7F85">MK</div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px"><span style="font-weight: 600">Marek Kowal</span> admitted <span style="font-weight: 600">Maria Zielińska</span></span><span style="font-size: 13px; color: #5B6675">Emergency Department</span></div>
+          <span class="tn" style="font-size: 13px; color: #5B6675">09:40</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1360}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

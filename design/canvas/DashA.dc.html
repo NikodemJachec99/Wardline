@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard A · Report layout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.wl button{font-family:inherit;color:inherit}
+.noscroll::-webkit-scrollbar{display:none}
+a{color:#0A7F85}a:hover{color:#086A6F}
+</style>
+</helmet>
+<div class="wl" style="width: 390px; height: 1980px; background: #FAFBFC; display: flex; flex-direction: column; overflow: hidden">
+  <header style="background: linear-gradient(340deg, #13A8AE 0%, #0A7F85 100%); padding: 59px 16px 20px; border-radius: 0 0 24px 24px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.9)">Friday 13 November</span>
+        <span style="font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF">Good morning, Anna</span>
+        <span style="font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.92)">Nurse · Day shift <span class="tn">07:00–19:00</span></span>
+      </div>
+      <span role="status" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); font-size: 12px; font-weight: 600; color: #0D7A43"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Total patients</span>
+        <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">128</span>
+        <svg width="100%" height="28" viewBox="0 0 140 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 L20 19 L40 20 L60 16 L80 17 L100 13 L120 12 L140 9 L140 28 L0 28 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 20 L20 19 L40 20 L60 16 L80 17 L100 13 L120 12 L140 9" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+        <span class="tn" style="font-size: 12px; font-weight: 500; color: #5B6675">↑ 3 vs last hour</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">In treatment</span>
+        <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">54</span>
+        <svg width="100%" height="28" viewBox="0 0 140 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 18 L20 17 L40 19 L60 15 L80 16 L100 14 L120 15 L140 12 L140 28 L0 28 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 18 L20 17 L40 19 L60 15 L80 16 L100 14 L120 15 L140 12" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+        <span class="tn" style="font-size: 12px; font-weight: 500; color: #5B6675">↑ 2 vs last hour</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Ready for discharge</span>
+        <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">17</span>
+        <svg width="100%" height="28" viewBox="0 0 140 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 L20 23 L40 21 L60 22 L80 18 L100 16 L120 12 L140 8 L140 28 L0 28 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 24 L20 23 L40 21 L60 22 L80 18 L100 16 L120 12 L140 8" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+        <span class="tn" style="font-size: 12px; font-weight: 500; color: #5B6675">↑ 4 vs last hour</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Transfers today</span>
+        <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">42</span>
+        <svg width="100%" height="28" viewBox="0 0 140 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26 L20 24 L40 21 L60 19 L80 15 L100 13 L120 10 L140 6 L140 28 L0 28 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 26 L20 24 L40 21 L60 19 L80 15 L100 13 L120 10 L140 6" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+        <span class="tn" style="font-size: 12px; font-weight: 500; color: #5B6675">↑ 5 vs last hour</span>
+      </div>
+    </div>
+  </header>
+
+  <div style="padding: 20px 16px 0; display: flex; justify-content: space-around">
+    <button type="button" style="border: none; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 96px; padding: 0">
+      <span style="width: 56px; height: 56px; border-radius: 28px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.32a7.43 7.43 0 0 1 0 7.36"></path><path d="M9.46 6.21a11.76 11.76 0 0 1 0 11.58"></path><path d="M12.91 4.1a15.91 15.91 0 0 1 .01 15.8"></path><path d="M16.37 2a20.16 20.16 0 0 1 0 20"></path></svg></span>
+      <span style="font-size: 13px; font-weight: 600">Scan NFC</span>
+    </button>
+    <button type="button" style="border: none; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 96px; padding: 0">
+      <span style="width: 56px; height: 56px; border-radius: 28px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg></span>
+      <span style="font-size: 13px; font-weight: 600">Scan QR</span>
+    </button>
+    <button type="button" style="border: none; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 96px; padding: 0">
+      <span style="width: 56px; height: 56px; border-radius: 28px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
+      <span style="font-size: 13px; font-weight: 600">Search patient</span>
+    </button>
+  </div>
+
+  <section style="margin: 24px 16px 0; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 16px 0 16px 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding-right: 16px">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 600">Patients per department</h2>
+      <span class="tn" style="font-size: 13px; color: #5B6675">128 / 210 beds</span>
+    </div>
+    <div class="noscroll" style="overflow-x: auto; scrollbar-width: none; padding-right: 16px">
+      <div style="display: flex; gap: 10px; align-items: flex-end; height: 172px; width: max-content">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">79%</span><div style="width: 22px; height: 95px; border-radius: 6px; background: #F29A2E"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">ER</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">50%</span><div style="width: 22px; height: 60px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">ADM</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">43%</span><div style="width: 22px; height: 52px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">RAD</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">42%</span><div style="width: 22px; height: 50px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">LAB</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">91%</span><div style="width: 22px; height: 109px; border-radius: 6px; background: #E5484D"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">INT</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">65%</span><div style="width: 22px; height: 78px; border-radius: 6px; background: #F29A2E"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">CAR</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">58%</span><div style="width: 22px; height: 70px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">SUR</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">50%</span><div style="width: 22px; height: 60px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">OR</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">100%</span><div style="width: 22px; height: 120px; border-radius: 6px; background: #E5484D"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">ICU</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">50%</span><div style="width: 22px; height: 60px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">NEU</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">41%</span><div style="width: 22px; height: 49px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">ORT</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 30px"><span class="tn" style="font-size: 11px; font-weight: 600">38%</span><div style="width: 22px; height: 46px; border-radius: 6px; background: #22B573"></div><span style="font-size: 11px; font-weight: 600; color: #5B6675">REH</span></div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 14px; font-size: 12px; color: #5B6675">
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 2px; background: #22B573"></span>&lt;60%</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 2px; background: #F29A2E"></span>60–85%</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 2px; background: #E5484D"></span>&gt;85%</span>
+    </div>
+  </section>
+
+  <section style="margin: 24px 16px 0; display: flex; flex-direction: column; gap: 12px">
+    <h2 style="margin: 0; font-size: 18px; font-weight: 600">Your departments</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 12px; font-weight: 600; color: #5B6675">INT · Floor 1</span><span style="font-size: 15px; font-weight: 600">Internal Medicine</span><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 91%; height: 6px; border-radius: 3px; background: #E5484D"></div></div><span class="tn" style="font-size: 12px; color: #5B6675"><span style="font-weight: 600; color: #0F1720">91%</span> · 29/32 · 3 free</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 12px; font-weight: 600; color: #5B6675">ER · Ground</span><span style="font-size: 15px; font-weight: 600">Emergency</span><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 79%; height: 6px; border-radius: 3px; background: #F29A2E"></div></div><span class="tn" style="font-size: 12px; color: #5B6675"><span style="font-weight: 600; color: #0F1720">79%</span> · 19/24 · 5 free</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 12px; font-weight: 600; color: #5B6675">RAD · Ground</span><span style="font-size: 15px; font-weight: 600">Radiology</span><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 43%; height: 6px; border-radius: 3px; background: #22B573"></div></div><span class="tn" style="font-size: 12px; color: #5B6675"><span style="font-weight: 600; color: #0F1720">43%</span> · 6/14 · 8 free</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 12px; font-weight: 600; color: #5B6675">LAB · Ground</span><span style="font-size: 15px; font-weight: 600">Laboratory</span><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 42%; height: 6px; border-radius: 3px; background: #22B573"></div></div><span class="tn" style="font-size: 12px; color: #5B6675"><span style="font-weight: 600; color: #0F1720">42%</span> · 5/12 · 7 free</span></div>
+    </div>
+  </section>
+
+  <section style="margin: 24px 16px 0; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; display: flex; flex-direction: column">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px 6px">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 600">Recent transfers</h2>
+      <a href="#" style="font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 0">See all</a>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; padding: 12px 16px; background: #E4F5F6">
+      <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #0A7F85">AN</div>
+      <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Adam Wójcik → Radiology</span><span style="font-size: 12px; color: #5B6675">from Emergency · A. Nowak · Nurse</span></div>
+      <span class="tn" style="font-size: 12px; font-weight: 600; color: #0A7F85">2 min</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; padding: 12px 16px; border-top: 1px solid #E4E8EE">
+      <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #F1ECFC; box-shadow: inset 0 0 0 2px #7C4DDB; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #6236C0">PZ</div>
+      <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Krystyna Mazur · Ready for Discharge</span><span style="font-size: 12px; color: #5B6675">Status change · Dr P. Zając · Doctor</span></div>
+      <span class="tn" style="font-size: 12px; color: #5B6675">6 min</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; padding: 12px 16px; border-top: 1px solid #E4E8EE">
+      <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #0A7F85">EL</div>
+      <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Jan Kowalczyk → Laboratory</span><span style="font-size: 12px; color: #5B6675">from Internal Medicine · E. Lis · Nurse</span></div>
+      <span class="tn" style="font-size: 12px; color: #5B6675">9 min</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; padding: 12px 16px 14px; border-top: 1px solid #E4E8EE">
+      <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #0A7F85">MK</div>
+      <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Zofia Kamińska → Cardiology</span><span style="font-size: 12px; color: #5B6675">from Intensive Care · M. Kowal · Nurse</span></div>
+      <span class="tn" style="font-size: 12px; color: #5B6675">14 min</span>
+    </div>
+  </section>
+
+  <a href="#" style="margin: 24px 16px 0; text-decoration: none; color: #0F1720; background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+    <div style="height: 120px; background-color: #F3F5F8; background-image: linear-gradient(#E4E8EE 1px, transparent 1px), linear-gradient(90deg, #E4E8EE 1px, transparent 1px); background-size: 20px 20px; position: relative">
+      <div style="position: absolute; left: 16px; top: 16px; width: 110px; height: 40px; border-radius: 8px; background: #FDF0DD; border: 1.5px solid #F29A2E"></div>
+      <div style="position: absolute; left: 136px; top: 16px; width: 80px; height: 40px; border-radius: 8px; background: #E3F6EC; border: 1.5px solid #22B573"></div>
+      <div style="position: absolute; left: 226px; top: 16px; width: 80px; height: 40px; border-radius: 8px; background: #E3F6EC; border: 1.5px solid #22B573"></div>
+      <div style="position: absolute; left: 16px; top: 66px; width: 150px; height: 40px; border-radius: 8px; background: #FCE6E7; border: 1.5px solid #E5484D"></div>
+      <div style="position: absolute; left: 176px; top: 66px; width: 70px; height: 40px; border-radius: 8px; background: #FCE6E7; border: 1.5px solid #E5484D"></div>
+    </div>
+    <div style="padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+      <div style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 16px; font-weight: 600">Hospital map</span><span style="font-size: 13px; color: #5B6675">3 floors · <span style="color: #C9302C; font-weight: 600">2 bottlenecks</span></span></div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </div>
+  </a>
+
+  <nav aria-label="Main" style="margin-top: auto; height: 98px; flex-shrink: 0; background: rgba(255, 255, 255, 0.96); border-top: 1px solid #E4E8EE; display: flex; padding: 0 4px 34px; box-sizing: border-box">
+    <button type="button" aria-current="page" style="flex: 1; height: 64px; border: none; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0"><span style="display: flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: #E4F5F6; color: #0A7F85"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span><span style="font-size: 11px; font-weight: 600; color: #0A7F85">Dashboard</span></button>
+    <button type="button" style="flex: 1; height: 64px; border: none; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0; color: #5B6675"><span style="display: flex; align-items: center; justify-content: center; width: 56px; height: 30px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="font-size: 11px; font-weight: 500">Patients</span></button>
+    <button type="button" aria-label="Scan wristband or QR code" style="flex: 1; height: 64px; border: none; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 0 6px; position: relative; color: #5B6675"><span style="position: absolute; top: -26px; left: 50%; margin-left: -32px; width: 64px; height: 64px; border-radius: 32px; background: #0E9FA6; box-shadow: 0 0 0 4px #FFFFFF, 0 6px 20px rgba(15, 23, 32, 0.12); display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg></span><span style="font-size: 11px; font-weight: 500">Scan</span></button>
+    <button type="button" style="flex: 1; height: 64px; border: none; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0; color: #5B6675"><span style="display: flex; align-items: center; justify-content: center; width: 56px; height: 30px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg></span><span style="font-size: 11px; font-weight: 500">History</span></button>
+    <button type="button" style="flex: 1; height: 64px; border: none; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0; color: #5B6675"><span style="display: flex; align-items: center; justify-content: center; width: 56px; height: 30px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path></svg></span><span style="font-size: 11px; font-weight: 500">Profile</span></button>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1980}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hospital map · live</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tn{font-variant-numeric:tabular-nums}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.seg{display:flex;padding:3px;border-radius:10px;background:#F3F5F8;gap:2px}
+.sheet{animation:wlsheet 380ms cubic-bezier(.22,1,.36,1) both}
+@keyframes wlsheet{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){.sheet{animation:wlfade 120ms linear both}@keyframes wlfade{0%{opacity:0}100%{opacity:1}}}
+</style>
+</helmet>
+<div class="wl" style="position: relative; width: 390px; height: 844px; background: #FAFBFC; overflow: hidden; display: flex; flex-direction: column">
+  <div style="padding: 59px 8px 0; display: flex; justify-content: space-between; align-items: center">
+    <a href="#" style="height: 48px; display: inline-flex; align-items: center; gap: 2px; padding: 0 8px; text-decoration: none; color: #0A7F85; font-size: 16px; font-weight: 500"><svg class="i" viewBox="0 0 24 24" style="width: 22px; height: 22px; stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Dashboard</a>
+    <span role="status" style="margin-right: 8px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E6F6EE; color: #0D7A43; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span>
+  </div>
+  <div style="padding: 0 16px; display: flex; justify-content: space-between; align-items: baseline"><h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -.02em">Hospital map</h1><span class="tn" style="font-size: 13px; color: #5B6675">128/210 beds · 2 bottlenecks</span></div>
+  <div style="padding: 12px 16px 0; display: flex; gap: 8px">
+    <div class="seg" role="tablist" aria-label="Floor" style="flex: 1">
+      <sc-for list="{{ floorTabs }}" as="t" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{ t.sel }}" onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
+    </div>
+    <div class="seg" role="tablist" aria-label="View">
+      <sc-for list="{{ modeTabs }}" as="t" hint-placeholder-count="2"><button type="button" role="tab" aria-selected="{{ t.sel }}" onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
+    </div>
+  </div>
+  <div style="padding: 10px 16px 0; display: flex; gap: 12px; font-size: 11px; color: #5B6675; align-items: center">
+    <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #E3F6EC; border: 1.5px solid #22B573"></span>&lt;60%</span>
+    <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FDF0DD; border: 1.5px solid #F29A2E"></span>60–85%</span>
+    <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FCE6E7; border: 1.5px solid #E5484D"></span>&gt;85%</span>
+    <span style="display: inline-flex; align-items: center; gap: 4px; color: #A82622; font-weight: 600"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 2.25"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg>Bottleneck</span>
+  </div>
+
+  <div style="position: relative; height: 560px; margin-top: 4px">
+    <svg width="390" height="560" viewBox="0 0 390 560" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <sc-for list="{{ polys }}" as="p" hint-placeholder-count="40"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for>
+      <sc-if value="{{ showDot }}" hint-placeholder-val="{{ false }}">
+        <path d="{{ dotPath }}" style="fill: none; stroke: #0A7F85; stroke-width: 1.5; stroke-dasharray: 3 4; opacity: .7"></path>
+        <circle r="5.5" cx="{{ dotX }}" cy="{{ dotY }}" style="fill: #0A7F85; stroke: #FFFFFF; stroke-width: 2">
+          <sc-if value="{{ animate }}" hint-placeholder-val="{{ true }}"><animateMotion dur="2.6s" repeatCount="indefinite" path="{{ dotRel }}"></animateMotion></sc-if>
+        </circle>
+      </sc-if>
+    </svg>
+    <sc-for list="{{ floorLabels }}" as="f" hint-placeholder-count="3"><span style="{{ f.style }}">{{ f.label }}</span></sc-for>
+    <sc-for list="{{ labels }}" as="l" hint-placeholder-count="12">
+      <button type="button" onClick="{{ l.pick }}" aria-label="{{ l.aria }}" aria-pressed="{{ l.sel }}" style="{{ l.style }}">
+        <span style="display: inline-flex; align-items: center; gap: 3px; font-weight: 700"><sc-if value="{{ l.warn }}" hint-placeholder-val="{{ false }}"><svg class="i" viewBox="0 0 24 24" style="width: 11px; height: 11px; stroke-width: 2.5; color: #E5484D"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></sc-if>{{ l.code }}</span>
+        <span class="tn" style="font-weight: 500">{{ l.stat }}</span>
+      </button>
+    </sc-for>
+    <sc-if value="{{ showDot }}" hint-placeholder-val="{{ false }}">
+      <span role="status" style="position: absolute; right: 16px; top: 0; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255,255,255,.92); border: 1px solid #E4E8EE; font-size: 12px; font-weight: 500; color: #0F1720"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0A7F85"></span>Adam Wójcik · Emergency → Radiology</span>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+    <div class="sheet" role="dialog" aria-label="{{ s.name }}" style="position: absolute; left: 0; right: 0; bottom: 0; background: #FFFFFF; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 32px rgba(15,23,32,.12); padding: 8px 16px 30px; display: flex; flex-direction: column; gap: 12px">
+      <div style="align-self: center; width: 36px; height: 5px; border-radius: 3px; background: #CBD2DB"></div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start">
+        <div><div style="font-size: 12px; font-weight: 600; color: #5B6675">{{ s.code }} · {{ s.floor }}</div><div style="font-size: 21px; font-weight: 600; letter-spacing: -.01em">{{ s.name }}</div></div>
+        <button type="button" onClick="{{ close }}" aria-label="Close" style="width: 44px; height: 44px; margin: -4px -8px 0 0; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span class="tn" style="font-weight: 600">{{ s.occ }}</span><span class="tn" style="color: #5B6675">{{ s.free }}</span></div>
+        <div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="{{ s.bar }}"></div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <div style="padding: 8px 10px; border-radius: 12px; background: #F3F5F8"><div class="tn" style="font-size: 17px; font-weight: 600">{{ s.inout }}</div><div style="font-size: 11px; color: #5B6675">In / out today</div></div>
+        <div style="padding: 8px 10px; border-radius: 12px; background: #F3F5F8"><div class="tn" style="font-size: 17px; font-weight: 600">{{ s.dis }}</div><div style="font-size: 11px; color: #5B6675">Discharges today</div></div>
+        <div style="padding: 8px 10px; border-radius: 12px; background: #F3F5F8"><div class="tn" style="font-size: 17px; font-weight: 600">{{ s.los }}</div><div style="font-size: 11px; color: #5B6675">Avg. stay</div></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: 10px; font-size: 13px"><span style="color: #5B6675">Last transfer</span><span class="tn" style="font-weight: 600; text-align: right">{{ s.last }}</span></div>
+      <div style="border: 1px solid #E4E8EE; border-radius: 12px">
+        <sc-for list="{{ s.pts }}" as="p" hint-placeholder-count="2"><div style="{{ p.row }}"><span style="{{ p.dot }}"></span><span style="flex: 1; font-size: 14px; font-weight: 600">{{ p.name }}</span><span style="font-size: 12px; color: #5B6675">{{ p.status }}</span></div></sc-for>
+        <div style="padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px; color: #5B6675">{{ s.more }}</div>
+      </div>
+      <button type="button" style="height: 52px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; font-size: 15px; font-weight: 600">Department history</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { floor: 'all', mode: '3d', sel: null }; }
+  renderVals() {
+    const D = [
+      { c: 'ER', n: 'Emergency Department', f: 0, x: 0, y: 0, w: 4, d: 3, p: 19, b: 24, dis: 3, io: '14/11', los: '6.5 h', last: '10:38 · Adam Wójcik → RAD', pts: [['Maria Zielińska', 'Admitted', '#2F6FEB'], ['Agnieszka Jankowska', 'In Treatment', '#7C4DDB']] },
+      { c: 'RAD', n: 'Radiology', f: 0, x: 4.3, y: 0, w: 2.7, d: 3, p: 6, b: 14, dis: 0, io: '8/6', los: '48 min', last: '10:38 · Adam Wójcik ← ER', pts: [['Adam Wójcik', 'Admitted', '#2F6FEB']] },
+      { c: 'LAB', n: 'Laboratory', f: 0, x: 7.3, y: 0, w: 2.7, d: 3, p: 5, b: 12, dis: 0, io: '6/4', los: '52 min', last: '10:31 · Jan Kowalczyk ← INT', pts: [['Jan Kowalczyk', 'In Treatment', '#7C4DDB']] },
+      { c: 'ADM', n: 'Admissions', f: 0, x: 0, y: 3.4, w: 4, d: 2.6, p: 5, b: 10, dis: 0, io: '9/7', los: '1.2 h', last: '09:40 · Maria Zielińska → ER', pts: [['Henryk Bąk', 'Admitted', '#2F6FEB']] },
+      { c: 'INT', n: 'Internal Medicine', f: 1, x: 0, y: 0, w: 5, d: 3, p: 29, b: 32, dis: 2, io: '7/9', los: '4.6 d', last: '10:31 · Jan Kowalczyk → LAB', pts: [['Krystyna Mazur', 'Ready', '#14A35B'], ['Helena Dąbrowska', 'Admitted', '#2F6FEB']] },
+      { c: 'CAR', n: 'Cardiology', f: 1, x: 5.3, y: 0, w: 4.7, d: 3, p: 13, b: 20, dis: 1, io: '3/2', los: '5.1 d', last: '10:26 · Zofia Kamińska ← ICU', pts: [['Zofia Kamińska', 'In Treatment', '#7C4DDB'], ['Tomasz Wiśniewski', 'Ready', '#14A35B']] },
+      { c: 'SUR', n: 'Surgery', f: 1, x: 0, y: 3.4, w: 4.6, d: 2.6, p: 14, b: 24, dis: 1, io: '4/3', los: '3.8 d', last: '09:54 · → Operating Theatre', pts: [['Ryszard Pawlak', 'In Treatment', '#7C4DDB']] },
+      { c: 'OR', n: 'Operating Theatre', f: 1, x: 4.9, y: 3.4, w: 3.3, d: 2.6, p: 4, b: 8, dis: 0, io: '4/3', los: '2.1 h', last: '09:54 · ← Surgery', pts: [['Leszek Michalski', 'In Treatment', '#7C4DDB']] },
+      { c: 'ICU', n: 'Intensive Care', f: 2, x: 0, y: 0, w: 3, d: 3, p: 8, b: 8, dis: 0, io: '1/2', los: '6.3 d', last: '10:26 · Zofia Kamińska → CAR', pts: [['Michał Szymański', 'In Treatment', '#7C4DDB']] },
+      { c: 'NEU', n: 'Neurology', f: 2, x: 3.3, y: 0, w: 3.4, d: 3, p: 10, b: 20, dis: 1, io: '2/1', los: '5.7 d', last: '09:12 · Barbara Kwiatkowska ← ADM', pts: [['Barbara Kwiatkowska', 'Admitted', '#2F6FEB']] },
+      { c: 'ORT', n: 'Orthopaedics', f: 2, x: 7, y: 0, w: 3, d: 3, p: 9, b: 22, dis: 2, io: '2/1', los: '4.9 d', last: '08:20 · Piotr Lewandowski ← INT', pts: [['Piotr Lewandowski', 'In Treatment', '#7C4DDB']] },
+      { c: 'REH', n: 'Rehabilitation', f: 2, x: 0, y: 3.4, w: 8.2, d: 2.6, p: 6, b: 16, dis: 1, io: '2/0', los: '12.4 d', last: '08:45 · ← Orthopaedics', pts: [['Janina Sikora', 'In Treatment', '#7C4DDB']] }
+    ];
+    const extras = [
+      { f: 0, x: 4.3, y: 3.4, w: 3.9, d: 2.6, label: 'Entrance' },
+      { f: 0, x: 8.5, y: 3.4, w: 1.5, d: 2.6, label: 'Lift' },
+      { f: 1, x: 8.5, y: 3.4, w: 1.5, d: 2.6, label: 'Lift' },
+      { f: 2, x: 8.5, y: 3.4, w: 1.5, d: 2.6, label: 'Lift' }
+    ];
+    const floorNames = ['Ground', 'Floor 1', 'Floor 2'];
+    const pal = (pct) => pct > 85 ? { t: '#FCE6E7', b: '#E5484D' } : pct >= 60 ? { t: '#FDF0DD', b: '#F29A2E' } : { t: '#E3F6EC', b: '#22B573' };
+    const { floor, mode, sel } = this.state;
+    const floors = floor === 'all' ? [0, 1, 2] : [Number(floor)];
+    const polys = [], labels = [], floorLabels = [];
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    const f2 = (n) => n.toFixed(1);
+    const pts = (a) => a.map((p) => f2(p[0]) + ',' + f2(p[1])).join(' ');
+    let proj, cfg;
+    if (mode === '3d') {
+      const all = floors.length > 1;
+      const s = all ? 19 : 25;
+      const ox = all ? 162 : 150, oy = all ? 372 : 190, gap = 8.6;
+      cfg = { s, all };
+      proj = (fi, x, y, z) => {
+        const zz = z + (all ? fi * gap : 0);
+        return [ox + (x - y) * 0.866 * s, oy + (x + y) * 0.5 * s - zz * s];
+      };
+      const box = (fi, x, y, w, d, z0, h, top, l, r, stroke, sw) => {
+        const z1 = z0 + h;
+        polys.push({ pts: pts([proj(fi, x, y + d, z1), proj(fi, x + w, y + d, z1), proj(fi, x + w, y + d, z0), proj(fi, x, y + d, z0)]), style: 'fill: ' + l + '; stroke: ' + stroke + '; stroke-width: .75; stroke-linejoin: round' });
+        polys.push({ pts: pts([proj(fi, x + w, y, z1), proj(fi, x + w, y + d, z1), proj(fi, x + w, y + d, z0), proj(fi, x + w, y, z0)]), style: 'fill: ' + r + '; stroke: ' + stroke + '; stroke-width: .75; stroke-linejoin: round' });
+        polys.push({ pts: pts([proj(fi, x, y, z1), proj(fi, x + w, y, z1), proj(fi, x + w, y + d, z1), proj(fi, x, y + d, z1)]), style: 'fill: ' + top + '; stroke: ' + stroke + '; stroke-width: ' + sw + '; stroke-linejoin: round' });
+      };
+      floors.forEach((fi) => {
+        box(fi, -0.3, -0.3, 10.6, 6.6, -0.35, 0.35, '#FFFFFF', '#E4E8EE', '#D5DBE3', '#CBD2DB', 1);
+        const fl = proj(fi, -0.3, 6.3, 0);
+        floorLabels.push({ label: floorNames[fi], style: 'position: absolute; left: ' + f2(Math.max(4, fl[0] - 8)) + 'px; top: ' + f2(fl[1] + 4) + 'px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #5B6675' });
+        const items = [];
+        extras.filter((e) => e.f === fi).forEach((e) => items.push({ e }));
+        D.filter((d) => d.f === fi).forEach((d) => items.push({ d }));
+        items.sort((a, b) => { const A = a.d || a.e, B = b.d || b.e; return (A.x + A.y) - (B.x + B.y); });
+        items.forEach((it) => {
+          const g = 0.12;
+          if (it.e) {
+            const e = it.e;
+            box(fi, e.x + g, e.y + g, e.w - 2 * g, e.d - 2 * g, 0, 0.18, '#F3F5F8', '#E4E8EE', '#DCE1E8', '#CBD2DB', .75);
+            if (!cfg.all || e.label === 'Lift') {
+              const c = proj(fi, e.x + e.w / 2, e.y + e.d / 2, 0.18);
+              labels.push({ code: e.label === 'Lift' ? '⇅' : e.label, stat: e.label === 'Lift' ? 'Lift' : '', warn: false, sel: 'false', aria: e.label, pick: () => {}, style: 'position: absolute; left: ' + f2(c[0]) + 'px; top: ' + f2(c[1]) + 'px; transform: translate(-50%, -50%); border: none; background: transparent; font-size: 10px; color: #5B6675; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 0; pointer-events: none' });
+            }
+            return;
+          }
+          const d = it.d, pct = Math.round(d.p / d.b * 100), c = pal(pct), on = sel === d.c;
+          box(fi, d.x + g, d.y + g, d.w - 2 * g, d.d - 2 * g, 0, 0.55, c.t, 'rgba(15,23,32,.06)', 'rgba(15,23,32,.11)', on ? '#0A7F85' : c.b, on ? 2.5 : 1.25);
+          polys.push({ pts: pts([proj(fi, d.x + g, d.y + g + d.d - 2 * g, 0.55), proj(fi, d.x + g + d.w - 2 * g, d.y + g + d.d - 2 * g, 0.55), proj(fi, d.x + g + d.w - 2 * g, d.y + g + d.d - 2 * g, 0), proj(fi, d.x + g, d.y + g + d.d - 2 * g, 0)]), style: 'fill: ' + c.b + '; fill-opacity: .22; stroke: none' });
+          polys.push({ pts: pts([proj(fi, d.x + g + d.w - 2 * g, d.y + g, 0.55), proj(fi, d.x + g + d.w - 2 * g, d.y + g + d.d - 2 * g, 0.55), proj(fi, d.x + g + d.w - 2 * g, d.y + g + d.d - 2 * g, 0), proj(fi, d.x + g + d.w - 2 * g, d.y + g, 0)]), style: 'fill: ' + c.b + '; fill-opacity: .36; stroke: none' });
+          const cc = proj(fi, d.x + d.w / 2, d.y + d.d / 2, 0.55);
+          labels.push(this.lab(d, pct, c, on, cfg.all, cc));
+        });
+      });
+    } else {
+      const all = floors.length > 1;
+      const k = all ? 22 : 34, ox = all ? 85 : 25;
+      cfg = { all };
+      floors.slice().reverse().forEach((fi, idx) => {
+        const oy = all ? 26 + idx * 176 : 70;
+        proj = (x, y) => [ox + x * k, oy + y * k];
+        const rect = (x, y, w, d, fill, stroke, sw) => polys.push({ pts: pts([proj(x, y), proj(x + w, y), proj(x + w, y + d), proj(x, y + d)]), style: 'fill: ' + fill + '; stroke: ' + stroke + '; stroke-width: ' + sw + '; stroke-linejoin: round' });
+        rect(-0.3, -0.3, 10.6, 6.6, '#FFFFFF', '#CBD2DB', 1);
+        floorLabels.push({ label: floorNames[fi], style: 'position: absolute; left: ' + (ox - 6) + 'px; top: ' + (oy - 26) + 'px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #5B6675' });
+        extras.filter((e) => e.f === fi).forEach((e) => {
+          rect(e.x + .1, e.y + .1, e.w - .2, e.d - .2, '#F3F5F8', '#CBD2DB', .75);
+          if (!all || e.label === 'Lift') {
+            const c = proj(e.x + e.w / 2, e.y + e.d / 2);
+            labels.push({ code: e.label === 'Lift' ? '⇅' : e.label, stat: e.label === 'Lift' ? 'Lift' : '', warn: false, sel: 'false', aria: e.label, pick: () => {}, style: 'position: absolute; left: ' + f2(c[0]) + 'px; top: ' + f2(c[1]) + 'px; transform: translate(-50%, -50%); border: none; background: transparent; font-size: 10px; color: #5B6675; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 0; pointer-events: none' });
+          }
+        });
+        D.filter((d) => d.f === fi).forEach((d) => {
+          const pct = Math.round(d.p / d.b * 100), c = pal(pct), on = sel === d.c;
+          rect(d.x + .1, d.y + .1, d.w - .2, d.d - .2, c.t, on ? '#0A7F85' : c.b, on ? 2.5 : 1.25);
+          labels.push(this.lab(d, pct, c, on, all, proj(d.x + d.w / 2, d.y + d.d / 2)));
+        });
+        if (fi === 0) this.p2d = proj;
+      });
+    }
+    // live movement ER -> RAD (ground floor)
+    let showDot = floors.indexOf(0) >= 0, dotPath = '', dotRel = '', dotX = 0, dotY = 0;
+    if (showDot) {
+      const er = D[0], rad = D[1];
+      const a = mode === '3d' ? proj(0, er.x + er.w * .78, er.y + er.d * .5, 0.55) : this.p2d(er.x + er.w * .78, er.y + er.d * .5);
+      const b = mode === '3d' ? proj(0, rad.x + rad.w * .3, rad.y + rad.d * .5, 0.55) : this.p2d(rad.x + rad.w * .3, rad.y + rad.d * .5);
+      dotPath = 'M' + f2(a[0]) + ' ' + f2(a[1]) + ' L' + f2(b[0]) + ' ' + f2(b[1]);
+      dotRel = 'M0 0 L' + f2(b[0] - a[0]) + ' ' + f2(b[1] - a[1]);
+      dotX = reduce ? f2(b[0]) : f2(a[0]); dotY = reduce ? f2(b[1]) : f2(a[1]);
+    }
+    const tab = (on) => 'height: 34px; padding: 0 10px; border: none; border-radius: 8px; font-size: 13px; flex: 1; ' + (on ? 'background: #FFFFFF; box-shadow: 0 1px 2px rgba(15,23,32,.08); font-weight: 600; color: #0F1720;' : 'background: transparent; font-weight: 500; color: #5B6675;');
+    const floorTabs = [['all', 'All'], ['0', 'Ground'], ['1', 'Floor 1'], ['2', 'Floor 2']].map(([id, label]) => ({ label, sel: floor === id ? 'true' : 'false', style: tab(floor === id), pick: () => this.setState({ floor: id }) }));
+    const modeTabs = [['2d', '2D'], ['3d', '3D']].map(([id, label]) => ({ label, sel: mode === id ? 'true' : 'false', style: tab(mode === id) + ' flex: none; width: 44px;', pick: () => this.setState({ mode: id }) }));
+    const sd = D.find((d) => d.c === sel);
+    let s = { name: '', code: '', floor: '', occ: '', free: '', bar: '', inout: '', dis: '', los: '', last: '', pts: [], more: '' };
+    if (sd) {
+      const pct = Math.round(sd.p / sd.b * 100), c = pal(pct);
+      s = {
+        name: sd.n, code: sd.c, floor: floorNames[sd.f], occ: sd.p + ' of ' + sd.b + ' beds · ' + pct + '%', free: (sd.b - sd.p === 0 ? 'Full' : (sd.b - sd.p) + ' free'),
+        bar: 'height: 8px; border-radius: 4px; width: ' + pct + '%; background: ' + c.b + ';',
+        inout: sd.io, dis: String(sd.dis), los: sd.los, last: sd.last,
+        pts: sd.pts.map((p, i) => ({ name: p[0], status: p[1], row: 'display: flex; align-items: center; gap: 10px; padding: 9px 12px;' + (i ? ' border-top: 1px solid #E4E8EE;' : ''), dot: 'width: 4px; height: 20px; border-radius: 2px; background: ' + p[2] + ';' })),
+        more: sd.p > sd.pts.length ? '+ ' + (sd.p - sd.pts.length) + ' more patients here' : 'All patients shown'
+      };
+    }
+    return { polys, labels, floorLabels, floorTabs, modeTabs, showDot, dotPath, dotRel, dotX, dotY, animate: !reduce, hasSel: !!sd, s, close: () => this.setState({ sel: null }) };
+  }
+  lab(d, pct, c, on, compact, cc) {
+    const f2 = (n) => n.toFixed(1);
+    const warn = pct > 85;
+    return {
+      code: d.c, stat: compact ? pct + '%' : d.p + '/' + d.b + ' · ' + pct + '%', warn, sel: on ? 'true' : 'false',
+      aria: d.n + ', ' + d.p + ' of ' + d.b + ' beds, ' + pct + ' percent' + (warn ? ', bottleneck' : ''),
+      pick: () => this.setState({ sel: d.c }),
+      style: 'position: absolute; left: ' + f2(cc[0]) + 'px; top: ' + f2(cc[1]) + 'px; transform: translate(-50%, -50%); min-height: 30px; padding: 3px 7px; border-radius: 8px; font-size: 10.5px; line-height: 1.15; display: flex; flex-direction: column; align-items: center; justify-content: center; white-space: nowrap; box-shadow: 0 1px 3px rgba(15,23,32,.12); ' + (on ? 'background: #0F1720; color: #FFFFFF; border: 1px solid #0F1720;' : 'background: #FFFFFF; color: #0F1720; border: 1px solid ' + (warn ? '#E5484D' : '#E4E8EE') + ';')
+    };
+  }
+}
+</script>
+</body>
+</html>

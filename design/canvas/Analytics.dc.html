@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Analytics · tablet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}
+.card{background:#fff;border:1px solid #E4E8EE;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ch h2{margin:0;font-size:17px;font-weight:600}
+.ch span{font-size:12px;color:#5B6675}
+.seg{display:flex;padding:3px;border-radius:10px;background:#F3F5F8;gap:2px}
+.seg button{height:34px;padding:0 14px;border:none;border-radius:8px;background:transparent;font-size:13px;font-weight:500;color:#5B6675!important}
+.seg button.on{background:#fff;box-shadow:0 1px 2px rgba(15,23,32,.08);font-weight:600;color:#0F1720!important}
+.tile{border:1px solid #E4E8EE;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.tile .t{display:flex;justify-content:space-between;font-size:12px;font-weight:600}
+.trk{height:6px;border-radius:3px;background:#F3F5F8}.trk span{display:block;height:6px;border-radius:3px}
+.mv{font-size:11px;color:#5B6675;font-variant-numeric:tabular-nums}
+.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.bn{display:flex;gap:12px;padding:12px 0;border-top:1px solid #E4E8EE}.bn:first-of-type{border-top:none}
+.sk path{transition:fill-opacity 120ms}.sk path:hover{fill-opacity:.42}
+.pb:hover{filter:brightness(.92)}
+</style>
+</helmet>
+<div class="wl" style="width: 1194px; height: 1560px; background: #FAFBFC; border-radius: 24px; border: 1px solid #E4E8EE; overflow: hidden; padding: 28px 32px; display: flex; flex-direction: column; gap: 20px">
+  <header style="display: flex; justify-content: space-between; align-items: center">
+    <div><div style="font-size: 13px; color: #5B6675">Friday 13 November · 10:46</div><h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -.02em">Analytics</h1></div>
+    <div style="display: flex; gap: 12px; align-items: center">
+      <div class="seg" role="tablist" aria-label="Date range"><button type="button" class="on" role="tab" aria-selected="true">Today</button><button type="button" role="tab" aria-selected="false">7 days</button><button type="button" role="tab" aria-selected="false">30 days</button></div>
+      <span role="status" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 16px; background: #E6F6EE; color: #0D7A43; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span>
+    </div>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+    <div class="card" style="padding: 16px; gap: 4px"><span style="font-size: 13px; color: #5B6675">Patients in house</span><span class="tn" style="font-size: 30px; font-weight: 600; letter-spacing: -.02em">128</span><span class="tn" style="font-size: 12px; color: #5B6675">+13 since 07:00</span></div>
+    <div class="card" style="padding: 16px; gap: 4px"><span style="font-size: 13px; color: #5B6675">Bed occupancy</span><span class="tn" style="font-size: 30px; font-weight: 600; letter-spacing: -.02em">61%</span><span class="tn" style="font-size: 12px; color: #5B6675">128 of 210 beds</span></div>
+    <div class="card" style="padding: 16px; gap: 4px"><span style="font-size: 13px; color: #5B6675">Transfers today</span><span class="tn" style="font-size: 30px; font-weight: 600; letter-spacing: -.02em">42</span><span class="tn" style="font-size: 12px; color: #5B6675">peak 09:00–10:00 · 11</span></div>
+    <div class="card" style="padding: 16px; gap: 4px"><span style="font-size: 13px; color: #5B6675">Avg. stay · wards</span><span class="tn" style="font-size: 30px; font-weight: 600; letter-spacing: -.02em">5.2 d</span><span class="tn" style="font-size: 12px; color: #5B6675">7 inpatient wards</span></div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 16px">
+    <section class="card">
+      <div class="ch"><h2>Occupancy &amp; live movement</h2><span>Arrows = in / out in the last hour</span></div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+        <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="12">
+          <div class="tile" style="{{ t.box }}" title="{{ t.tip }}">
+            <div class="t"><span>{{ t.code }}</span><span class="tn">{{ t.pct }}</span></div>
+            <div style="font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ t.name }}</div>
+            <div class="trk"><span style="{{ t.bar }}"></span></div>
+            <div style="display: flex; justify-content: space-between"><span class="mv">{{ t.beds }}</span><span class="mv">{{ t.move }}</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #0F1720"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0A7F85"></span><b>Now:</b> Adam Wójcik arrived in Radiology from Emergency · 10:38</div>
+    </section>
+
+    <section class="card">
+      <div class="ch"><h2>Bottlenecks</h2><span>Over 85% or rising fast</span></div>
+      <div style="display: flex; flex-direction: column">
+        <div class="bn"><span style="color: #A82622; margin-top: 2px"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></span><div><div style="font-size: 15px; font-weight: 600">ICU <span class="tn" style="font-weight: 500; color: #5B6675">· 8/8 · 100%</span></div><div style="font-size: 13px; line-height: 18px; color: #5B6675">Full since 09:10. Consider step-down moves to Cardiology (7 beds free).</div></div></div>
+        <div class="bn"><span style="color: #A82622; margin-top: 2px"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></span><div><div style="font-size: 15px; font-weight: 600">Internal Medicine <span class="tn" style="font-weight: 500; color: #5B6675">· 29/32 · 91%</span></div><div style="font-size: 13px; line-height: 18px; color: #5B6675">2 patients Ready for Discharge. Finishing their paperwork frees beds before the afternoon admissions.</div></div></div>
+        <div class="bn"><span style="color: #8A5207; margin-top: 2px"><svg class="i" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17M16 7h6v6"/></svg></span><div><div style="font-size: 15px; font-weight: 600">Emergency <span class="tn" style="font-weight: 500; color: #5B6675">· 19/24 · 79% · +6 since 07:00</span></div><div style="font-size: 13px; line-height: 18px; color: #5B6675">Watch: rising fastest today. If it passes 85%, use Admissions (5 free) for overflow.</div></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 16px">
+    <section class="card">
+      <div class="ch"><h2>Patient flow today</h2><span class="tn">42 transfers · from → to</span></div>
+      <svg class="sk" width="100%" height="270" viewBox="0 0 700 270" role="img" aria-label="Patient flow from source departments to destination departments">
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="16"><path d="{{ l.d }}" style="{{ l.style }}"><title>{{ l.tip }}</title></path></sc-for>
+        <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="9"><rect x="{{ n.x }}" y="{{ n.y }}" width="10" height="{{ n.h }}" rx="3" style="fill: #4F5967"></rect></sc-for>
+        <sc-for list="{{ nodeLabels }}" as="n" hint-placeholder-count="9"><text x="{{ n.x }}" y="{{ n.y }}" style="{{ n.style }}">{{ n.text }}</text></sc-for>
+      </svg>
+      <div style="display: flex; gap: 16px; font-size: 12px; color: #5B6675"><span>Left: where patients came from</span><span>Right: where they went</span><span>Hover a band for the count</span></div>
+    </section>
+
+    <section class="card">
+      <div class="ch"><h2>NFC vs QR</h2><span class="tn">186 identifications today</span></div>
+      <div style="display: flex; gap: 2px; height: 28px">
+        <div style="width: 76%; background: #0E9FA6; border-radius: 6px 0 0 6px" title="NFC 142 · 76%"></div>
+        <div style="width: 24%; background: #2F6FEB; border-radius: 0 6px 6px 0" title="QR 44 · 24%"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between">
+        <div style="display: flex; flex-direction: column"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #5B6675"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0E9FA6"></span>NFC wristband</span><span class="tn" style="font-size: 22px; font-weight: 600">142 <span style="font-size: 14px; font-weight: 500; color: #5B6675">· 76%</span></span></div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #5B6675"><span style="width: 10px; height: 10px; border-radius: 3px; background: #2F6FEB"></span>QR code</span><span class="tn" style="font-size: 22px; font-weight: 600">44 <span style="font-size: 14px; font-weight: 500; color: #5B6675">· 24%</span></span></div>
+      </div>
+      <div style="border-top: 1px solid #E4E8EE; padding-top: 12px; display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5B6675"><span>NFC share · last 7 days</span><span class="tn">64% → 76%</span></div>
+        <svg width="100%" height="56" viewBox="0 0 300 56" preserveAspectRatio="none" role="img" aria-label="NFC share rising from 64 to 76 percent over 7 days"><path d="M0 46 L50 42 L100 36 L150 31 L200 29 L250 24 L300 18" style="fill: none; stroke: #0E9FA6; stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round"></path><circle cx="300" cy="18" r="4" style="fill: #0E9FA6; stroke: #fff; stroke-width: 2"></circle></svg>
+        <span style="font-size: 12px; line-height: 17px; color: #5B6675">QR is mostly used on Floor 2, where 3 wristbands were printed without tags.</span>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+    <section class="card">
+      <div class="ch"><h2>Peak hours</h2><span>Transfers per hour</span></div>
+      <div style="display: flex; align-items: flex-end; gap: 2px; height: 150px; border-bottom: 1px solid #E4E8EE; position: relative">
+        <sc-for list="{{ hours }}" as="h" hint-placeholder-count="24"><div class="pb" title="{{ h.tip }}" style="{{ h.style }}"></div></sc-for>
+        <span class="tn" style="{{ peakStyle }}">11 · peak</span>
+      </div>
+      <div class="tn" style="display: flex; justify-content: space-between; font-size: 11px; color: #5B6675"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+      <span style="font-size: 12px; color: #5B6675">09:00–10:00 had the most moves, after the ward rounds.</span>
+    </section>
+
+    <section class="card">
+      <div class="ch"><h2>Now vs 07:00</h2><span>Patients, by department</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <sc-for list="{{ deltas }}" as="d" hint-placeholder-count="12">
+          <div style="display: grid; grid-template-columns: 34px 1fr 1fr 30px; align-items: center; gap: 0; height: 18px" title="{{ d.tip }}">
+            <span style="font-size: 11px; font-weight: 600; color: #5B6675">{{ d.code }}</span>
+            <div style="display: flex; justify-content: flex-end; border-right: 1px solid #CBD2DB; height: 18px; align-items: center"><span style="{{ d.neg }}"></span></div>
+            <div style="display: flex; justify-content: flex-start; height: 18px; align-items: center"><span style="{{ d.pos }}"></span></div>
+            <span class="tn" style="font-size: 12px; font-weight: 600; text-align: right">{{ d.val }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <span class="tn" style="font-size: 12px; color: #5B6675">115 → 128 patients · +13 overall</span>
+    </section>
+
+    <section class="card">
+      <div class="ch"><h2>Average length of stay</h2><span>Inpatient wards, days</span></div>
+      <div style="position: relative; display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{ los }}" as="l" hint-placeholder-count="7">
+          <div style="display: grid; grid-template-columns: 40px 1fr 44px; align-items: center; gap: 8px" title="{{ l.tip }}">
+            <span style="font-size: 11px; font-weight: 600; color: #5B6675">{{ l.code }}</span>
+            <div style="height: 14px; position: relative"><span style="{{ l.bar }}"></span></div>
+            <span class="tn" style="font-size: 12px; font-weight: 600; text-align: right">{{ l.val }}</span>
+          </div>
+        </sc-for>
+        <div aria-hidden="true" style="{{ avgLine }}"></div>
+      </div>
+      <span style="font-size: 12px; color: #5B6675">Dashed line = hospital average 5.2 d. ER, labs and imaging are measured in hours.</span>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1194,"height":1560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pal = (p) => p > 85 ? { t: '#FCE6E7', b: '#E5484D', k: '#E5484D' } : p >= 60 ? { t: '#FDF0DD', b: '#F29A2E', k: '#F29A2E' } : { t: '#FFFFFF', b: '#22B573', k: '#E4E8EE' };
+    const deps = [
+      ['ER', 'Emergency', 19, 24, '↓2 ↑3'], ['ADM', 'Admissions', 5, 10, '↓1 ↑2'], ['RAD', 'Radiology', 6, 14, '↓2 ↑3'], ['LAB', 'Laboratory', 5, 12, '↓1 ↑2'],
+      ['INT', 'Internal Medicine', 29, 32, '↓2 ↑1'], ['CAR', 'Cardiology', 13, 20, '↓0 ↑1'], ['SUR', 'Surgery', 14, 24, '↓1 ↑0'], ['OR', 'Operating Theatre', 4, 8, '↓0 ↑1'],
+      ['ICU', 'Intensive Care', 8, 8, '↓1 ↑0'], ['NEU', 'Neurology', 10, 20, '↓0 ↑0'], ['ORT', 'Orthopaedics', 9, 22, '↓0 ↑0'], ['REH', 'Rehabilitation', 6, 16, '↓0 ↑0']
+    ];
+    const tiles = deps.map(([code, name, p, b, move]) => {
+      const pct = Math.round(p / b * 100), c = pal(pct), live = code === 'RAD';
+      return { code, name, pct: pct + '%', beds: p + '/' + b, move, tip: name + ': ' + p + ' of ' + b + ' beds, ' + pct + '%. Last hour: ' + move,
+        box: 'background: ' + c.t + '; border-color: ' + (live ? '#0A7F85' : c.k) + ';' + (live ? ' box-shadow: 0 0 0 2px #E4F5F6;' : ''),
+        bar: 'width: ' + pct + '%; background: ' + c.b + ';' };
+    });
+    // sankey
+    const L = [['Emergency', 14], ['Admissions', 9], ['Internal Medicine', 9], ['Other wards', 10]];
+    const R = [['Radiology', 8], ['Internal Medicine', 7], ['Laboratory', 6], ['Cardiology', 3], ['Other wards', 18]];
+    const F = [[0, 0, 4], [0, 1, 4], [0, 4, 6], [1, 1, 3], [1, 4, 6], [2, 2, 4], [2, 0, 2], [2, 4, 3], [3, 0, 2], [3, 2, 2], [3, 3, 3], [3, 4, 3]];
+    const H = 250, top = 10, gap = 10, k = (H - top - gap * 4) / 42;
+    const pos = (arr, gapN) => { let y = top; return arr.map(([n, v]) => { const o = { n, v, y, h: v * k }; y += v * k + gap; return o; }); };
+    const ln = pos(L), rn = pos(R);
+    const lx = 150, rx = 540;
+    const lOff = ln.map((n) => n.y), rOff = rn.map((n) => n.y);
+    const links = F.map(([a, b, v]) => {
+      const h = v * k, y0 = lOff[a], y1 = rOff[b];
+      lOff[a] += h; rOff[b] += h;
+      const x0 = lx + 10, x1 = rx, mx = (x0 + x1) / 2;
+      const d = 'M' + x0 + ' ' + y0.toFixed(1) + ' C' + mx + ' ' + y0.toFixed(1) + ' ' + mx + ' ' + y1.toFixed(1) + ' ' + x1 + ' ' + y1.toFixed(1) + ' L' + x1 + ' ' + (y1 + h).toFixed(1) + ' C' + mx + ' ' + (y1 + h).toFixed(1) + ' ' + mx + ' ' + (y0 + h).toFixed(1) + ' ' + x0 + ' ' + (y0 + h).toFixed(1) + ' Z';
+      return { d, tip: L[a][0] + ' → ' + R[b][0] + ': ' + v, style: 'fill: #0E9FA6; fill-opacity: ' + (a === 0 ? .3 : .16) + '; stroke: #FFFFFF; stroke-width: 1' };
+    });
+    const nodes = ln.map((n) => ({ x: lx, y: n.y.toFixed(1), h: n.h.toFixed(1) })).concat(rn.map((n) => ({ x: rx, y: n.y.toFixed(1), h: n.h.toFixed(1) })));
+    const nodeLabels = ln.map((n) => ({ x: lx - 8, y: (n.y + n.h / 2 + 4).toFixed(1), text: n.n + ' · ' + n.v, style: 'font-size: 12px; font-weight: 600; fill: #0F1720; text-anchor: end; font-variant-numeric: tabular-nums' }))
+      .concat(rn.map((n) => ({ x: rx + 18, y: (n.y + n.h / 2 + 4).toFixed(1), text: n.n + ' · ' + n.v, style: 'font-size: 12px; font-weight: 600; fill: #0F1720; font-variant-numeric: tabular-nums' })));
+    // peak hours
+    const counts = [1, 0, 1, 0, 1, 2, 3, 6, 8, 11, 9];
+    const hours = [];
+    for (let h = 0; h < 24; h++) {
+      const v = h < counts.length ? counts[h] : null;
+      const peak = h === 9;
+      const hh = (h < 10 ? '0' : '') + h + ':00';
+      hours.push({ tip: v == null ? hh + ' · not yet' : hh + ' · ' + v + ' transfers' + (h === 10 ? ' (so far)' : ''),
+        style: 'flex: 1; border-radius: 3px 3px 0 0; ' + (v == null ? 'height: 2px; background: #E4E8EE;' : 'height: ' + Math.max(2, v / 11 * 128) + 'px; background: ' + (peak ? '#0A7F85' : '#9FD8DB') + ';') });
+    }
+    // deltas
+    const dv = [['ER', 6], ['ADM', 2], ['RAD', 4], ['LAB', 3], ['INT', -1], ['CAR', 1], ['SUR', -2], ['OR', 3], ['ICU', 0], ['NEU', -1], ['ORT', -2], ['REH', 0]];
+    const deltas = dv.map(([code, v]) => ({ code, val: (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v), tip: code + ': ' + (v > 0 ? '+' : '') + v + ' patients since 07:00',
+      neg: v < 0 ? 'display: block; height: 12px; border-radius: 3px 0 0 3px; background: #8A94A3; width: ' + (Math.abs(v) / 6 * 100) + '%;' : 'display: none;',
+      pos: v > 0 ? 'display: block; height: 12px; border-radius: 0 3px 3px 0; background: #4F5967; width: ' + (v / 6 * 100) + '%;' : 'display: none;' }));
+    // LOS
+    const lv = [['REH', 12.4], ['ICU', 6.3], ['NEU', 5.7], ['CAR', 5.1], ['ORT', 4.9], ['INT', 4.6], ['SUR', 3.8]];
+    const max = 13;
+    const los = lv.map(([code, v]) => ({ code, val: v.toFixed(1) + ' d', tip: code + ' average stay ' + v + ' days', bar: 'position: absolute; left: 0; top: 0; height: 14px; border-radius: 0 4px 4px 0; background: #0E9FA6; width: ' + (v / max * 100) + '%;' }));
+    const avgLine = 'position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed #0F1720; left: calc(48px + (100% - 100px) * ' + (5.2 / max).toFixed(3) + ');';
+    return { tiles, links, nodes, nodeLabels, hours, deltas, los, avgLine, peakStyle: 'position: absolute; top: 0; transform: translateX(-50%); font-size: 11px; font-weight: 600; white-space: nowrap; left: ' + ((9.5 / 24) * 100).toFixed(1) + '%;' };
+  }
+}
+</script>
+</body>
+</html>

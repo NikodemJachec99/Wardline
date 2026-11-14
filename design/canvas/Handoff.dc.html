@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Flutter handoff</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.01em}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12px;font-weight:600;color:#5B6675;padding:10px 12px;background:#F3F5F8;border-bottom:1px solid #E4E8EE}
+td{padding:10px 12px;border-top:1px solid #E4E8EE;font-size:13px;line-height:18px;vertical-align:top}
+.box{background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden}
+.card{background:#fff;border:1px solid #E4E8EE;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.card h3{margin:0;font-size:16px;font-weight:600}
+.card li{font-size:13px;line-height:19px;color:#0F1720;margin-bottom:6px}
+.card ul{margin:0;padding-left:18px}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 3200px; padding: 56px 64px; background: #FAFBFC; display: flex; flex-direction: column; gap: 32px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 20px; border-bottom: 1px solid #E4E8EE">
+    <div><div style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #0A7F85">Handoff · Flutter</div><h1 style="margin: 6px 0 0; font-size: 36px; font-weight: 700; letter-spacing: -.02em">Screens, data, platform, accessibility</h1></div>
+    <div style="max-width: 560px; text-align: right; font-size: 14px; line-height: 20px; color: #5B6675">Bundle for Claude Code: <span class="mono" style="color: #0F1720">design/handoff/</span> in the Wardline repo. Names here are the contract: <span class="mono" style="color: #0F1720">Wl*</span> widgets and <span class="mono" style="color: #0F1720">WlTokens</span> ThemeExtension.</div>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2>Tokens → Flutter</h2>
+    <div class="box"><table>
+      <thead><tr><th style="width: 22%">Design token</th><th style="width: 30%">Flutter</th><th>Notes</th></tr></thead>
+      <tbody><sc-for list="{{ tokens }}" as="t" hint-placeholder-count="10"><tr><td class="mono" style="font-size: 12px">{{ t.a }}</td><td class="mono" style="font-size: 12px">{{ t.b }}</td><td>{{ t.c }}</td></tr></sc-for></tbody>
+    </table></div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2>Screen inventory</h2>
+    <div class="box"><table>
+      <thead><tr><th style="width: 13%">Screen · route</th><th style="width: 23%">Components</th><th style="width: 22%">States covered</th><th style="width: 22%">Data</th><th>Role differences</th></tr></thead>
+      <tbody><sc-for list="{{ screens }}" as="s" hint-placeholder-count="17"><tr><td><b>{{ s.n }}</b><br><span class="mono" style="font-size: 11px; color: #5B6675">{{ s.r }}</span></td><td class="mono" style="font-size: 11.5px; line-height: 17px">{{ s.c }}</td><td>{{ s.st }}</td><td>{{ s.d }}</td><td>{{ s.ro }}</td></tr></sc-for></tbody>
+    </table></div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+    <div class="card"><h3>iOS</h3><ul>
+      <li>NFC reads only through <span class="mono">NFCNDEFReaderSession</span> (via <span class="mono">nfc_manager</span>) started by a tap on "Start scanning". The system "Ready to Scan" sheet covers the app; set <span class="mono">alertMessage</span> to "Hold near the patient's wristband".</li>
+      <li>On read: stop the session, then run our brighten + haptic + quick summary sheet once the system sheet is gone. User cancel = silent return to the pre-scan screen.</li>
+      <li>Entitlement <span class="mono">com.apple.developer.nfc.readersession.formats</span> + <span class="mono">NFCReaderUsageDescription</span> in Info.plist. Camera: <span class="mono">NSCameraUsageDescription</span>.</li>
+      <li>Keep the Cupertino swipe-back. Pushed pages use the platform transition.</li>
+      <li>Safe areas: top inset ≈ 59pt, home indicator 34pt included in the 98pt tab bar.</li>
+    </ul></div>
+    <div class="card"><h3>Android</h3><ul>
+      <li>Scan screen enables reader mode while in the foreground and listens immediately: no "Start" button, no system sheet. Disable it in <span class="mono">dispose</span>.</li>
+      <li>Predictive back: <span class="mono">android:enableOnBackInvokedCallback="true"</span>. Back closes the scanner and sheets; on a root tab it goes to Dashboard first, then leaves the app (<span class="mono">PopScope</span>).</li>
+      <li>NFC off: show "NFC isn't available" and switch to QR after 2s; offer system NFC settings.</li>
+      <li>Edge-to-edge (Android 15): draw behind the bars; nav bar 80dp + gesture inset.</li>
+      <li>Material ripples are allowed, but keep the Wl colours and the 0.98 press scale.</li>
+    </ul></div>
+    <div class="card"><h3>Both</h3><ul>
+      <li>One parser <span class="mono">resolvePatient(code)</span> for NFC and QR; regex <span class="mono">^HPT-[0-9A-HJKMNP-TV-Z]{8}$</span> before any query.</li>
+      <li>Camera denied → "Open Settings" (<span class="mono">openAppSettings()</span>), never a dead end.</li>
+      <li>Bundle Inter as an asset (offline-safe); tabular figures via <span class="mono">FontFeature.tabularFigures()</span>.</li>
+      <li>Tablet layouts (Analytics, Ward monitor) at width ≥ 900dp; phone keeps the same card order, stacked.</li>
+      <li>Glass: no <span class="mono">BackdropFilter</span>. The header gradient behind it is flat, so blur is invisible and costs GPU. Use white 72% + a hairline.</li>
+    </ul></div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+    <div class="card"><h3>Accessibility</h3><ul>
+      <sc-for list="{{ a11y }}" as="a" hint-placeholder-count="10"><li>{{ a.t }}</li></sc-for>
+    </ul></div>
+    <div class="card" style="border-color: #F6D9A8"><h3>Decide before coding (conflicts with docs/PLAN.md)</h3><ul>
+      <sc-for list="{{ decide }}" as="d" hint-placeholder-count="6"><li>{{ d.t }}</li></sc-for>
+    </ul></div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tokens = [
+      ['color.primary · .pressed · .soft', 'WlTokens.colors.primary / primaryPressed / primarySoft', 'Brand fills only (Scan button, icon, focus, charts). 3.2:1, never text.'],
+      ['color.primary.ink · .inkPressed', 'colors.primaryInk / primaryInkPressed', 'Button fills with text and teal text. 4.8:1.'],
+      ['color.bg.page · surface · subtle · border · border.strong', 'colors.page / surface / subtle / border / borderStrong', 'ColorScheme.surface = surface; scaffold = page.'],
+      ['color.text.primary · secondary · disabled', 'colors.text / textSecondary / textDisabled', 'Disabled only on truly disabled inputs.'],
+      ['color.status.{admitted,inTreatment,ready,discharged} base / fg / bg', 'WlStatusColors via colors.status(PatientStatus)', 'Base = bars/dots, fg = text+icon on bg tint.'],
+      ['color.occupancy.{low,medium,high} + tints', 'colors.occupancy(int percent)', '<60 / 60–85 / >85. Always paired with a % label.'],
+      ['color.role.nurse · doctor', 'colors.role(UserRole)', 'Avatar ring + role label, never colour alone.'],
+      ['type.* (display … id, kpi)', 'WlTokens.typography.display … id (TextStyle)', 'Inter; kpi and id use tabular figures; id adds slashed zero.'],
+      ['space.xxs … xxl (4 … 48)', 'WlTokens.space.xxs … xxl', 'Gutter 16; sheets 16 side padding.'],
+      ['radius.chip 8 · input 12 · card 16 · sheet 24', 'WlTokens.radius.*', 'Buttons use radius.input.'],
+      ['elevation.0–3 · glass', 'WlTokens.elevation.*', 'Shadows only on floating layers.'],
+      ['motion.fast 120 · base 220 · slow 380 · sheetSpring', 'WlTokens.motion.* + WlMotion.of(context).reduced', 'See motion spec board.']
+    ].map(([a, b, c]) => ({ a, b, c }));
+    const S = [
+      ['Sign in', '/login', 'WlButton, text fields, WlToast', 'default · signing in · wrong credentials · offline (no cache) ', 'Supabase Auth email+password; profiles(role, full_name, shift_label, home_location)', 'none'],
+      ['Dashboard', '/dashboard', 'WlKpiCard ×4, WlConnectionIndicator, WlActivityFeedItem, WlDeptOccupancyBar, WlDepartmentCard, WlMiniMap (entry card), WlSkeleton, WlBottomNav', 'loading · live · live update · offline cached · error', 'counts by status; location_history today (count, last 4); locations + live counts; realtime on patients, location_history, status_history', 'Greeting + role; doctor feed = status changes + "your patients ready"'],
+      ['Patients', '/patients', 'WlSearchBar (sticky), WlFilterChips, WlPatientCard (compact), WlEmptyState, WlSkeleton, WlOfflineBanner, WlCacheBadge', 'loading · list · live highlight · swiped · empty search · offline cached · 128-row grouped', 'patients (id, code, name, age, status, current_location, location_updated_at, version); search ilike/pg_trgm + local Drift', 'Same list. Swipe = View profile / Show on map only (never transfer).'],
+      ['Filters sheet', 'sheet on /patients', 'WlBottomSheet, WlFilterChips, range slider', 'default · result count updates', 'local filter over cache', 'none'],
+      ['Patient profile', '/patients/:id', 'WlInitialsAvatar, WlStatusChip, WlMiniMap, WlTimelineItem, WlCacheBadge, WlButton (sticky)', 'live · just updated · offline cached · no cache ("connect to load") · large text', 'patient by id; location_history + status_history merged by created_at; profiles for actor names', 'Nurse: "Transfer patient". Doctor: "Change status". Admin: none.'],
+      ['Scan (NFC/QR)', '/scan', 'WlButton, WlBottomSheet (quick summary), WlStatusChip, WlErrorState', 'ready · iOS system sheet · read OK · QR · invalid tag · unknown ID · cancelled · NFC unavailable · camera denied', 'select patient by patient_code (read-only, no writes)', 'Summary action: Nurse "Transfer →", Doctor "Change status →"'],
+      ['Choose destination', 'sheet /patients/:id/transfer', 'WlBottomSheet, WlSearchBar, WlDeptOccupancyBar (mini)', 'suggestions · search · current location marked · keyboard up', 'locations + live counts; suggestions = last destinations of this ward', 'Nurse only (route guard + RLS)'],
+      ['Confirm transfer', '/patients/:id/transfer/confirm', 'WlTransferPath, WlButton (loading), WlToast, WlErrorState (conflict, timeout), WlOfflineBanner', 'confirm · saving (locked) · success · conflict PT409 · timeout · offline replaced', 'RPC transfer_patient(p_patient_id, p_to, p_expected_version, p_request_id); keep request_id for "Check status"', 'Nurse only'],
+      ['Change status', 'sheet /patients/:id/status', 'WlBottomSheet, WlStatusChip, WlButton', 'choose · saving · saved · discharge (destructive, reason required) · conflict', 'RPC set_patient_status(…, p_reason)', 'Doctor only'],
+      ['History', '/history', 'WlActivityFeedItem, WlFilterChips, segmented control, WlEmptyState', 'live · filtered · empty · loading', 'location_history ∪ status_history, paged by created_at', 'none'],
+      ['Department history · Day timeline', '/history/dept/:id · /history/timeline', 'WlActivityFeedItem, WlDeptOccupancyBar, timeline painter', 'all · in · out · status · empty · now marker', 'history filtered by from/to location; transfers today grouped by hour', 'none'],
+      ['Hospital map', '/map', 'WlMiniMap (full), WlDepartmentCard sheet, route layer', '3D all · single floor · 2D · dept sheet · find patient · route · list sheet', 'locations.map_* geometry + live counts; patient route from location_history', 'none'],
+      ['Notifications', '/notifications', 'WlActivityFeedItem variant, WlEmptyState', 'unread · read · empty', 'derived from realtime events, filtered by role and home_location', 'Nurse: admissions/discharges. Doctor: arrivals in ward + status changes.'],
+      ['Profile & settings', '/profile', 'WlInitialsAvatar, switches, WlButton (destructive)', 'default · reduce motion on', 'profiles; local prefs', 'Admin sees "Admin" entry'],
+      ['Sync queue · pending transfers', '/profile/sync · /pending', 'WlActivityFeedItem, WlErrorState', 'queued · synced · conflict to resolve', 'Drift outbox (P3 flag, default OFF)', 'Optional; see decisions'],
+      ['Admin', '/admin/*', 'list rows, WlBottomSheet, NFC write flow, print preview', 'staff · edit role · own role read-only · write tag · verify · print', 'Edge Function (service role) for roles; tag write = NDEF Text only', 'Admin only'],
+      ['Analytics · Ward monitor · Demo', '/analytics · /monitor/:dept · /admin/demo', 'WlKpiCard, charts, WlDeptOccupancyBar, WlConnectionIndicator', 'live · loading · empty day', 'SQL views from PLAN §8.2; demo runs on the simulation data set only', 'Monitor read-only; Demo admin only']
+    ].map(([n, r, c, st, d, ro]) => ({ n, r, c, st, d, ro }));
+    const a11y = [
+      'Contrast AA: text uses text/textSecondary/primaryInk/status fg tokens only (all ≥ 4.5:1). Brand teal #0E9FA6 is never text.',
+      'Occupancy colours fail 3:1 as graphics, so the % label is mandatory and full wards also say "Full" / "Bottleneck" in words.',
+      'Touch targets: 48×48dp minimum, primary actions 56dp. Chips are 36dp tall visually with a 48dp hit area.',
+      'WlStatusChip: Semantics(label: "Status: In Treatment"), icon excluded. Short "Ready" in dense lists still reads "Ready for Discharge".',
+      'WlPatientCard: one merged node: "Jan Kowalczyk, 54, Laboratory, In Treatment, button". Swipe actions also exposed as custom semantic actions.',
+      'WlTransferPath reads "From Laboratory to Radiology". Success, conflict and toasts are live regions (announce once).',
+      'Map: every department label is a button ("Internal Medicine, 29 of 32 beds, 91 percent, bottleneck"). A "List view" toggle gives the same data as text.',
+      'Charts: each chart has a one-sentence Semantics summary plus a "Show as table" option. KPIs announce the final value, never count-up frames.',
+      'Text scale to 200%: rows switch from side-by-side to stacked when textScaler > 1.3. Test every screen at 2.0.',
+      'Reduce motion: system setting OR in-app switch → the fallbacks in the motion spec. Focus order follows visual order; sheets trap focus.'
+    ].map((t) => ({ t }));
+    const decide = [
+      'UI language: the brief says English UI; PLAN.md and shell_scaffold.dart use Polish labels ("Pacjenci") and Polish seed names ("SOR", "Izba Przyjęć"). Pick one. The design and this bundle are English.',
+      'Offline actions: PLAN says "disabled button + tooltip"; the design replaces the button with an explanation (no disabled actions anywhere). Follow the design.',
+      'Map geometry: PLAN seed map_x/y/w/h does not match the designed floor plans. Use design/handoff/sample-data.json (10×6 units per floor).',
+      'Patient IDs: three IDs in earlier designs contained "L", which Crockford Base32 excludes. Fixed on the canvas and in sample-data.json.',
+      'Glass KPI cards: PLAN allows BackdropFilter; drop it (no visible effect on a flat gradient, real GPU cost).',
+      'Pending transfers (accept/reject) adds a second confirmation the core model does not have. Ship without it unless the team defends it in the report.'
+    ].map((t) => ({ t }));
+    return { tokens, screens: S, a11y, decide };
+  }
+}
+</script>
+</body>
+</html>

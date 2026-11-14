@@ -1,0 +1,26 @@
+# Screens
+
+Routes extend `app/lib/app/router.dart` (go_router, `StatefulShellRoute` with 5 tabs). "Data" names refer to `docs/PLAN.md` §5. Every screen needs loading / empty / error / offline unless marked n/a.
+
+| Screen | Route | Components | States covered | Data | Role differences |
+|---|---|---|---|---|---|
+| Sign in | `/login` | text fields, `WlButton`, `WlToast` | default · signing in · wrong credentials · no connection | Supabase Auth email+password → `profiles` (role, full_name, shift_label, home_location) | none. "Simulation · fictional data" note here only. |
+| Dashboard (layout B) | `/dashboard` | `WlKpiCard`×4, `WlConnectionIndicator`, quick actions, map entry card, `WlActivityFeedItem`, `WlDeptOccupancyBar`, `WlDepartmentCard`, `WlSkeleton`, `WlBottomNav` | loading (skeleton KPIs, quick actions live) · live · live update · offline cached · error | counts by status; `location_history` today; locations + counts; realtime on `patients`, `location_history`, `status_history` | Nurse: "Recent transfers". Doctor: greeting "Dr …", "N of your patients are ready", "Recent status changes". |
+| Patients | `/patients` | `WlSearchBar` (sticky), `WlFilterChips`, `WlPatientCard` compact, `WlEmptyState`, `WlSkeleton`, `WlOfflineBanner`, `WlCacheBadge` | loading · list · live highlight · swiped · empty search · offline cached · 128 rows grouped by department | `patients` + `locations`; search local (Drift) + `ilike`/`pg_trgm` | none. Swipe: View profile, Show on map only. |
+| Filters | sheet on `/patients` | `WlBottomSheet`, `WlFilterChips`, range slider | default · result count on button | local | none |
+| Patient profile | `/patients/:id` | avatar, `WlStatusChip`, location row, `WlMiniMap`, status stepper, `WlTimelineItem`, sticky `WlButton` | live · just updated (highlight) · offline cached · no cache ("connect to load") · AX text | patient by id; `location_history` ∪ `status_history` by `created_at`; actor names from `profiles` | Nurse: "Transfer patient". Doctor: "Change status". Admin: no action. Offline: one-line note instead. |
+| Scan | `/scan` (modal over shell) | rings, `WlButton`, `WlBottomSheet` quick summary, `WlStatusChip`, `WlErrorState` | NFC ready · iOS system sheet · read OK (brighten + haptic) · QR · invalid tag · unknown ID · cancelled (silent) · NFC unavailable → QR · camera denied | `select … where patient_code = :code` (read only) | Summary action: Nurse "Transfer →", Doctor "Change status →". |
+| Choose destination | sheet `/patients/:id/transfer` | `WlBottomSheet`, `WlSearchBar`, department rows with occupancy | suggestions · search ("rad") · current marked, not selectable · keyboard up | `locations` + live counts | Nurse only (guard + RLS) |
+| Confirm transfer | `/patients/:id/transfer/confirm` | `WlTransferPath`, details card, `WlButton` loading, `WlErrorState` conflict/timeout, `WlOfflineBanner` | confirm · saving (locked, repeat taps ignored) · success (check draw) · PT409 conflict · timeout ("Check status", same request id) · offline (action replaced) | RPC `transfer_patient(p_patient_id, p_to, p_expected_version, p_request_id)` | Nurse only |
+| Change status | sheet `/patients/:id/status` | `WlBottomSheet`, status radio rows, reason field, `WlButton` | choose · saving · saved toast · Discharged (destructive, reason required) · conflict | RPC `set_patient_status(…, p_reason)` | Doctor only |
+| History | `/history` | segmented (All/Transfers/Status), `WlFilterChips`, `WlActivityFeedItem` | live · filtered · empty · loading | union of both history tables, paged | none |
+| Department history | `/history/dept/:id` | stats tiles, segmented (All/In/Out/Status), feed | data · empty filter | history filtered by `from_location`/`to_location` | none |
+| Day timeline | `/history/timeline` | timeline painter (00–24, scroll, now marker), tooltip | data · empty day | transfers today with time + to_location | none |
+| Hospital map | `/map` | 3D/2D renderer, floor segmented, `WlDepartmentCard` sheet, route layer, patients sheet | all floors 3D · one floor · 2D · department sheet · find patient · route · list sheet · live dot | `locations` geometry (sample-data.json) + counts; route from `location_history` | none |
+| Notifications | `/notifications` | feed rows, `WlEmptyState` | unread · read · empty | derived from realtime events, filtered by role + `home_location` | Nurse: admissions, discharges. Doctor: arrivals in their ward, status changes. Own actions never notify. |
+| Profile & settings | `/profile` | avatar, switches, `WlButton` destructive | default · reduce motion on | `profiles`; local prefs | Admin sees "Admin" entry |
+| Sync queue (P3 flag) | `/profile/sync` | rows, `WlErrorState` resolve sheet | queued · synced · conflict to resolve | Drift `outbox` | flag default OFF |
+| Admin | `/admin/*` | staff list, role sheet, NFC write flow, print preview | own role read-only · write tag · read-back verify · print | Edge Function (service role) for roles | Admin only |
+| Analytics (tablet) | `/analytics` | KPI tiles, occupancy grid, flow chart, bars | live · empty day | SQL views (PLAN §8.2) | read-only |
+| Ward monitor (tablet) | `/monitor/:dept` | occupancy bar, table, feed, filters | live | dept patients + history | read-only |
+| Demo mode | `/admin/demo` | scenario rows | idle · running | simulation data only | Admin only |

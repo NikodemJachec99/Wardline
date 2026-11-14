@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notifications and settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit;cursor:pointer}
+.tn{font-variant-numeric:tabular-nums}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i22{width:22px;height:22px}
+.hd{padding:59px 16px 0;display:flex;justify-content:space-between;align-items:center;min-height:100px}
+.hd h1{margin:0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.02em}
+.lnk{height:44px;border:none;background:transparent;font-size:15px;font-weight:600;color:#0A7F85!important;padding:0}
+.role{margin:0 16px 4px;font-size:13px;color:#5B6675;display:flex;align-items:center;gap:6px}
+.grp{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6675;padding:14px 20px 6px}
+.box{margin:0 16px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden}
+.nt{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-top:1px solid #E4E8EE;width:100%;border-left:none;border-right:none;border-bottom:none;background:#fff;text-align:left}
+.nt:first-child{border-top:none}
+.nt.un{background:#F5FBFB}
+.ni{width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.nb b{font-size:14px;font-weight:600}.nb span{font-size:13px;line-height:18px;color:#5B6675}
+.nm{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:12px;color:#5B6675}
+.ud{width:8px;height:8px;border-radius:4px;background:#0E9FA6}
+.row{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 14px;border-top:1px solid #E4E8EE}.row:first-child{border-top:none}
+.row .t{flex:1;display:flex;flex-direction:column}.row .t b{font-size:15px;font-weight:500}.row .t span{font-size:12px;color:#5B6675}
+.sw{width:51px;height:31px;border-radius:16px;border:none;padding:2px;display:flex;flex-shrink:0;transition:background-color 220ms cubic-bezier(.33,1,.68,1)}
+.sw span{width:27px;height:27px;border-radius:14px;background:#fff;box-shadow:0 2px 4px rgba(15,23,32,.2);transition:transform 220ms cubic-bezier(.33,1,.68,1)}
+.nav{margin-top:auto;height:98px;flex-shrink:0;background:rgba(255,255,255,.96);border-top:1px solid #E4E8EE;display:flex;padding:0 4px 34px;position:relative}
+.tab{flex:1;height:64px;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;color:#5B6675!important;font-size:11px;font-weight:500;position:relative}
+.tab>span{display:flex;align-items:center;justify-content:center;width:56px;height:30px;border-radius:15px}
+.tab.on{color:#0A7F85!important;font-weight:600}.tab.on>span{background:#E4F5F6}
+.tab .fab{position:absolute;top:-26px;left:50%;margin-left:-32px;width:64px;height:64px;border-radius:32px;background:#0E9FA6;box-shadow:0 0 0 4px #fff,0 6px 20px rgba(15,23,32,.12);color:#fff}
+@media (prefers-reduced-motion: reduce){.sw,.sw span{transition:none}}
+</style>
+</helmet>
+<div class="wl" style="width: 1760px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <div class="col">
+    <div class="lab"><b>Notifications · Nurse</b><small>Admissions and discharges</small></div>
+    <div class="ph">
+      <div class="hd"><h1>Notifications</h1><button type="button" class="lnk">Mark all read</button></div>
+      <div class="role"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0E9FA6"></span>For nurses: admissions &amp; discharges · Internal Medicine</div>
+      <div class="grp">Today</div>
+      <div class="box">
+        <button type="button" class="nt un"><span class="ni" style="background: #E6F6EE; color: #0D7A43"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span><span class="nb"><b>Ready for discharge</b><span>Krystyna Mazur · Internal Medicine. Arrange transport and paperwork.</span></span><span class="nm"><span class="tn">10:34</span><span class="ud"></span></span></button>
+        <button type="button" class="nt un"><span class="ni" style="background: #EAF1FD; color: #1F55C2"><svg class="i" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span><span class="nb"><b>New admission</b><span>Maria Zielińska, 67 · Emergency · COPD exacerbation</span></span><span class="nm"><span class="tn">09:40</span><span class="ud"></span></span></button>
+        <button type="button" class="nt"><span class="ni" style="background: #EAF1FD; color: #1F55C2"><svg class="i" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span><span class="nb"><b>New admission</b><span>Barbara Kwiatkowska, 69 · Neurology</span></span><span class="nm"><span class="tn">09:12</span></span></button>
+        <button type="button" class="nt"><span class="ni" style="background: #F0F2F5; color: #4F5967"><svg class="i" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span><span class="nb"><b>Discharged</b><span>Henryk Zawadzki · Internal Medicine. Bed 14 is free.</span></span><span class="nm"><span class="tn">08:05</span></span></button>
+      </div>
+      <div class="grp">Yesterday</div>
+      <div class="box"><button type="button" class="nt"><span class="ni" style="background: #EAF1FD; color: #1F55C2"><svg class="i" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span><span class="nb"><b>New admission</b><span>Helena Dąbrowska, 81 · Emergency</span></span><span class="nm"><span class="tn">22:18</span></span></button></div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Notifications · Doctor</b><small>Transfers into their ward, status changes</small></div>
+    <div class="ph">
+      <div class="hd"><h1>Notifications</h1><button type="button" class="lnk">Mark all read</button></div>
+      <div class="role"><span style="width: 8px; height: 8px; border-radius: 4px; background: #7C4DDB"></span>For doctors: arrivals in Internal Medicine, status changes</div>
+      <div class="grp">Today</div>
+      <div class="box">
+        <button type="button" class="nt un"><span class="ni" style="background: #E4F5F6; color: #0A7F85"><svg class="i" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><span class="nb"><b>Arrived in your ward</b><span>Helena Dąbrowska ← Emergency · by M. Kowal</span></span><span class="nm"><span class="tn">08:58</span><span class="ud"></span></span></button>
+        <button type="button" class="nt un"><span class="ni" style="background: #F1ECFC; color: #6236C0"><svg class="i" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span class="nb"><b>Status changed</b><span>Stanisław Wojciechowski → In Treatment · by Dr J. Wróbel</span></span><span class="nm"><span class="tn">10:12</span><span class="ud"></span></span></button>
+        <button type="button" class="nt"><span class="ni" style="background: #E4F5F6; color: #0A7F85"><svg class="i" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><span class="nb"><b>Left your ward</b><span>Jan Kowalczyk → Laboratory · by E. Lis. Still your patient.</span></span><span class="nm"><span class="tn">10:31</span></span></button>
+        <button type="button" class="nt"><span class="ni" style="background: #E4F5F6; color: #0A7F85"><svg class="i" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><span class="nb"><b>Arrived in your ward</b><span>Jan Kowalczyk ← Radiology · by A. Nowak</span></span><span class="nm"><span class="tn">09:35</span></span></button>
+      </div>
+      <span style="padding: 12px 20px; font-size: 12px; color: #5B6675">Your own changes never notify you.</span>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Notifications · empty</b><small>Calm, says what will appear here</small></div>
+    <div class="ph">
+      <div class="hd"><h1>Notifications</h1></div>
+      <div role="status" style="padding: 120px 36px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span style="width: 64px; height: 64px; border-radius: 32px; background: #F3F5F8; color: #5B6675; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></span>
+        <span style="font-size: 19px; font-weight: 600">You're all caught up</span>
+        <span style="font-size: 15px; line-height: 21px; color: #5B6675">New admissions and discharges in Internal Medicine will show up here.</span>
+        <button type="button" class="lnk" style="margin-top: 6px">Notification settings</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Profile &amp; settings</b><small>Try the Reduce motion switch in Play</small></div>
+    <div class="ph">
+      <div class="hd" style="min-height: 92px"><h1>Profile</h1></div>
+      <div class="box" style="padding: 16px; display: flex; gap: 14px; align-items: center">
+        <span style="width: 60px; height: 60px; border-radius: 30px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; color: #0A7F85; font-size: 21px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">AN</span>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 19px; font-weight: 600">Anna Nowak</span><span style="font-size: 13px; font-weight: 600; color: #0A7F85">Nurse · Internal Medicine</span><span class="tn" style="font-size: 13px; color: #5B6675">Day shift 07:00–19:00 · ends in 8 h 14 min</span></div>
+      </div>
+      <div class="grp">Display</div>
+      <div class="box">
+        <div class="row"><span class="t"><b>Reduce motion</b><span>{{ motionSub }}</span></span><button type="button" role="switch" aria-checked="{{ rmChecked }}" aria-label="Reduce motion" class="sw" onClick="{{ toggleRm }}" style="{{ rmTrack }}"><span style="{{ rmKnob }}"></span></button></div>
+        <div class="row"><span class="t"><b>Text size</b><span>Follows iOS · currently Large</span></span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></div>
+      </div>
+      <div class="grp">Data</div>
+      <div class="box">
+        <div class="row"><span class="t"><b>Full-offline mode</b><span>Queue changes without a connection. Beta, off by default.</span></span><button type="button" role="switch" aria-checked="{{ foChecked }}" aria-label="Full-offline mode" class="sw" onClick="{{ toggleFo }}" style="{{ foTrack }}"><span style="{{ foKnob }}"></span></button></div>
+        <div class="row"><span class="t"><b>Notifications</b><span>Admissions, discharges</span></span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></div>
+      </div>
+      <div style="padding: 16px 16px 0; display: flex; flex-direction: column; gap: 10px">
+        <button type="button" style="height: 52px; border: 1px solid #E4E8EE; border-radius: 12px; background: #fff; color: #C9302C; font-size: 16px; font-weight: 600">Sign out</button>
+        <span style="text-align: center; font-size: 12px; color: #5B6675">Wardline 1.0 · Simulation · fictional data</span>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":976}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { rm: false, fo: false }; }
+  renderVals() {
+    const sw = (on) => ({
+      track: 'background: ' + (on ? '#0A7F85' : '#CBD2DB') + ';',
+      knob: 'transform: translateX(' + (on ? '20px' : '0') + ');'
+    });
+    const a = sw(this.state.rm), b = sw(this.state.fo);
+    return {
+      rmChecked: this.state.rm ? 'true' : 'false', rmTrack: a.track, rmKnob: a.knob,
+      toggleRm: () => this.setState({ rm: !this.state.rm }),
+      motionSub: this.state.rm ? 'On · fades instead of slides, no shimmer' : 'Off · follows iOS when not set here',
+      foChecked: this.state.fo ? 'true' : 'false', foTrack: b.track, foKnob: b.knob,
+      toggleFo: () => this.setState({ fo: !this.state.fo })
+    };
+  }
+}
+</script>
+</body>
+</html>

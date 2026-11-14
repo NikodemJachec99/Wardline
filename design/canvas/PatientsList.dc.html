@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Patients list · states and filters</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button,.wl input{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:.02em}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i14{width:14px;height:14px}.i22{width:22px;height:22px}
+.hd{padding:59px 16px 0;display:flex;justify-content:space-between;align-items:center;min-height:107px}
+.hd h1{margin:0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.02em}
+.ibtn{position:relative;width:44px;height:44px;border:1px solid #E4E8EE;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center}
+.dot{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#0A7F85;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.stk{padding:8px 16px 10px;display:flex;flex-direction:column;gap:10px;background:rgba(250,251,252,.94)}
+.srch{height:48px;border-radius:12px;background:#F3F5F8;display:flex;align-items:center;gap:10px;padding:0 14px;color:#5B6675;font-size:16px}
+.chips{display:flex;gap:8px;overflow:hidden;margin:0 -16px;padding:0 16px}
+.fc{flex-shrink:0;height:36px;padding:0 12px;border-radius:8px;border:1px solid #E4E8EE;background:#fff;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.fc.on{border-color:#0E9FA6;background:#E4F5F6;color:#0A7F85!important;font-weight:600}
+.list{padding:4px 16px 0;display:flex;flex-direction:column;gap:8px;flex:1;overflow:hidden}
+.pc{position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:10px 12px 10px 18px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden;width:100%;text-align:left}
+.bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.avp{width:40px;height:40px;font-size:15px;background:#F3F5F8;border:1px solid #E4E8EE;color:#5B6675}
+.pm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.pm b{font-size:16px;font-weight:600}.pm b em{font-style:normal;font-weight:400;font-size:14px;color:#5B6675;margin-left:4px}
+.pm span{font-size:13px;color:#5B6675;display:flex;align-items:center;gap:4px}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600;flex-shrink:0}
+.s-adm{background:#EAF1FD;color:#1F55C2}.s-tr{background:#F1ECFC;color:#6236C0}.s-rd{background:#E6F6EE;color:#0D7A43}
+.gh{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;height:32px;padding:0 4px;font-size:12px;font-weight:600;color:#5B6675;background:#FAFBFC;letter-spacing:.02em}
+.dn{min-height:58px;padding:8px 10px 8px 16px;border-radius:12px}
+.nav{margin-top:auto;height:98px;flex-shrink:0;background:rgba(255,255,255,.96);border-top:1px solid #E4E8EE;display:flex;padding:0 4px 34px;position:relative}
+.tab{flex:1;height:64px;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;color:#5B6675!important;font-size:11px;font-weight:500;position:relative}
+.tab>span{display:flex;align-items:center;justify-content:center;width:56px;height:30px;border-radius:15px}
+.tab.on{color:#0A7F85!important;font-weight:600}.tab.on>span{background:#E4F5F6}
+.tab .fab{position:absolute;top:-26px;left:50%;margin-left:-32px;width:64px;height:64px;border-radius:32px;background:#0E9FA6;box-shadow:0 0 0 4px #fff,0 6px 20px rgba(15,23,32,.12);color:#fff}
+.shim{background:linear-gradient(90deg,#EEF1F5 0%,#F7F8FA 50%,#EEF1F5 100%);background-size:400px 100%;animation:wlshimmer 1.2s linear infinite}
+@keyframes wlshimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.btn{height:56px;width:100%;border:none;border-radius:12px;background:#0A7F85;color:#fff!important;font-size:16px;font-weight:600}
+.btn2{height:48px;padding:0 20px;border:1px solid #CBD2DB;border-radius:12px;background:#fff;font-size:15px;font-weight:600}
+.ov{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6675}
+@media (prefers-reduced-motion: reduce){.shim{animation:none}}
+</style>
+</helmet>
+<div class="wl" style="width: 2620px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <!-- 1 default -->
+  <div class="col">
+    <div class="lab"><b>Default · live</b><small>Changed card highlighted; one card swiped open</small></div>
+    <div class="ph">
+      <div class="hd"><h1>Patients <span class="tn" style="font-size: 17px; font-weight: 500; color: #5B6675">128</span></h1><button type="button" class="ibtn" aria-label="Filters"><svg class="i" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button></div>
+      <div class="stk">
+        <div class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Name, ID or department</div>
+        <div class="chips"><button type="button" class="fc on">All <span class="tn">128</span></button><button type="button" class="fc">Department<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button type="button" class="fc">Status<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button type="button" class="fc">My ward</button></div>
+      </div>
+      <div class="list" aria-live="polite">
+        <div class="pc" style="background: #F5FBFB; border-color: #9FD8DB"><span class="bar" style="background: #7C4DDB"></span><span class="av avp">JK</span><span class="pm"><b>Jan Kowalczyk<em class="tn">54</em></b><span style="color: #0A7F85; font-weight: 600"><span style="width: 6px; height: 6px; border-radius: 3px; background: #0E9FA6"></span>Moved to Radiology · now</span></span><span class="chip s-tr">In Treatment</span></div>
+        <div style="position: relative; height: 72px; border-radius: 16px; overflow: hidden">
+          <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 176px; display: flex">
+            <button type="button" style="flex: 1; border: none; background: #0A7F85; color: #fff; font-size: 12px; font-weight: 600; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>View profile</button>
+            <button type="button" style="flex: 1; border: none; background: #4F5967; color: #fff; font-size: 12px; font-weight: 600; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px"><svg class="i" viewBox="0 0 24 24"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Show on map</button>
+          </div>
+          <div class="pc" style="position: absolute; left: -176px; top: 0; width: 358px; border-radius: 16px 0 0 16px"><span class="bar" style="background: #2F6FEB"></span><span class="av avp">MZ</span><span class="pm"><b>Maria Zielińska<em class="tn">67</em></b><span>Emergency</span></span><span class="chip s-adm">Admitted</span></div>
+        </div>
+        <div class="pc"><span class="bar" style="background: #2F6FEB"></span><span class="av avp">AW</span><span class="pm"><b>Adam Wójcik<em class="tn">41</em></b><span>Radiology</span></span><span class="chip s-adm">Admitted</span></div>
+        <div class="pc"><span class="bar" style="background: #14A35B"></span><span class="av avp">KM</span><span class="pm"><b>Krystyna Mazur<em class="tn">72</em></b><span>Internal Medicine</span></span><span class="chip s-rd">Ready</span></div>
+        <div class="pc"><span class="bar" style="background: #7C4DDB"></span><span class="av avp">ZK</span><span class="pm"><b>Zofia Kamińska<em class="tn">63</em></b><span>Cardiology</span></span><span class="chip s-tr">In Treatment</span></div>
+        <div class="pc"><span class="bar" style="background: #14A35B"></span><span class="av avp">TW</span><span class="pm"><b>Tomasz Wiśniewski<em class="tn">58</em></b><span>Cardiology</span></span><span class="chip s-rd">Ready</span></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 2 high data -->
+  <div class="col">
+    <div class="lab"><b>High data · 128 patients</b><small>Grouped by department, sticky group headers, compact rows</small></div>
+    <div class="ph">
+      <div class="hd" style="min-height: 95px"><h1>Patients <span class="tn" style="font-size: 17px; font-weight: 500; color: #5B6675">128</span></h1><button type="button" class="ibtn" aria-label="Filters"><svg class="i" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button></div>
+      <div class="stk" style="box-shadow: 0 1px 2px rgba(15,23,32,.04), 0 2px 8px rgba(15,23,32,.04); border-bottom: 1px solid #E4E8EE">
+        <div class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search 128 patients</div>
+        <div class="chips"><button type="button" class="fc on">All <span class="tn">128</span></button><button type="button" class="fc">Department<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button type="button" class="fc">Status<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button type="button" class="fc">Group: Dept</button></div>
+      </div>
+      <div class="list" style="gap: 4px; padding-top: 0">
+        <div class="gh"><span>INTERNAL MEDICINE · <span class="tn">29</span></span><span class="tn" style="color: #A82622">91% · 3 free</span></div>
+        <div class="pc dn"><span class="bar" style="background: #14A35B"></span><span class="pm"><b style="font-size: 15px">Krystyna Mazur<em class="tn">72</em></b><span class="id" style="font-size: 12px">HPT-3HV6PQ8N</span></span><span class="chip s-rd">Ready</span></div>
+        <div class="pc dn"><span class="bar" style="background: #2F6FEB"></span><span class="pm"><b style="font-size: 15px">Helena Dąbrowska<em class="tn">81</em></b><span class="id" style="font-size: 12px">HPT-5JW9KD4P</span></span><span class="chip s-adm">Admitted</span></div>
+        <div class="pc dn"><span class="bar" style="background: #7C4DDB"></span><span class="pm"><b style="font-size: 15px">Stanisław Wojciechowski<em class="tn">76</em></b><span class="id" style="font-size: 12px">HPT-4KR6TC1H</span></span><span class="chip s-tr">In Treatment</span></div>
+        <div class="sub" style="font-size: 12px; color: #5B6675; padding: 2px 6px 6px">+ 26 more in Internal Medicine</div>
+        <div class="gh"><span>INTENSIVE CARE · <span class="tn">8</span></span><span class="tn" style="color: #A82622">100% · Full</span></div>
+        <div class="pc dn"><span class="bar" style="background: #7C4DDB"></span><span class="pm"><b style="font-size: 15px">Michał Szymański<em class="tn">47</em></b><span class="id" style="font-size: 12px">HPT-1QH8VX3B</span></span><span class="chip s-tr">In Treatment</span></div>
+        <div class="sub" style="font-size: 12px; color: #5B6675; padding: 2px 6px 6px">+ 7 more in Intensive Care</div>
+        <div class="gh"><span>EMERGENCY · <span class="tn">19</span></span><span class="tn">79% · 5 free</span></div>
+        <div class="pc dn"><span class="bar" style="background: #2F6FEB"></span><span class="pm"><b style="font-size: 15px">Maria Zielińska<em class="tn">67</em></b><span class="id" style="font-size: 12px">HPT-4QW8N2KD</span></span><span class="chip s-adm">Admitted</span></div>
+        <div class="pc dn"><span class="bar" style="background: #7C4DDB"></span><span class="pm"><b style="font-size: 15px">Agnieszka Jankowska<em class="tn">29</em></b><span class="id" style="font-size: 12px">HPT-7PB2MN8S</span></span><span class="chip s-tr">In Treatment</span></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 3 offline -->
+  <div class="col">
+    <div class="lab"><b>Offline · cached</b><small>Browsable, labelled, search runs locally</small></div>
+    <div class="ph">
+      <div class="hd" style="min-height: 95px"><h1>Patients <span class="tn" style="font-size: 17px; font-weight: 500; color: #5B6675">128</span></h1><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: #F0F2F5; color: #4F5967; font-size: 12px; font-weight: 600"><svg class="i i14" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg>Offline</span></div>
+      <div role="alert" style="margin: 0 16px; border-radius: 12px; background: #FFF6E8; border: 1px solid #F6D9A8; padding: 10px 12px; display: flex; gap: 10px; align-items: center; font-size: 13px; line-height: 18px; color: #8A5207"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg><span><b style="color: #6B3F05">You're offline.</b> Showing the list as of <span class="tn">10:42</span>. Changes are paused.</span></div>
+      <div class="stk">
+        <div class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search cached patients</div>
+        <div style="display: flex; justify-content: space-between; align-items: center"><span class="tn" style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 12px; font-weight: 600"><svg class="i i14" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg>Cached · synced 10:42 · may be outdated</span></div>
+      </div>
+      <div class="list" style="opacity: .92">
+        <div class="pc"><span class="bar" style="background: #7C4DDB"></span><span class="av avp">JK</span><span class="pm"><b>Jan Kowalczyk<em class="tn">54</em></b><span>Laboratory · as of 10:42</span></span><span class="chip s-tr">In Treatment</span></div>
+        <div class="pc"><span class="bar" style="background: #2F6FEB"></span><span class="av avp">MZ</span><span class="pm"><b>Maria Zielińska<em class="tn">67</em></b><span>Emergency · as of 10:42</span></span><span class="chip s-adm">Admitted</span></div>
+        <div class="pc"><span class="bar" style="background: #14A35B"></span><span class="av avp">KM</span><span class="pm"><b>Krystyna Mazur<em class="tn">72</em></b><span>Internal Medicine · as of 10:42</span></span><span class="chip s-rd">Ready</span></div>
+        <div class="pc"><span class="bar" style="background: #7C4DDB"></span><span class="av avp">ZK</span><span class="pm"><b>Zofia Kamińska<em class="tn">63</em></b><span>Cardiology · as of 10:42</span></span><span class="chip s-tr">In Treatment</span></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 4 empty search -->
+  <div class="col">
+    <div class="lab"><b>Empty search</b><small>Says what was searched and how to recover</small></div>
+    <div class="ph">
+      <div class="hd" style="min-height: 95px"><h1>Patients</h1></div>
+      <div class="stk">
+        <div class="srch" style="background: #fff; border: 1px solid #0E9FA6; box-shadow: 0 0 0 3px #E4F5F6; color: #0F1720"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span style="flex: 1">Kowalski</span><svg class="i" viewBox="0 0 24 24" style="color: #5B6675"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></div>
+        <div class="chips"><button type="button" class="fc">All</button><button type="button" class="fc on">Cardiology<svg class="i i14" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><button type="button" class="fc">Status<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
+      </div>
+      <div role="status" style="padding: 72px 32px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span class="av" style="width: 64px; height: 64px; background: #F3F5F8; color: #5B6675"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px"><path d="m13.5 8.5-5 5M8.5 8.5l5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+        <span style="font-size: 19px; font-weight: 600">No patients match "Kowalski" in Cardiology</span>
+        <span style="font-size: 15px; line-height: 21px; color: #5B6675">Try all departments, or search by patient ID, e.g. HPT-7K3M9QX2. "Kowalczyk" is in Radiology.</span>
+        <div style="display: flex; gap: 8px; margin-top: 8px"><button type="button" class="btn2">Clear filters</button><button type="button" class="btn2" style="border: none; background: transparent; color: #0A7F85">Search all</button></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 5 loading -->
+  <div class="col">
+    <div class="lab"><b>Loading</b><small>Skeleton keeps the card rhythm</small></div>
+    <div class="ph" aria-busy="true">
+      <div class="hd" style="min-height: 95px"><h1>Patients</h1></div>
+      <div class="stk">
+        <div class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Name, ID or department</div>
+        <div class="chips"><span class="shim" style="width: 64px; height: 36px; border-radius: 8px"></span><span class="shim" style="width: 112px; height: 36px; border-radius: 8px"></span><span class="shim" style="width: 84px; height: 36px; border-radius: 8px"></span></div>
+      </div>
+      <div class="list">
+        <div class="pc"><span class="bar" style="background: #E4E8EE"></span><span class="shim" style="width: 40px; height: 40px; border-radius: 20px"></span><span class="pm" style="gap: 8px"><span class="shim" style="height: 12px; width: 60%; border-radius: 6px"></span><span class="shim" style="height: 10px; width: 40%; border-radius: 5px"></span></span><span class="shim" style="width: 72px; height: 24px; border-radius: 6px"></span></div>
+        <div class="pc"><span class="bar" style="background: #E4E8EE"></span><span class="shim" style="width: 40px; height: 40px; border-radius: 20px"></span><span class="pm" style="gap: 8px"><span class="shim" style="height: 12px; width: 52%; border-radius: 6px"></span><span class="shim" style="height: 10px; width: 46%; border-radius: 5px"></span></span><span class="shim" style="width: 72px; height: 24px; border-radius: 6px"></span></div>
+        <div class="pc"><span class="bar" style="background: #E4E8EE"></span><span class="shim" style="width: 40px; height: 40px; border-radius: 20px"></span><span class="pm" style="gap: 8px"><span class="shim" style="height: 12px; width: 66%; border-radius: 6px"></span><span class="shim" style="height: 10px; width: 36%; border-radius: 5px"></span></span><span class="shim" style="width: 72px; height: 24px; border-radius: 6px"></span></div>
+        <div class="pc"><span class="bar" style="background: #E4E8EE"></span><span class="shim" style="width: 40px; height: 40px; border-radius: 20px"></span><span class="pm" style="gap: 8px"><span class="shim" style="height: 12px; width: 48%; border-radius: 6px"></span><span class="shim" style="height: 10px; width: 42%; border-radius: 5px"></span></span><span class="shim" style="width: 72px; height: 24px; border-radius: 6px"></span></div>
+        <div class="pc"><span class="bar" style="background: #E4E8EE"></span><span class="shim" style="width: 40px; height: 40px; border-radius: 20px"></span><span class="pm" style="gap: 8px"><span class="shim" style="height: 12px; width: 58%; border-radius: 6px"></span><span class="shim" style="height: 10px; width: 38%; border-radius: 5px"></span></span><span class="shim" style="width: 72px; height: 24px; border-radius: 6px"></span></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 6 advanced filters -->
+  <div class="col">
+    <div class="lab"><b>Advanced filters</b><small>Result count updates live on the button</small></div>
+    <div class="ph">
+      <div class="hd" style="min-height: 95px"><h1>Patients</h1></div>
+      <div style="position: absolute; inset: 0; background: rgba(15,23,32,.32)"></div>
+      <div role="dialog" aria-label="Filters" style="position: absolute; left: 0; right: 0; bottom: 0; top: 70px; background: #fff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 32px rgba(15,23,32,.12); padding: 8px 16px 34px; display: flex; flex-direction: column; gap: 16px">
+        <div style="align-self: center; width: 36px; height: 5px; border-radius: 3px; background: #CBD2DB"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 20px; font-weight: 600">Filters</span><button type="button" style="height: 44px; border: none; background: transparent; font-size: 15px; font-weight: 600; color: #0A7F85">Reset</button></div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between"><span class="ov">Age</span><span class="tn" style="font-size: 13px; font-weight: 600">50 – 80</span></div>
+          <div style="position: relative; height: 28px"><div style="position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 2px; background: #E4E8EE"></div><div style="position: absolute; left: 44%; right: 14%; top: 12px; height: 4px; border-radius: 2px; background: #0A7F85"></div><span role="slider" aria-label="Minimum age" aria-valuenow="50" style="position: absolute; left: calc(44% - 14px); top: 0; width: 28px; height: 28px; border-radius: 14px; background: #fff; border: 1px solid #CBD2DB; box-shadow: 0 1px 3px rgba(15,23,32,.15)"></span><span role="slider" aria-label="Maximum age" aria-valuenow="80" style="position: absolute; left: calc(86% - 14px); top: 0; width: 28px; height: 28px; border-radius: 14px; background: #fff; border: 1px solid #CBD2DB; box-shadow: 0 1px 3px rgba(15,23,32,.15)"></span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><span class="ov">Admitted</span><div style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" class="fc on">Today</button><button type="button" class="fc">Last 3 days</button><button type="button" class="fc">This week</button><button type="button" class="fc">Custom…</button></div></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><span class="ov">Department</span><div style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" class="fc on">INT</button><button type="button" class="fc on">CAR</button><button type="button" class="fc">ER</button><button type="button" class="fc">ICU</button><button type="button" class="fc">RAD</button><button type="button" class="fc">LAB</button><button type="button" class="fc">+6</button></div></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><span class="ov">Status</span><div style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" class="fc">Admitted</button><button type="button" class="fc on">In Treatment</button><button type="button" class="fc on">Ready for Discharge</button><button type="button" class="fc">Discharged</button></div></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><span class="ov">Last updated</span><div style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" class="fc">Any time</button><button type="button" class="fc on">Last hour</button><button type="button" class="fc">Last 15 min</button></div></div>
+        <button type="button" class="btn" style="margin-top: auto">Show 23 patients</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2620,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

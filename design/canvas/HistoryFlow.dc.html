@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>History · department history · day timeline</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i14{width:14px;height:14px}.i22{width:22px;height:22px}
+.hd{padding:59px 16px 0;display:flex;justify-content:space-between;align-items:center;min-height:100px}
+.hd h1{margin:0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.02em}
+.back{height:48px;border:none;background:transparent;display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;padding:0 8px;color:#0A7F85!important}
+.live{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;background:#E6F6EE;color:#0D7A43;font-size:12px;font-weight:600}
+.seg{display:flex;padding:3px;border-radius:10px;background:#F3F5F8;gap:2px}
+.seg button{flex:1;height:34px;border:none;border-radius:8px;background:transparent;font-size:13px;font-weight:500;color:#5B6675!important}
+.seg button.on{background:#fff;box-shadow:0 1px 2px rgba(15,23,32,.08);font-weight:600;color:#0F1720!important}
+.fc{flex-shrink:0;height:36px;padding:0 12px;border-radius:8px;border:1px solid #E4E8EE;background:#fff;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.fc.on{border-color:#0E9FA6;background:#E4F5F6;color:#0A7F85!important;font-weight:600}
+.grp{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6675;padding:14px 20px 6px}
+.fi{display:flex;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid #E4E8EE;background:#fff}
+.fi:first-child{border-top:none}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;width:32px;height:32px;font-size:12px}
+.avn{background:#E4F5F6;box-shadow:inset 0 0 0 2px #0E9FA6;color:#0A7F85}
+.avd{background:#F1ECFC;box-shadow:inset 0 0 0 2px #7C4DDB;color:#6236C0}
+.ft{flex:1;min-width:0;display:flex;flex-direction:column}.ft b{font-size:14px;font-weight:600}.ft span{font-size:12px;color:#5B6675}
+.tm{font-size:13px;color:#5B6675;font-variant-numeric:tabular-nums}
+.box{margin:0 16px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden}
+.io{font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:4px}
+.nav{margin-top:auto;height:98px;flex-shrink:0;background:rgba(255,255,255,.96);border-top:1px solid #E4E8EE;display:flex;padding:0 4px 34px;position:relative}
+.tab{flex:1;height:64px;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;color:#5B6675!important;font-size:11px;font-weight:500;position:relative}
+.tab>span{display:flex;align-items:center;justify-content:center;width:56px;height:30px;border-radius:15px}
+.tab.on{color:#0A7F85!important;font-weight:600}.tab.on>span{background:#E4F5F6}
+.tab .fab{position:absolute;top:-26px;left:50%;margin-left:-32px;width:64px;height:64px;border-radius:32px;background:#0E9FA6;box-shadow:0 0 0 4px #fff,0 6px 20px rgba(15,23,32,.12);color:#fff}
+.tl-row{display:flex;height:36px;align-items:center;border-top:1px solid #F0F2F5}
+.tl-code{width:48px;flex-shrink:0;font-size:11px;font-weight:700;color:#5B6675;padding-left:16px}
+.tl-plot{position:relative;flex:1;height:36px}
+.tl-dot{position:absolute;top:13px;width:10px;height:10px;margin-left:-5px;border-radius:5px;background:#0E9FA6;border:2px solid #fff;box-shadow:0 0 0 1px #0E9FA6}
+</style>
+</helmet>
+<div class="wl" style="width: 1760px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <!-- 1 global -->
+  <div class="col">
+    <div class="lab"><b>History · live</b><small>All transfers + status changes, filter by department</small></div>
+    <div class="ph">
+      <div class="hd"><h1>History</h1><span class="live" role="status"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span></div>
+      <div style="padding: 4px 16px 0; display: flex; flex-direction: column; gap: 10px">
+        <div class="seg" role="tablist"><button type="button" class="on" role="tab" aria-selected="true">All</button><button type="button" role="tab" aria-selected="false">Transfers</button><button type="button" role="tab" aria-selected="false">Status</button></div>
+        <div style="display: flex; gap: 8px"><button type="button" class="fc">All departments<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button type="button" class="fc">Today<svg class="i i14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
+      </div>
+      <div class="grp">Last 30 minutes</div>
+      <div class="box">
+        <div class="fi" style="background: #F5FBFB"><span class="av avn">AN</span><span class="ft"><b>Jan Kowalczyk → Radiology</b><span>from Laboratory · A. Nowak · Nurse</span></span><span class="tm" style="color: #0A7F85; font-weight: 600">10:46</span></div>
+        <div class="fi"><span class="av avn">AN</span><span class="ft"><b>Adam Wójcik → Radiology</b><span>from Emergency · A. Nowak · Nurse</span></span><span class="tm">10:38</span></div>
+        <div class="fi"><span class="av avd">PZ</span><span class="ft"><b>Krystyna Mazur · Ready for Discharge</b><span>Internal Medicine · Dr P. Zając</span></span><span class="tm">10:34</span></div>
+        <div class="fi"><span class="av avn">EL</span><span class="ft"><b>Jan Kowalczyk → Laboratory</b><span>from Internal Medicine · E. Lis · Nurse</span></span><span class="tm">10:31</span></div>
+        <div class="fi"><span class="av avn">MK</span><span class="ft"><b>Zofia Kamińska → Cardiology</b><span>from Intensive Care · M. Kowal · Nurse</span></span><span class="tm">10:26</span></div>
+      </div>
+      <div class="grp">Earlier today · 37 more</div>
+      <div class="box">
+        <div class="fi"><span class="av avd">JW</span><span class="ft"><b>Tomasz Wiśniewski · In Treatment</b><span>Cardiology · Dr J. Wróbel</span></span><span class="tm">10:05</span></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+        <button type="button" class="tab" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+        <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+        <button type="button" class="tab"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 2 department history -->
+  <div class="col">
+    <div class="lab"><b>Department history</b><small>One ward: in, out and status changes</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>History</button></div>
+      <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 12px">
+        <div><div style="font-size: 12px; font-weight: 600; color: #5B6675">INT · Floor 1</div><div style="font-size: 26px; font-weight: 700; letter-spacing: -.02em">Internal Medicine</div></div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+          <div style="background: #fff; border: 1px solid #E4E8EE; border-radius: 12px; padding: 10px"><div class="tn" style="font-size: 20px; font-weight: 600">91%</div><div style="font-size: 12px; color: #5B6675">29/32 beds</div><div style="height: 4px; border-radius: 2px; background: #F3F5F8; margin-top: 6px"><div style="width: 91%; height: 4px; border-radius: 2px; background: #E5484D"></div></div></div>
+          <div style="background: #fff; border: 1px solid #E4E8EE; border-radius: 12px; padding: 10px"><div class="tn" style="font-size: 20px; font-weight: 600">7</div><div style="font-size: 12px; color: #5B6675">in today</div></div>
+          <div style="background: #fff; border: 1px solid #E4E8EE; border-radius: 12px; padding: 10px"><div class="tn" style="font-size: 20px; font-weight: 600">9</div><div style="font-size: 12px; color: #5B6675">out today</div></div>
+        </div>
+        <div class="seg" role="tablist"><button type="button" class="on" role="tab" aria-selected="true">All</button><button type="button" role="tab" aria-selected="false">In</button><button type="button" role="tab" aria-selected="false">Out</button><button type="button" role="tab" aria-selected="false">Status</button></div>
+      </div>
+      <div class="grp">Today</div>
+      <div class="box">
+        <div class="fi"><span class="av avd">PZ</span><span class="ft"><b>Krystyna Mazur · Ready for Discharge</b><span>Dr P. Zając · Doctor</span></span><span class="tm">10:34</span></div>
+        <div class="fi"><span class="io" style="background: #F0F2F5; color: #4F5967">OUT</span><span class="ft"><b>Jan Kowalczyk → Laboratory</b><span>E. Lis · Nurse · stayed 56 min</span></span><span class="tm">10:31</span></div>
+        <div class="fi"><span class="av avd">PZ</span><span class="ft"><b>Jan Kowalczyk · In Treatment</b><span>Dr P. Zając · Doctor</span></span><span class="tm">09:52</span></div>
+        <div class="fi"><span class="io" style="background: #E4F5F6; color: #0A7F85">IN</span><span class="ft"><b>Jan Kowalczyk ← Radiology</b><span>A. Nowak · Nurse</span></span><span class="tm">09:35</span></div>
+        <div class="fi"><span class="io" style="background: #E4F5F6; color: #0A7F85">IN</span><span class="ft"><b>Helena Dąbrowska ← Emergency</b><span>M. Kowal · Nurse</span></span><span class="tm">08:58</span></div>
+        <div class="fi"><span class="io" style="background: #F0F2F5; color: #4F5967">OUT</span><span class="ft"><b>Piotr Lewandowski → Orthopaedics</b><span>A. Nowak · Nurse</span></span><span class="tm">08:20</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 day timeline -->
+  <div class="col">
+    <div class="lab"><b>Day timeline</b><small>00–24 per department, scrolls sideways, now marker</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>History</button></div>
+      <div style="padding: 0 16px 8px"><div style="font-size: 26px; font-weight: 700; letter-spacing: -.02em">Today's transfers</div><div class="tn" style="font-size: 13px; color: #5B6675">42 transfers · 00:00–24:00 · showing 06–14</div></div>
+      <div style="margin: 0 16px; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden; padding-bottom: 6px">
+        <div style="display: flex; height: 30px; align-items: center"><span style="width: 48px; flex-shrink: 0; font-size: 11px; color: #5B6675; padding-left: 12px">◂ 00</span><div style="position: relative; flex: 1; height: 30px">
+          <sc-for list="{{ ticks }}" as="t" hint-placeholder-count="9"><span class="tn" style="{{ t.style }}">{{ t.label }}</span></sc-for>
+        </div></div>
+        <div style="position: relative">
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="12">
+            <div class="tl-row"><span class="tl-code">{{ r.code }}</span><div class="tl-plot">
+              <sc-for list="{{ r.dots }}" as="d" hint-placeholder-count="2"><span class="tl-dot" style="{{ d.style }}" aria-label="{{ d.aria }}"></span></sc-for>
+            </div></div>
+          </sc-for>
+          <div aria-hidden="true" style="{{ nowLine }}"></div>
+          <span style="{{ nowTag }}" class="tn">10:46</span>
+          <div role="tooltip" style="position: absolute; left: 112px; top: 148px; width: 200px; background: #0F1720; color: #fff; border-radius: 12px; padding: 8px 10px; font-size: 12px; line-height: 16px; box-shadow: 0 6px 20px rgba(15,23,32,.2)"><b class="tn">10:31 · Jan Kowalczyk</b><br>Internal Medicine → Laboratory<br><span style="color: #CBD2DB">E. Lis · Nurse</span></div>
+        </div>
+      </div>
+      <div style="padding: 10px 16px; display: flex; gap: 14px; font-size: 12px; color: #5B6675"><span style="display: inline-flex; gap: 6px; align-items: center"><span style="width: 10px; height: 10px; border-radius: 5px; background: #0E9FA6"></span>Arrival in department</span><span>Tap a dot for details</span></div>
+    </div>
+  </div>
+
+  <!-- 4 empty -->
+  <div class="col">
+    <div class="lab"><b>Empty filter</b><small>Nothing matched; offers the wider view</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>History</button></div>
+      <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 12px">
+        <div><div style="font-size: 12px; font-weight: 600; color: #5B6675">REH · Floor 2</div><div style="font-size: 26px; font-weight: 700; letter-spacing: -.02em">Rehabilitation</div></div>
+        <div class="seg"><button type="button">All</button><button type="button">In</button><button type="button" class="on">Out</button><button type="button">Status</button></div>
+      </div>
+      <div role="status" style="padding: 96px 32px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span class="av" style="width: 64px; height: 64px; background: #F3F5F8; color: #5B6675"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>
+        <span style="font-size: 19px; font-weight: 600">No transfers out of Rehabilitation today</span>
+        <span style="font-size: 15px; line-height: 21px; color: #5B6675">6 patients are there now. 2 arrived this morning.</span>
+        <button type="button" style="margin-top: 8px; height: 48px; padding: 0 20px; border: 1px solid #CBD2DB; border-radius: 12px; background: #fff; font-size: 15px; font-weight: 600">Show all activity</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const start = 6, end = 14, w = 308;
+    const x = (h) => ((h - start) / (end - start) * w);
+    const ticks = [];
+    for (let h = start; h <= end; h += 2) ticks.push({ label: (h < 10 ? '0' : '') + h, style: 'position: absolute; top: 8px; left: ' + (x(h) - 8).toFixed(0) + 'px; font-size: 11px; font-weight: 600; color: #5B6675' });
+    const codes = ['ER', 'ADM', 'RAD', 'LAB', 'INT', 'CAR', 'SUR', 'OR', 'ICU', 'NEU', 'ORT', 'REH'];
+    const ev = [[6.2,'ADM'],[6.5,'INT'],[6.9,'RAD'],[7.1,'LAB'],[7.3,'SUR'],[7.6,'OR'],[7.8,'CAR'],[8.0,'INT'],[8.33,'ORT'],[8.78,'RAD'],[8.97,'INT'],[9.1,'ORT'],[9.3,'LAB'],[9.58,'INT'],[9.7,'OR'],[9.9,'SUR'],[10.05,'ICU'],[10.2,'REH'],[10.43,'CAR'],[10.52,'LAB'],[10.63,'RAD'],[10.77,'RAD'],[8.1,'NEU'],[7.4,'REH'],[9.45,'ER'],[6.7,'ER'],[10.12,'NEU']];
+    const fmt = (h) => { const hh = Math.floor(h); const mm = Math.round((h - hh) * 60); return (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm; };
+    const rows = codes.map((c) => ({
+      code: c,
+      dots: ev.filter((e) => e[1] === c).map((e) => {
+        const hi = c === 'LAB' && Math.abs(e[0] - 10.52) < 0.01;
+        return { aria: 'Arrival in ' + c + ' at ' + fmt(e[0]), style: 'left: ' + x(e[0]).toFixed(1) + 'px;' + (hi ? ' background: #0F1720; box-shadow: 0 0 0 2px #0F1720;' : '') };
+      })
+    }));
+    const nl = (48 + x(10.77)).toFixed(1) + 'px';
+    return {
+      ticks, rows,
+      nowLine: 'position: absolute; top: 0; bottom: 0; width: 2px; background: #0A7F85; left: ' + nl + ';',
+      nowTag: 'position: absolute; top: -26px; margin-left: -22px; height: 20px; padding: 0 6px; border-radius: 10px; background: #0A7F85; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; left: ' + nl + ';'
+    };
+  }
+}
+</script>
+</body>
+</html>

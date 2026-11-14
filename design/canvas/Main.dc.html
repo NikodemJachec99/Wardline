@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Brand and product rules</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+a{color:#0A7F85}a:hover{color:#086A6F}
+@media (prefers-reduced-motion: reduce){.wl *{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1160px; box-sizing: border-box; padding: 72px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 40px">
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <mask id="wlCut" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"></rect><path d="M20 84H40L80 36H100" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></mask>
+      <mask id="wlOut" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"></rect><rect x="48" y="26" width="24" height="68" rx="6" fill="#000"></rect><rect x="26" y="48" width="68" height="24" rx="6" fill="#000"></rect></mask>
+    </defs>
+  </svg>
+
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 32px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">01 · Brand</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Wardline design system</h1>
+      <p style="margin: 4px 0 0; font-size: 16px; line-height: 24px; color: #5B6675; max-width: 680px">Hospital patient tracking for nurses and doctors. Every token and component on this canvas maps 1:1 to a Flutter theme value or a <span class="mono" style="font-size: 14px">Wl*</span> widget.</p>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center">
+      <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: #5B6675; padding: 6px 10px; border: 1px solid #E4E8EE; border-radius: 8px; background: #FFFFFF">v1.0 · Light</span>
+      <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: #5B6675; padding: 6px 10px; border: 1px solid #E4E8EE; border-radius: 8px; background: #FFFFFF">Flutter · iOS + Android</span>
+    </div>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600">App icon</h2>
+        <span class="mono" style="font-size: 12px; color: #5B6675">assets/brand/app_icon.svg</span>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center">
+        <div style="width: 232px; height: 232px; border-radius: 16px; background: #F3F5F8; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg viewBox="0 0 120 120" width="176" height="176" role="img" aria-label="Wardline app icon">
+            <rect width="120" height="120" rx="27" fill="#0E9FA6"></rect>
+            <g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g>
+            <g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g>
+            <circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle>
+          </svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px; flex: 1">
+          <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">A clinical cross with one continuous route running through it: a patient moving between two departments. The line is cut out of the cross, so it reads at 29 px.</p>
+          <div style="display: flex; gap: 16px; align-items: flex-end">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <svg viewBox="0 0 120 120" width="64" height="64" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle></svg>
+              <span class="tn" style="font-size: 12px; color: #5B6675">64</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <svg viewBox="0 0 120 120" width="48" height="48" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle></svg>
+              <span class="tn" style="font-size: 12px; color: #5B6675">48</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <svg viewBox="0 0 120 120" width="29" height="29" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle></svg>
+              <span class="tn" style="font-size: 12px; color: #5B6675">29</span>
+            </div>
+            <div style="width: 1px; height: 64px; background: #E4E8EE; margin: 0 4px"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <svg viewBox="0 0 120 120" width="64" height="64" aria-hidden="true"><circle cx="60" cy="60" r="60" fill="#0E9FA6"></circle><g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle></svg>
+              <span style="font-size: 12px; color: #5B6675">Adaptive</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <svg viewBox="0 0 120 120" width="64" height="64" aria-hidden="true"><rect x="0.5" y="0.5" width="119" height="119" rx="27" fill="#FFFFFF" stroke="#E4E8EE"></rect><g mask="url(#wlCut)" fill="#0E9FA6"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#0E9FA6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#0E9FA6"></circle><circle cx="100" cy="36" r="6" fill="#0E9FA6"></circle></svg>
+              <span style="font-size: 12px; color: #5B6675">Themed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border-top: 1px solid #E4E8EE; padding-top: 20px">
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Grid</span><span class="tn" style="font-size: 14px; font-weight: 600">120 × 120</span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Corner</span><span class="tn" style="font-size: 14px; font-weight: 600">27 (22.5%)</span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Cross arm</span><span class="tn" style="font-size: 14px; font-weight: 600">24 · r 6</span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Route stroke</span><span class="tn" style="font-size: 14px; font-weight: 600">6 · nodes r 6</span></div>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600">Wordmark &amp; lockups</h2>
+        <span style="font-size: 12px; color: #5B6675">Inter Semibold · tracking −2.5%</span>
+      </div>
+      <div style="height: 132px; border-radius: 16px; background: #F3F5F8; display: flex; align-items: center; justify-content: center; gap: 16px">
+        <svg viewBox="0 0 120 120" width="56" height="56" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#wlCut)" fill="#FFFFFF"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#FFFFFF"></circle><circle cx="100" cy="36" r="6" fill="#FFFFFF"></circle></svg>
+        <span style="font-size: 44px; line-height: 48px; font-weight: 600; letter-spacing: -0.025em; color: #0F1720">Wardline</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+        <div style="height: 96px; border-radius: 16px; background: #0E9FA6; display: flex; align-items: center; justify-content: center; gap: 12px">
+          <svg viewBox="0 0 120 120" width="36" height="36" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#FFFFFF"></rect><g mask="url(#wlCut)" fill="#0E9FA6"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#wlOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#0E9FA6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#0E9FA6"></circle><circle cx="100" cy="36" r="6" fill="#0E9FA6"></circle></svg>
+          <span style="font-size: 28px; font-weight: 600; letter-spacing: -0.025em; color: #FFFFFF">Wardline</span>
+        </div>
+        <div style="height: 96px; border-radius: 16px; border: 1px solid #E4E8EE; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+          <span style="font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.025em; color: #0F1720">Wardline</span>
+          <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5B6675">Hospital Patient Tracking</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border-top: 1px solid #E4E8EE; padding-top: 20px">
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Clear space</span><span style="font-size: 14px; font-weight: 600">½ icon height</span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Min. size</span><span class="tn" style="font-size: 14px; font-weight: 600">Icon 20 · word 14 px</span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #5B6675">Colours</span><span style="font-size: 14px; font-weight: 600">Teal + white only</span></div>
+      </div>
+    </section>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <h2 style="margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em">Six rules the interface must make obvious</h2>
+      <span style="font-size: 13px; color: #5B6675">Each rule is owned by specific components</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Scan opens. It never moves.</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">A wristband or QR scan only identifies and opens the patient. A transfer is a second, separate sheet with its own Confirm.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlBottomSheet · WlTransferPath</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Your role shapes the actions</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">Nurses see Transfer. Doctors see Change status. An action a role can't take is absent, never shown disabled.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlPatientCard · WlButton</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Location and status never merge</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">Where a patient is and what state they are in are two fields, two rows, two components. Status always pairs colour, icon and text.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlStatusChip · WlTransferPath</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Confirmed, not assumed</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">While the server works, the button shows a spinner and locks. The checkmark appears only after the server confirms.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlButton · WlToast</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Offline is read-only</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">Cached records stay browsable, labelled as possibly outdated with the last sync time. Every edit action is removed until reconnect.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlOfflineBanner · WlCacheBadge</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></div>
+        <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Conflicts are spelled out</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675">If someone moved the patient first, show who, from where to where, and when, then ask to refresh. Never a silent retry.</p>
+        <span class="mono" style="font-size: 12px; color: #0A7F85">WlErrorState (conflict)</span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1160}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

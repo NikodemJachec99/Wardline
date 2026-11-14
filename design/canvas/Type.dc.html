@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Typography and icons</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+a{color:#0A7F85}a:hover{color:#086A6F}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1120px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">03 · Typography &amp; icons</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Inter, tabular where it counts</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 520px; text-align: right">Sizes are logical pixels and respect the OS text scale up to 200%. Every number that changes live (times, counts, %, IDs) is set in tabular figures so rows don't jitter.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 12px 24px; background: #F3F5F8; border-bottom: 1px solid #E4E8EE; font-size: 12px; font-weight: 600; color: #5B6675">
+        <span>Token</span><span>Specimen</span><span>Size / line · weight</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.display</span>
+        <span style="font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.02em">Good morning, Anna</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">34/40 · 700 · −2%</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.title1</span>
+        <span style="font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em">Jan Kowalczyk</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">28/34 · 700 · −2%</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.title2</span>
+        <span style="font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em">Laboratory</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">22/28 · 600 · −1%</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.title3</span>
+        <span style="font-size: 18px; line-height: 24px; font-weight: 600">Today's route</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">18/24 · 600</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.body</span>
+        <span style="font-size: 16px; line-height: 24px; font-weight: 400">Pneumonia · admitted today at <span class="tn">08:12</span></span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">16/24 · 400</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.label</span>
+        <span style="font-size: 16px; line-height: 24px; font-weight: 600">Confirm transfer</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">16/24 · 600 · buttons</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.callout</span>
+        <span style="font-size: 15px; line-height: 20px; font-weight: 500">Internal Medicine → Laboratory</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">15/20 · 500</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.subhead</span>
+        <span style="font-size: 14px; line-height: 20px; font-weight: 400; color: #5B6675">Moved by Ewa Lis · <span class="tn">10:31</span></span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">14/20 · 400</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.caption</span>
+        <span class="tn" style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5B6675">Cached · synced 10:42</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">12/16 · 500</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.overline</span>
+        <span style="font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Current location</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">11/14 · 600 · +6% caps</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; border-bottom: 1px solid #E4E8EE; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.kpi</span>
+        <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">149 <span style="font-size: 20px; color: #5B6675">/ 210</span></span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">32/36 · 600 · tnum</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 190px; gap: 16px; padding: 14px 24px; align-items: center">
+        <span class="mono" style="font-size: 12px; font-weight: 600">type.id</span>
+        <span style="font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: 0.02em; font-variant-numeric: tabular-nums slashed-zero; color: #5B6675">HPT-7K3M9QX2 · HPT-4QW8N2KD</span>
+        <span class="mono tn" style="font-size: 12px; color: #5B6675">13/18 · 500 · tnum zero</span>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Why tabular figures</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 12px; background: #F3F5F8">
+            <span style="font-size: 11px; font-weight: 600; color: #5B6675">Proportional</span>
+            <span style="font-size: 18px; line-height: 26px; font-weight: 600; font-variant-numeric: proportional-nums">11:11<br>08:47<br>10:31</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 12px; background: #E4F5F6">
+            <span style="font-size: 11px; font-weight: 600; color: #0A7F85">Tabular · use this</span>
+            <span class="tn" style="font-size: 18px; line-height: 26px; font-weight: 600">11:11<br>08:47<br>10:31</span>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 13px; line-height: 18px; color: #5B6675">Flutter: <span class="mono" style="font-size: 12px; color: #0F1720">FontFeature.tabularFigures()</span> on every <span class="mono" style="font-size: 12px; color: #0F1720">type.kpi</span>, <span class="mono" style="font-size: 12px; color: #0F1720">type.id</span> and time label.</p>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 1">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Icons · Lucide</h2>
+          <span class="mono" style="font-size: 11px; color: #5B6675">stroke 1.75 · 16 / 20 / 24</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; color: #0F1720">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">scan-line</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.32a7.43 7.43 0 0 1 0 7.36"></path><path d="M9.46 6.21a11.76 11.76 0 0 1 0 11.58"></path><path d="M12.91 4.1a15.91 15.91 0 0 1 .01 15.8"></path><path d="M16.37 2a20.16 20.16 0 0 1 0 20"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">nfc</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">qr-code</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">arrow-right-left</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg><span class="mono" style="font-size: 10px; color: #5B6675">log-in</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">activity</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">circle-check</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg><span class="mono" style="font-size: 10px; color: #5B6675">log-out</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg><span class="mono" style="font-size: 10px; color: #5B6675">layout-dashboard</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">users</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">history</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">circle-user</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="mono" style="font-size: 10px; color: #5B6675">map-pin</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">bed</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">wifi-off</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">refresh-cw</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">triangle-alert</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span class="mono" style="font-size: 10px; color: #5B6675">clock</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">search</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; border-radius: 12px; background: #F3F5F8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg><span class="mono" style="font-size: 10px; color: #5B6675">layers</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

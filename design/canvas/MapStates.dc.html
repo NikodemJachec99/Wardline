@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Map states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:.02em}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.top{position:absolute;left:0;right:0;top:0;padding:59px 8px 0;display:flex;justify-content:space-between;align-items:center}
+.back{height:48px;display:inline-flex;align-items:center;gap:2px;padding:0 8px;text-decoration:none;color:#0A7F85;font-size:16px;font-weight:500}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -8px 32px rgba(15,23,32,.12);padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px}
+.handle{align-self:center;width:36px;height:5px;border-radius:3px;background:#CBD2DB}
+.st{padding:8px 10px;border-radius:12px;background:#F3F5F8}.st b{display:block;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}.st span{font-size:11px;color:#5B6675}
+.pr{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid #E4E8EE}.pr:first-child{border-top:none}
+.pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+.pin b{width:32px;height:32px;border-radius:16px;background:#0A7F85;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #fff,0 4px 10px rgba(15,23,32,.2)}
+.pin i{width:2px;height:12px;background:#0A7F85}
+.num{position:absolute;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:12px;background:#0F1720;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff}
+.lift{position:absolute;transform:translate(-50%,-50%);height:22px;padding:0 6px;border-radius:6px;background:#fff;border:1px solid #CBD2DB;font-size:10px;font-weight:600;color:#4F5967;display:inline-flex;align-items:center;gap:3px}
+</style>
+</helmet>
+<div class="wl" style="width: 2190px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <!-- A department sheet -->
+  <div class="col">
+    <div class="lab"><b>Department tapped</b><small>Floating sheet with everything about the ward</small></div>
+    <div class="ph">
+      <div class="top"><a href="#" class="back"><svg class="i" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Dashboard</a></div>
+      <div style="position: absolute; left: 16px; top: 112px; font-size: 22px; font-weight: 700">Floor 1</div>
+      <div style="position: absolute; left: 0; top: 140px; width: 390px; height: 300px">
+        <svg width="390" height="300" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ a.polys }}" as="p" hint-placeholder-count="20"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for></svg>
+        <sc-for list="{{ a.labels }}" as="l" hint-placeholder-count="5"><span style="{{ l.style }}"><b style="font-weight: 700">{{ l.code }}</b><span class="tn">{{ l.stat }}</span></span></sc-for>
+      </div>
+      <div class="sheet" role="dialog" aria-label="Internal Medicine">
+        <div class="handle"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start"><div><div style="font-size: 12px; font-weight: 600; color: #5B6675">INT · Floor 1</div><div style="display: flex; align-items: center; gap: 8px; font-size: 21px; font-weight: 600">Internal Medicine <span style="display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 7px; border-radius: 6px; background: #FCE6E7; color: #A82622; font-size: 11px; font-weight: 600">Bottleneck</span></div></div><button type="button" aria-label="Close" style="width: 44px; height: 44px; margin: -4px -8px 0 0; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; font-size: 13px"><span class="tn" style="font-weight: 600">29 of 32 beds · 91%</span><span class="tn" style="color: #5B6675">3 free</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 91%; height: 8px; border-radius: 4px; background: #E5484D"></div></div></div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px"><div class="st"><b>7 / 9</b><span>In / out today</span></div><div class="st"><b>2</b><span>Discharges today</span></div><div class="st"><b>4.6 d</b><span>Avg. stay</span></div></div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px"><span style="color: #5B6675">Last transfer</span><span class="tn" style="font-weight: 600">10:31 · Jan Kowalczyk → LAB</span></div>
+        <div style="border: 1px solid #E4E8EE; border-radius: 12px">
+          <div class="pr"><span style="width: 4px; height: 20px; border-radius: 2px; background: #14A35B"></span><span style="flex: 1; font-size: 14px; font-weight: 600">Krystyna Mazur</span><span style="font-size: 12px; color: #5B6675">Ready</span></div>
+          <div class="pr"><span style="width: 4px; height: 20px; border-radius: 2px; background: #2F6FEB"></span><span style="flex: 1; font-size: 14px; font-weight: 600">Helena Dąbrowska</span><span style="font-size: 12px; color: #5B6675">Admitted</span></div>
+          <div class="pr"><span style="width: 4px; height: 20px; border-radius: 2px; background: #7C4DDB"></span><span style="flex: 1; font-size: 14px; font-weight: 600">Stanisław Wojciechowski</span><span style="font-size: 12px; color: #5B6675">In Treatment</span></div>
+          <div style="padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px; color: #5B6675">+ 26 more patients here</div>
+        </div>
+        <button type="button" style="height: 52px; border: 1px solid #CBD2DB; border-radius: 12px; background: #fff; font-size: 15px; font-weight: 600">Department history</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- B where is the patient -->
+  <div class="col">
+    <div class="lab"><b>Where is the patient</b><small>From profile: floor focused, department pinned</small></div>
+    <div class="ph">
+      <div class="top"><a href="#" class="back"><svg class="i" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Jan Kowalczyk</a></div>
+      <div style="position: absolute; left: 16px; right: 16px; top: 112px; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; padding: 12px 14px; display: flex; gap: 12px; align-items: center">
+        <span style="width: 40px; height: 40px; border-radius: 20px; background: #F3F5F8; border: 1px solid #E4E8EE; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #5B6675">JK</span>
+        <div style="flex: 1"><div style="font-size: 16px; font-weight: 600">Jan Kowalczyk is in Laboratory</div><div class="tn" style="font-size: 13px; color: #5B6675">Ground floor · since 10:31 · moved by E. Lis</div></div>
+      </div>
+      <div style="position: absolute; left: 16px; top: 200px; display: flex; padding: 3px; border-radius: 10px; background: #F3F5F8; gap: 2px; font-size: 13px"><span style="height: 32px; padding: 0 10px; display: flex; align-items: center; color: #5B6675">All</span><span style="height: 32px; padding: 0 10px; border-radius: 8px; background: #fff; box-shadow: 0 1px 2px rgba(15,23,32,.08); display: flex; align-items: center; font-weight: 600">Ground</span><span style="height: 32px; padding: 0 10px; display: flex; align-items: center; color: #5B6675">Floor 1</span><span style="height: 32px; padding: 0 10px; display: flex; align-items: center; color: #5B6675">Floor 2</span></div>
+      <div style="position: absolute; left: 0; top: 250px; width: 390px; height: 420px">
+        <svg width="390" height="420" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ b.polys }}" as="p" hint-placeholder-count="20"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for></svg>
+        <sc-for list="{{ b.labels }}" as="l" hint-placeholder-count="5"><span style="{{ l.style }}"><b style="font-weight: 700">{{ l.code }}</b><span class="tn">{{ l.stat }}</span></span></sc-for>
+        <span class="pin" style="{{ b.pin }}" role="img" aria-label="Jan Kowalczyk, Laboratory"><b>JK</b><i></i></span>
+      </div>
+      <div style="position: absolute; left: 16px; right: 16px; bottom: 34px; display: flex; gap: 8px"><button type="button" style="flex: 1; height: 52px; border: 1px solid #CBD2DB; border-radius: 12px; background: #fff; font-size: 15px; font-weight: 600">Show route today</button><button type="button" style="flex: 1; height: 52px; border: none; border-radius: 12px; background: #0A7F85; color: #fff; font-size: 15px; font-weight: 600">Back to profile</button></div>
+    </div>
+  </div>
+
+  <!-- C route -->
+  <div class="col">
+    <div class="lab"><b>Patient route · today</b><small>Numbered stops, path, lift at floor changes</small></div>
+    <div class="ph">
+      <div class="top"><a href="#" class="back"><svg class="i" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Jan Kowalczyk</a></div>
+      <div style="position: absolute; left: 16px; top: 108px; font-size: 22px; font-weight: 700">Route today</div>
+      <div style="position: absolute; left: 0; top: 140px; width: 390px; height: 440px">
+        <svg width="390" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+          <sc-for list="{{ c.polys }}" as="p" hint-placeholder-count="40"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for>
+          <polyline points="{{ c.route }}" style="fill: none; stroke: #FFFFFF; stroke-width: 6; stroke-linejoin: round; stroke-linecap: round"></polyline>
+          <polyline points="{{ c.route }}" style="fill: none; stroke: #0A7F85; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round"></polyline>
+        </svg>
+        <sc-for list="{{ c.floorLabels }}" as="f" hint-placeholder-count="3"><span style="{{ f.style }}">{{ f.label }}</span></sc-for>
+        <sc-for list="{{ c.lifts }}" as="l" hint-placeholder-count="4"><span class="lift" style="{{ l.style }}"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 2.25"><path d="m21 16-4 4-4-4M17 20V4M3 8l4-4 4 4M7 4v16"/></svg>Lift</span></sc-for>
+        <sc-for list="{{ c.stops }}" as="s" hint-placeholder-count="4"><span class="num" style="{{ s.style }}">{{ s.n }}</span></sc-for>
+      </div>
+      <ol style="position: absolute; left: 16px; right: 16px; bottom: 30px; margin: 0; padding: 4px 0; list-style: none; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px">
+        <li style="display: flex; align-items: center; gap: 10px; padding: 8px 14px"><span style="width: 22px; height: 22px; border-radius: 11px; background: #0F1720; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span><span style="flex: 1; font-size: 14px; font-weight: 600">Emergency</span><span class="tn" style="font-size: 13px; color: #5B6675">08:12</span></li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-top: 1px solid #E4E8EE"><span style="width: 22px; height: 22px; border-radius: 11px; background: #0F1720; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span><span style="flex: 1; font-size: 14px; font-weight: 600">Radiology</span><span class="tn" style="font-size: 13px; color: #5B6675">08:47</span></li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-top: 1px solid #E4E8EE"><span style="width: 22px; height: 22px; border-radius: 11px; background: #0F1720; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span><span style="flex: 1; font-size: 14px; font-weight: 600">Internal Medicine <span style="font-size: 12px; font-weight: 500; color: #5B6675">· lift ↑ Floor 1</span></span><span class="tn" style="font-size: 13px; color: #5B6675">09:35</span></li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-top: 1px solid #E4E8EE"><span style="width: 22px; height: 22px; border-radius: 11px; background: #0A7F85; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span><span style="flex: 1; font-size: 14px; font-weight: 600">Laboratory <span style="font-size: 12px; font-weight: 500; color: #5B6675">· lift ↓ Ground</span></span><span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:31 · now</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- D patient list sheet -->
+  <div class="col">
+    <div class="lab"><b>Patient list pinned to the map</b><small>Draggable sheet; picking a patient moves the map</small></div>
+    <div class="ph">
+      <div class="top"><a href="#" class="back"><svg class="i" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Dashboard</a></div>
+      <div style="position: absolute; left: 16px; top: 108px; font-size: 22px; font-weight: 700">Ground floor</div>
+      <div style="position: absolute; left: 0; top: 150px; width: 390px; height: 320px">
+        <svg width="390" height="320" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ d.polys }}" as="p" hint-placeholder-count="20"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for></svg>
+        <sc-for list="{{ d.labels }}" as="l" hint-placeholder-count="5"><span style="{{ l.style }}"><b style="font-weight: 700">{{ l.code }}</b><span class="tn">{{ l.stat }}</span></span></sc-for>
+        <span class="pin" style="{{ d.pin }}" role="img" aria-label="Maria Zielińska, Emergency"><b>MZ</b><i></i></span>
+      </div>
+      <div class="sheet" style="top: 470px; padding-bottom: 0; gap: 8px" role="dialog" aria-label="Patients on the map">
+        <div class="handle"></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 17px; font-weight: 600">Patients <span class="tn" style="font-weight: 500; color: #5B6675">· 35 on Ground</span></span><span style="font-size: 12px; color: #5B6675">Drag up for all</span></div>
+        <div style="height: 44px; border-radius: 12px; background: #F3F5F8; display: flex; align-items: center; gap: 10px; padding: 0 12px; color: #5B6675; font-size: 15px"><svg class="i" viewBox="0 0 24 24" style="width: 18px; height: 18px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Find a patient on the map</div>
+        <div style="display: flex; flex-direction: column">
+          <button type="button" aria-pressed="true" style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 10px; border: 1.5px solid #0E9FA6; border-radius: 12px; background: #F5FBFB; text-align: left"><span style="width: 4px; height: 24px; border-radius: 2px; background: #2F6FEB"></span><span style="flex: 1; font-size: 15px; font-weight: 600">Maria Zielińska</span><span style="font-size: 12px; font-weight: 600; color: #0A7F85">Emergency · shown</span></button>
+          <button type="button" style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 10px; border: none; border-bottom: 1px solid #E4E8EE; background: #fff; text-align: left"><span style="width: 4px; height: 24px; border-radius: 2px; background: #7C4DDB"></span><span style="flex: 1; font-size: 15px; font-weight: 600">Jan Kowalczyk</span><span style="font-size: 12px; color: #5B6675">Laboratory</span></button>
+          <button type="button" style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 10px; border: none; border-bottom: 1px solid #E4E8EE; background: #fff; text-align: left"><span style="width: 4px; height: 24px; border-radius: 2px; background: #2F6FEB"></span><span style="flex: 1; font-size: 15px; font-weight: 600">Adam Wójcik</span><span style="font-size: 12px; color: #5B6675">Radiology</span></button>
+          <button type="button" style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 10px; border: none; background: #fff; text-align: left"><span style="width: 4px; height: 24px; border-radius: 2px; background: #7C4DDB"></span><span style="flex: 1; font-size: 15px; font-weight: 600">Agnieszka Jankowska</span><span style="font-size: 12px; color: #5B6675">Emergency</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E mini map in profile -->
+  <div class="col">
+    <div class="lab"><b>Mini map in the profile</b><small>WlMiniMap links to the full map, already focused</small></div>
+    <div class="ph">
+      <div class="top"><a href="#" class="back"><svg class="i" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Patients</a></div>
+      <div style="position: absolute; left: 16px; right: 16px; top: 112px; display: flex; flex-direction: column; gap: 16px">
+        <div style="position: relative; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden; padding: 16px 16px 16px 20px; display: flex; gap: 14px; align-items: center">
+          <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #7C4DDB"></span>
+          <span style="width: 56px; height: 56px; border-radius: 28px; background: #F3F5F8; border: 1px solid #E4E8EE; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: #5B6675">JK</span>
+          <div><div style="font-size: 22px; font-weight: 700; letter-spacing: -.02em">Jan Kowalczyk</div><div style="font-size: 13px; color: #5B6675"><span class="tn">54</span> · <span class="id">HPT-7K3M9QX2</span> · In Treatment</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #5B6675; padding-left: 4px">Location</span>
+          <a href="#" style="text-decoration: none; color: #0F1720; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+            <div style="position: relative; height: 170px; background: #F3F5F8; border-bottom: 1px solid #E4E8EE">
+              <svg width="356" height="170" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ e.polys }}" as="p" hint-placeholder-count="20"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for></svg>
+              <span class="pin" style="{{ e.pin }}"><b style="width: 26px; height: 26px; font-size: 10px">JK</b><i style="height: 8px"></i></span>
+              <span style="position: absolute; left: 10px; top: 10px; height: 24px; padding: 0 8px; border-radius: 6px; background: #fff; border: 1px solid #E4E8EE; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Ground floor</span>
+            </div>
+            <div style="padding: 12px 14px; display: flex; align-items: center; gap: 10px"><div style="flex: 1"><div style="font-size: 15px; font-weight: 600">Laboratory</div><div class="tn" style="font-size: 12px; color: #5B6675">since 10:31 · 42% · 5/12 beds</div></div><span style="font-size: 14px; font-weight: 600; color: #0A7F85">Open map</span><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85; width: 18px; height: 18px"><path d="m9 18 6-6-6-6"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2190,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const D = [
+      { c: 'ER', f: 0, x: 0, y: 0, w: 4, d: 3, p: 19, b: 24 }, { c: 'RAD', f: 0, x: 4.3, y: 0, w: 2.7, d: 3, p: 6, b: 14 }, { c: 'LAB', f: 0, x: 7.3, y: 0, w: 2.7, d: 3, p: 5, b: 12 }, { c: 'ADM', f: 0, x: 0, y: 3.4, w: 4, d: 2.6, p: 5, b: 10 },
+      { c: 'INT', f: 1, x: 0, y: 0, w: 5, d: 3, p: 29, b: 32 }, { c: 'CAR', f: 1, x: 5.3, y: 0, w: 4.7, d: 3, p: 13, b: 20 }, { c: 'SUR', f: 1, x: 0, y: 3.4, w: 4.6, d: 2.6, p: 14, b: 24 }, { c: 'OR', f: 1, x: 4.9, y: 3.4, w: 3.3, d: 2.6, p: 4, b: 8 },
+      { c: 'ICU', f: 2, x: 0, y: 0, w: 3, d: 3, p: 8, b: 8 }, { c: 'NEU', f: 2, x: 3.3, y: 0, w: 3.4, d: 3, p: 10, b: 20 }, { c: 'ORT', f: 2, x: 7, y: 0, w: 3, d: 3, p: 9, b: 22 }, { c: 'REH', f: 2, x: 0, y: 3.4, w: 8.2, d: 2.6, p: 6, b: 16 }
+    ];
+    const EX = [{ f: 0, x: 4.3, y: 3.4, w: 3.9, d: 2.6 }, { f: 0, x: 8.5, y: 3.4, w: 1.5, d: 2.6, lift: 1 }, { f: 1, x: 8.5, y: 3.4, w: 1.5, d: 2.6, lift: 1 }, { f: 2, x: 8.5, y: 3.4, w: 1.5, d: 2.6, lift: 1 }];
+    const pal = (pct) => pct > 85 ? { t: '#FCE6E7', b: '#E5484D' } : pct >= 60 ? { t: '#FDF0DD', b: '#F29A2E' } : { t: '#E3F6EC', b: '#22B573' };
+    const f2 = (n) => n.toFixed(1);
+    const pts = (a) => a.map((p) => f2(p[0]) + ',' + f2(p[1])).join(' ');
+    const scene = (o) => {
+      const polys = [], labels = [], floorLabels = [];
+      const P = (fi, x, y, z) => { const zz = z + (o.floors.length > 1 ? fi * o.gap : 0); return [o.ox + (x - y) * 0.866 * o.s, o.oy + (x + y) * 0.5 * o.s - zz * o.s]; };
+      const box = (fi, x, y, w, d, z0, h, top, l, r, stroke, sw, op) => {
+        const z1 = z0 + h, a = op == null ? '' : ' opacity: ' + op + ';';
+        polys.push({ pts: pts([P(fi, x, y + d, z1), P(fi, x + w, y + d, z1), P(fi, x + w, y + d, z0), P(fi, x, y + d, z0)]), style: 'fill: ' + l + '; stroke: ' + stroke + '; stroke-width: .75;' + a });
+        polys.push({ pts: pts([P(fi, x + w, y, z1), P(fi, x + w, y + d, z1), P(fi, x + w, y + d, z0), P(fi, x + w, y, z0)]), style: 'fill: ' + r + '; stroke: ' + stroke + '; stroke-width: .75;' + a });
+        polys.push({ pts: pts([P(fi, x, y, z1), P(fi, x + w, y, z1), P(fi, x + w, y + d, z1), P(fi, x, y + d, z1)]), style: 'fill: ' + top + '; stroke: ' + stroke + '; stroke-width: ' + sw + '; stroke-linejoin: round;' + a });
+      };
+      const names = ['Ground', 'Floor 1', 'Floor 2'];
+      o.floors.forEach((fi) => {
+        box(fi, -0.3, -0.3, 10.6, 6.6, -0.35, 0.35, '#FFFFFF', '#E4E8EE', '#D5DBE3', '#CBD2DB', 1);
+        if (o.floors.length > 1) { const fl = P(fi, -0.3, 6.3, 0); floorLabels.push({ label: names[fi], style: 'position: absolute; left: ' + f2(Math.max(4, fl[0] - 8)) + 'px; top: ' + f2(fl[1] + 4) + 'px; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #5B6675' }); }
+        const items = EX.filter((e) => e.f === fi).map((e) => ({ e })).concat(D.filter((d) => d.f === fi).map((d) => ({ d })));
+        items.sort((A, B) => { const a = A.d || A.e, b = B.d || B.e; return (a.x + a.y) - (b.x + b.y); });
+        items.forEach((it) => {
+          const g = 0.12;
+          if (it.e) { const e = it.e; box(fi, e.x + g, e.y + g, e.w - 2 * g, e.d - 2 * g, 0, 0.18, '#F3F5F8', '#E4E8EE', '#DCE1E8', '#CBD2DB', .75); return; }
+          const d = it.d, pct = Math.round(d.p / d.b * 100), c = pal(pct), on = o.sel === d.c, dim = o.focus && o.focus !== d.c;
+          box(fi, d.x + g, d.y + g, d.w - 2 * g, d.d - 2 * g, 0, 0.55, c.t, '#EEF0F3', '#E2E6EB', on ? '#0A7F85' : c.b, on ? 2.5 : 1.25, dim ? .45 : null);
+          if (o.labels) {
+            const cc = P(fi, d.x + d.w / 2, d.y + d.d / 2, 0.55);
+            const warn = pct > 85;
+            labels.push({ code: d.c, stat: o.compact ? pct + '%' : d.p + '/' + d.b + ' · ' + pct + '%', style: 'position: absolute; left: ' + f2(cc[0]) + 'px; top: ' + f2(cc[1]) + 'px; transform: translate(-50%, -50%); padding: 3px 7px; border-radius: 8px; font-size: 10.5px; line-height: 1.15; display: flex; flex-direction: column; align-items: center; white-space: nowrap; box-shadow: 0 1px 3px rgba(15,23,32,.12); ' + (on ? 'background: #0F1720; color: #fff; border: 1px solid #0F1720;' : 'background: #fff; border: 1px solid ' + (warn ? '#E5484D' : '#E4E8EE') + ';') + (dim ? ' opacity: .55;' : '') });
+          }
+        });
+      });
+      const center = (code) => { const d = D.find((x) => x.c === code); return P(d.f, d.x + d.w / 2, d.y + d.d / 2, 0.55); };
+      const lift = (fi) => P(fi, 9.25, 4.7, 0.18);
+      return { polys, labels, floorLabels, center, lift };
+    };
+    const pinStyle = (pt) => 'left: ' + f2(pt[0]) + 'px; top: ' + f2(pt[1] - 4) + 'px;';
+    const A = scene({ floors: [1], s: 20, ox: 170, oy: 40, sel: 'INT', labels: true, compact: false });
+    const B = scene({ floors: [0], s: 25, ox: 150, oy: 120, focus: 'LAB', labels: true, compact: false });
+    const C = scene({ floors: [0, 1, 2], s: 16, ox: 167, oy: 300, gap: 8.6, labels: false });
+    const Dd = scene({ floors: [0], s: 22, ox: 160, oy: 60, focus: 'ER', labels: true, compact: false });
+    const E = scene({ floors: [0], s: 13, ox: 140, oy: 30, focus: 'LAB', labels: false });
+    const stops = ['ER', 'RAD', 'INT', 'LAB'].map((c, i) => { const p = C.center(c); return { n: String(i + 1), style: 'left: ' + f2(p[0]) + 'px; top: ' + f2(p[1]) + 'px;' + (i === 3 ? ' background: #0A7F85;' : '') }; });
+    const er = C.center('ER'), rad = C.center('RAD'), intc = C.center('INT'), lab = C.center('LAB');
+    const l0 = C.lift(0), l1 = C.lift(1);
+    const route = [er, rad, l0, l1, intc, l1, l0, lab].map((p) => f2(p[0]) + ',' + f2(p[1])).join(' ');
+    const lifts = [l0, l1].map((p) => ({ style: 'left: ' + f2(p[0] + 22) + 'px; top: ' + f2(p[1] + 2) + 'px;' }));
+    return {
+      a: { polys: A.polys, labels: A.labels },
+      b: { polys: B.polys, labels: B.labels, pin: pinStyle(B.center('LAB')) },
+      c: { polys: C.polys, floorLabels: C.floorLabels, stops, route, lifts },
+      d: { polys: Dd.polys, labels: Dd.labels, pin: pinStyle(Dd.center('ER')) },
+      e: { polys: E.polys, pin: pinStyle(E.center('LAB')) }
+    };
+  }
+}
+</script>
+</body>
+</html>

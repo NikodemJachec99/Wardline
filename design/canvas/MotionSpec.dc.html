@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Motion spec</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12px;font-weight:600;color:#5B6675;padding:10px 12px;background:#F3F5F8;border-bottom:1px solid #E4E8EE;position:sticky;top:0}
+td{padding:10px 12px;border-top:1px solid #E4E8EE;font-size:13px;line-height:18px;vertical-align:top}
+td.e{font-weight:600;font-size:14px}
+td.m{color:#5B6675}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1640px; padding: 56px 64px; background: #FAFBFC; display: flex; flex-direction: column; gap: 24px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 20px; border-bottom: 1px solid #E4E8EE">
+    <div><div style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #0A7F85">Handoff · motion</div><h1 style="margin: 6px 0 0; font-size: 36px; font-weight: 700; letter-spacing: -.02em">Every animation in Wardline</h1></div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 640px">
+      <span class="mono" style="font-size: 12px; padding: 6px 10px; border-radius: 8px; background: #fff; border: 1px solid #E4E8EE">motion.fast 120ms</span>
+      <span class="mono" style="font-size: 12px; padding: 6px 10px; border-radius: 8px; background: #fff; border: 1px solid #E4E8EE">motion.base 220ms</span>
+      <span class="mono" style="font-size: 12px; padding: 6px 10px; border-radius: 8px; background: #fff; border: 1px solid #E4E8EE">motion.slow 380ms</span>
+      <span class="mono" style="font-size: 12px; padding: 6px 10px; border-radius: 8px; background: #fff; border: 1px solid #E4E8EE">easing.out = Curves.easeOutCubic</span>
+      <span class="mono" style="font-size: 12px; padding: 6px 10px; border-radius: 8px; background: #fff; border: 1px solid #E4E8EE">motion.sheetSpring m1 k420 c38</span>
+    </div>
+  </header>
+  <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 1100px">Rule: reduced motion is on when <span class="mono">MediaQuery.disableAnimations</span> is true <b>or</b> the in-app "Reduce motion" switch is on. Read it once through <span class="mono">WlMotion.of(context)</span>; never check it per widget. Nothing that confirms a write may animate before the server answers.</p>
+  <div style="background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+    <table>
+      <thead><tr><th style="width: 15%">Element</th><th style="width: 14%">Trigger</th><th style="width: 18%">Property</th><th style="width: 11%">Duration</th><th style="width: 9%">Easing</th><th style="width: 15%">Reduced motion</th><th>Flutter</th></tr></thead>
+      <tbody>
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="22"><tr><td class="e">{{ r.e }}</td><td>{{ r.t }}</td><td>{{ r.p }}</td><td class="mono" style="font-size: 12px">{{ r.d }}</td><td class="mono" style="font-size: 12px">{{ r.c }}</td><td>{{ r.rm }}</td><td class="m mono" style="font-size: 12px">{{ r.f }}</td></tr></sc-for>
+      </tbody>
+    </table>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const R = [
+      ['Card stagger', 'Dashboard first build (not on tab return)', 'opacity 0→1, y +8→0', 'base 220 · +40/card, max 6', 'out', 'Opacity 120ms, no offset, no stagger', 'FadeTransition + SlideTransition, Interval per index'],
+      ['KPI count-up', 'First data; live value change', 'integer tween old→new', '760 first · slow 380 live', 'out', 'Final value at once', 'TweenAnimationBuilder<int>; Semantics announces final value only'],
+      ['Sparkline / chart draw-in', 'First time on screen per session', 'path trim 0→1; bar height 0→v', 'slow 380 · bars +20/bar', 'out', 'Static final chart', 'CustomPainter(progress); PathMetric.extractPath'],
+      ['NFC rings', 'Scan screen idle / listening', '3 rings: scale .42→1, alpha .55→0, offset 1s', '3000 loop', 'out', '3 static rings 18/12/7% alpha', 'AnimationController..repeat(); stop on dispose & when NFC session ends'],
+      ['Live pulse', 'Connection = live', 'ring 0→7px, alpha .45→0', '2000 loop', 'out', 'Static dot', 'Paused when app is backgrounded'],
+      ['Scan-area brighten', 'Tag read OK (after iOS sheet closes)', 'bg #F3F5F8→#D5F0F1, scale .92→1; check pops .6→1', 'slow 380 · check 220 @120', 'out', 'Colour swap, no scale', 'HapticFeedback.mediumImpact() at the same frame'],
+      ['Bottom sheet', 'Open / drag / close', 'y 100%→0', 'spring m1 k420 c38 · close fast 120', 'spring · in on exit', 'Fade 120ms', 'showModalBottomSheet(sheetAnimationStyle) + SpringSimulation'],
+      ['Scrim', 'With any sheet', 'alpha 0→.32', 'base 220', 'out', 'Same (opacity is fine)', 'ModalBarrier color #0F1720 @32%'],
+      ['Transfer A→B indicator', 'Confirm screen visible', 'dot moves down dashed line, fades in/out', '1600 loop · 900 while saving', 'inOutCubic', 'Static arrow', 'Stops on success/conflict/timeout'],
+      ['Button micro-scale', 'Pointer down / up', 'scale 1→.98→1', 'fast 120', 'out', 'None; pressed colour only', 'AnimatedScale in WlButton; not on disabled/loading'],
+      ['Loading → checkmark', 'RPC returned 200 (never before)', 'circle stroke 0→1, then tick stroke', '380 + 260 @300', 'out', 'Static check, 120ms fade', 'CustomPainter; triggered by AsyncData, not by tap'],
+      ['Spinner', 'Request in flight', 'rotate 360°', '800 loop', 'linear', 'Kept (essential), 1600 loop', 'CircularProgressIndicator.adaptive, 20dp, on WlButton'],
+      ['Live-update row highlight', 'Realtime event for a visible row', 'bg #E4F5F6 hold, fade to surface', '2400 (hold 60%) @300', 'out', 'Static "Updated" dot for 5s', 'TweenAnimationBuilder<Color>; ValueKey(patient.id), keep scroll'],
+      ['Status colour cross-fade', 'Status changed', 'chip bg/fg + 4dp status bar colour', 'base 220', 'out', 'Instant', 'AnimatedContainer / ColorTween; icon via AnimatedSwitcher'],
+      ['Tab indicator slide', 'Tab change', 'pill x-position + label weight', 'base 220', 'out', 'Instant', 'Custom WlBottomNav indicator, AnimatedPositioned'],
+      ['Pull-to-refresh', 'Overscroll ≥ 72dp', 'indicator follows finger, spins while loading', 'follows drag · settle 220', 'out', 'Platform default, no bounce', 'RefreshIndicator.adaptive'],
+      ['Skeleton shimmer', 'Load > 300ms (avoid flash)', 'gradient x −200→+200', '1200 loop', 'linear', 'Static grey blocks', 'ShaderMask over WlSkeleton; one controller per screen'],
+      ['Map dot movement', 'Realtime transfer, both departments visible', 'dot travels A→B, then 2s ring on B', '2600 once per event', 'inOutCubic', 'Dot appears on B, 2s highlight', 'CustomPainter on map layer; queue events, max 3 at once'],
+      ['Route draw', 'Route opened', 'polyline dash offset → 0; stops pop in order', '900 · stops +80 each', 'out', 'Full route at once', 'PathMetric; numbered stops are widgets with Semantics'],
+      ['Page push', 'Navigation', 'slide 24pt + fade (Android), Cupertino on iOS', 'base 220', 'out', 'Crossfade 120', 'go_router CustomTransitionPage; keep iOS swipe-back'],
+      ['Toast', 'Show / auto-dismiss after 4s', 'y +8→0, fade', 'base 220 in · fast 120 out', 'out', 'Fade only', 'Overlay above nav; liveRegion: true'],
+      ['Map floor / 2D-3D switch', 'Segmented control', 'crossfade + plate scale .96→1', 'base 220', 'out', 'Instant swap', 'AnimatedSwitcher keyed by floor+mode']
+    ];
+    return { rows: R.map(([e, t, p, d, c, rm, f]) => ({ e, t, p, d, c, rm, f })) };
+  }
+}
+</script>
+</body>
+</html>

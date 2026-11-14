@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scan · QR mode</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#1C2128}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#FFFFFF;-webkit-font-smoothing:antialiased}
+.wl button{font-family:inherit;color:inherit;cursor:pointer}
+.scanline{position:absolute;left:12px;right:12px;height:2px;border-radius:1px;background:linear-gradient(90deg,rgba(14,159,166,0) 0%,#3FC6CC 50%,rgba(14,159,166,0) 100%);box-shadow:0 0 0 1px rgba(63,198,204,0.15);animation:wlscan 2.2s cubic-bezier(0.65,0,0.35,1) infinite alternate}
+@keyframes wlscan{0%{top:14px}100%{top:232px}}
+@media (prefers-reduced-motion: reduce){.scanline{animation:none;top:123px}}
+</style>
+</helmet>
+<div class="wl" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: radial-gradient(120% 70% at 30% 35%, #4A525C 0%, #2A3038 45%, #1C2128 100%)">
+  <div aria-hidden="true" style="position: absolute; left: 70px; top: 330px; width: 250px; height: 150px; border-radius: 40px; background: rgba(210, 216, 224, 0.22); filter: blur(18px)"></div>
+  <div aria-hidden="true" style="position: absolute; left: 140px; top: 360px; width: 110px; height: 110px; border-radius: 10px; background: rgba(255, 255, 255, 0.28); filter: blur(6px)"></div>
+
+  <div style="position: absolute; left: 0; right: 0; top: 0; padding: 59px 8px 0; display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center">
+    <button type="button" aria-label="Close scanner" style="width: 48px; height: 48px; border: none; border-radius: 24px; background: rgba(15, 23, 32, 0.35); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+    <span style="text-align: center; font-size: 17px; font-weight: 600">Scan QR code</span>
+    <button type="button" onClick="{{ toggleTorch }}" aria-pressed="{{ torchPressed }}" aria-label="Torch" style="{{ torchStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6c0 2-2 2-2 4v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V10c0-2-2-2-2-4V2h12z"></path><line x1="6" x2="18" y1="6" y2="6"></line><line x1="12" x2="12" y1="12" y2="12"></line></svg></button>
+  </div>
+
+  <div style="position: absolute; left: 71px; top: 290px; width: 248px; height: 248px; border-radius: 20px; box-shadow: 0 0 0 999px rgba(15, 23, 32, 0.5)" aria-label="Viewfinder" role="img">
+    <span style="position: absolute; left: -2px; top: -2px; width: 40px; height: 40px; border-left: 4px solid #FFFFFF; border-top: 4px solid #FFFFFF; border-top-left-radius: 22px"></span>
+    <span style="position: absolute; right: -2px; top: -2px; width: 40px; height: 40px; border-right: 4px solid #FFFFFF; border-top: 4px solid #FFFFFF; border-top-right-radius: 22px"></span>
+    <span style="position: absolute; left: -2px; bottom: -2px; width: 40px; height: 40px; border-left: 4px solid #FFFFFF; border-bottom: 4px solid #FFFFFF; border-bottom-left-radius: 22px"></span>
+    <span style="position: absolute; right: -2px; bottom: -2px; width: 40px; height: 40px; border-right: 4px solid #FFFFFF; border-bottom: 4px solid #FFFFFF; border-bottom-right-radius: 22px"></span>
+    <span class="scanline"></span>
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; top: 570px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+    <span style="font-size: 19px; line-height: 25px; font-weight: 600">Point at the QR code on the wristband</span>
+    <span style="font-size: 14px; color: rgba(255, 255, 255, 0.82)">It reads automatically. Scanning never moves the patient.</span>
+  </div>
+
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 34px; display: flex; flex-direction: column; gap: 8px">
+    <button type="button" style="height: 56px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 12px; background: rgba(255, 255, 255, 0.14); backdrop-filter: blur(20px); font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.32a7.43 7.43 0 0 1 0 7.36"></path><path d="M9.46 6.21a11.76 11.76 0 0 1 0 11.58"></path><path d="M12.91 4.1a15.91 15.91 0 0 1 .01 15.8"></path><path d="M16.37 2a20.16 20.16 0 0 1 0 20"></path></svg>Switch to NFC</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { torch: false }; }
+  renderVals() {
+    const on = this.state.torch;
+    return {
+      toggleTorch: () => this.setState({ torch: !on }),
+      torchPressed: on ? 'true' : 'false',
+      torchStyle: 'width: 48px; height: 48px; border: none; border-radius: 24px; display: flex; align-items: center; justify-content: center; ' + (on ? 'background: #FFFFFF; color: #0A7F85;' : 'background: rgba(15, 23, 32, 0.35); color: #FFFFFF;')
+    };
+  }
+}
+</script>
+</body>
+</html>
