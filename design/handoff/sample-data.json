@@ -1,0 +1,62 @@
+{
+  "$note": "Fictional simulation data used by every design screen. 'Now' on the canvas is 10:46 on 13 Nov 2026. Map geometry: each floor plate is 10 x 6 units; x to the right, y towards the viewer; isometric projection screenX = (x - y) * cos30, screenY = (x + y) * sin30 - z.",
+  "now": "2026-11-13T10:46:00+01:00",
+  "floors": [
+    { "id": 0, "name": "Ground" },
+    { "id": 1, "name": "Floor 1" },
+    { "id": 2, "name": "Floor 2" }
+  ],
+  "liftCore": { "x": 8.5, "y": 3.4, "w": 1.5, "d": 2.6, "floors": [0, 1, 2] },
+  "departments": [
+    { "code": "ER",  "name": "Emergency Department", "short": "Emergency", "kind": "emergency",  "floor": 0, "beds": 24, "occupied": 19, "map": { "x": 0,   "y": 0,   "w": 4,   "d": 3 } },
+    { "code": "RAD", "name": "Radiology",            "kind": "diagnostic", "floor": 0, "beds": 14, "occupied": 6,  "map": { "x": 4.3, "y": 0,   "w": 2.7, "d": 3 } },
+    { "code": "LAB", "name": "Laboratory",           "kind": "lab",        "floor": 0, "beds": 12, "occupied": 5,  "map": { "x": 7.3, "y": 0,   "w": 2.7, "d": 3 } },
+    { "code": "ADM", "name": "Admissions",           "kind": "other",      "floor": 0, "beds": 10, "occupied": 5,  "map": { "x": 0,   "y": 3.4, "w": 4,   "d": 2.6 } },
+    { "code": "INT", "name": "Internal Medicine",    "kind": "ward",       "floor": 1, "beds": 32, "occupied": 29, "map": { "x": 0,   "y": 0,   "w": 5,   "d": 3 } },
+    { "code": "CAR", "name": "Cardiology",           "kind": "ward",       "floor": 1, "beds": 20, "occupied": 13, "map": { "x": 5.3, "y": 0,   "w": 4.7, "d": 3 } },
+    { "code": "SUR", "name": "Surgery",              "kind": "ward",       "floor": 1, "beds": 24, "occupied": 14, "map": { "x": 0,   "y": 3.4, "w": 4.6, "d": 2.6 } },
+    { "code": "OR",  "name": "Operating Theatre",    "kind": "surgery",    "floor": 1, "beds": 8,  "occupied": 4,  "map": { "x": 4.9, "y": 3.4, "w": 3.3, "d": 2.6 } },
+    { "code": "ICU", "name": "Intensive Care",       "kind": "icu",        "floor": 2, "beds": 8,  "occupied": 8,  "map": { "x": 0,   "y": 0,   "w": 3,   "d": 3 } },
+    { "code": "NEU", "name": "Neurology",            "kind": "ward",       "floor": 2, "beds": 20, "occupied": 10, "map": { "x": 3.3, "y": 0,   "w": 3.4, "d": 3 } },
+    { "code": "ORT", "name": "Orthopaedics",         "kind": "ward",       "floor": 2, "beds": 22, "occupied": 9,  "map": { "x": 7,   "y": 0,   "w": 3,   "d": 3 } },
+    { "code": "REH", "name": "Rehabilitation",       "kind": "ward",       "floor": 2, "beds": 16, "occupied": 6,  "map": { "x": 0,   "y": 3.4, "w": 8.2, "d": 2.6 } }
+  ],
+  "totals": { "patients": 128, "beds": 210, "occupancyPercent": 61, "admitted": 57, "inTreatment": 54, "readyForDischarge": 17, "transfersToday": 42, "bottlenecks": ["ICU", "INT"] },
+  "staff": [
+    { "name": "Anna Nowak", "role": "nurse", "initials": "AN", "home": "INT", "shift": "Day shift 07:00–19:00" },
+    { "name": "Marek Kowal", "role": "nurse", "initials": "MK", "home": "ER" },
+    { "name": "Ewa Lis", "role": "nurse", "initials": "EL", "home": "INT" },
+    { "name": "Dr Piotr Zając", "role": "doctor", "initials": "PZ", "home": "INT", "shift": "08:00–16:00" },
+    { "name": "Dr Julia Wróbel", "role": "doctor", "initials": "JW", "home": "CAR" },
+    { "name": "Katarzyna Wilk", "role": "admin", "initials": "KW" }
+  ],
+  "patients": [
+    { "code": "HPT-7K3M9QX2", "name": "Jan Kowalczyk", "age": 54, "condition": "Pneumonia", "admitted": "2026-11-13T08:12", "location": "LAB", "locationSince": "10:31", "status": "in_treatment", "statusSince": "09:52" },
+    { "code": "HPT-4QW8N2KD", "name": "Maria Zielińska", "age": 67, "condition": "COPD exacerbation", "location": "ER", "status": "admitted" },
+    { "code": "HPT-9RT2KM5C", "name": "Adam Wójcik", "age": 41, "location": "RAD", "status": "admitted" },
+    { "code": "HPT-3HV6PQ8N", "name": "Krystyna Mazur", "age": 72, "location": "INT", "status": "ready_for_discharge" },
+    { "code": "HPT-6XK4WB2J", "name": "Zofia Kamińska", "age": 63, "location": "CAR", "status": "in_treatment" },
+    { "code": "HPT-2DF7YQ9M", "name": "Tomasz Wiśniewski", "age": 58, "location": "CAR", "status": "ready_for_discharge" },
+    { "code": "HPT-8NC3ZT6R", "name": "Piotr Lewandowski", "age": 35, "location": "ORT", "status": "in_treatment" },
+    { "code": "HPT-5JW9KD4P", "name": "Helena Dąbrowska", "age": 81, "location": "INT", "status": "admitted" },
+    { "code": "HPT-1QH8VX3B", "name": "Michał Szymański", "age": 47, "location": "ICU", "status": "in_treatment" },
+    { "code": "HPT-7PB2MN8S", "name": "Agnieszka Jankowska", "age": 29, "location": "ER", "status": "in_treatment" },
+    { "code": "HPT-4KR6TC1H", "name": "Stanisław Wojciechowski", "age": 76, "location": "INT", "status": "in_treatment" },
+    { "code": "HPT-9VG3HJ7N", "name": "Barbara Kwiatkowska", "age": 69, "location": "NEU", "status": "admitted" }
+  ],
+  "janToday": [
+    { "type": "admission", "to": "ER", "by": "Anna Nowak", "at": "08:12" },
+    { "type": "transfer", "from": "ER", "to": "RAD", "by": "Marek Kowal", "at": "08:47" },
+    { "type": "transfer", "from": "RAD", "to": "INT", "by": "Anna Nowak", "at": "09:35" },
+    { "type": "status", "from": "admitted", "to": "in_treatment", "by": "Dr Piotr Zając", "at": "09:52" },
+    { "type": "transfer", "from": "INT", "to": "LAB", "by": "Ewa Lis", "at": "10:31" }
+  ],
+  "prototypeScenarios": {
+    "transfer": { "from": "LAB", "to": "RAD", "by": "Anna Nowak", "at": "10:46" },
+    "conflict": { "serverMove": { "from": "LAB", "to": "CAR", "by": "Marek Kowal", "at": "10:41" }, "screenOpenedAt": "10:40" },
+    "status": { "from": "in_treatment", "to": "ready_for_discharge", "by": "Dr Piotr Zając" },
+    "offline": { "lastSync": "10:42", "backOnlineAt": "10:47" }
+  },
+  "transfersPerHourToday": [1, 0, 1, 0, 1, 2, 3, 6, 8, 11, 9],
+  "identificationsToday": { "nfc": 142, "qr": 44 }
+}
