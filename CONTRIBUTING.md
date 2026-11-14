@@ -13,7 +13,7 @@ issue → gałąź → PR → review → squash merge
 3. Otwierasz PR wcześnie (może być draft). Po otwarciu karta idzie na **In review**.
 4. Po zielonym CI i review: **squash merge**. Gałąź usuwa się sama.
 
-Na `main` nikt nie pushuje bezpośrednio. Wszystko idzie przez PR.
+Na `main` nikt nie pushuje bezpośrednio. Wszystko idzie przez PR (wyjątek: bypass admina, patrz [Review](#review)).
 
 ## Nazewnictwo gałęzi
 
@@ -50,10 +50,13 @@ Tytuł PR też musi być Conventional Commit, bo squash zrobi z niego commit na 
 
 Reguły na `main` (ruleset `main-protection`):
 
-- wymagane 2 approve, w tym approve CODEOWNERA (@NikodemJachec99),
+- wymagane 1 approve od dowolnej osoby z zespołu (nie od autora PR),
+- CODEOWNER (@NikodemJachec99) dostaje prośbę o review automatycznie, ale jego approve nie jest wymagane,
 - nowy push unieważnia wcześniejsze approve,
 - wszystkie wątki review muszą być rozwiązane,
 - wymagany zielony check `ci-ok`.
+
+Admin repozytorium (@NikodemJachec99) jest na liście bypass rulesetu i może zmergować PR bez approve. Używa tego świadomie i zostawia w PR jedno zdanie, dlaczego.
 
 Jak robić review:
 

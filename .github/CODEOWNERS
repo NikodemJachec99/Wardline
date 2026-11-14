@@ -1,2 +1,2 @@
-# Tech lead reviews everything. Required by the main-protection ruleset.
+# Tech lead is auto-requested on every PR. His approval is not required (main-protection: 1 approval from anyone).
 * @NikodemJachec99
