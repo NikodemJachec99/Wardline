@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Admin panel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button{font-family:inherit;color:inherit}
+.tn{font-variant-numeric:tabular-nums}.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:.02em}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i16{width:16px;height:16px}
+.back{height:48px;border:none;background:transparent;display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;padding:0 8px;color:#0A7F85!important}
+.h1{padding:0 16px;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.box{margin:0 16px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden}
+.st{display:flex;gap:12px;align-items:center;min-height:64px;padding:10px 14px;border-top:1px solid #E4E8EE;width:100%;border-left:none;border-right:none;border-bottom:none;background:#fff;text-align:left}.st:first-child{border-top:none}
+.av{width:40px;height:40px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0}
+.avn{background:#E4F5F6;box-shadow:inset 0 0 0 2px #0E9FA6;color:#0A7F85}.avd{background:#F1ECFC;box-shadow:inset 0 0 0 2px #7C4DDB;color:#6236C0}.ava{background:#F0F2F5;box-shadow:inset 0 0 0 2px #4F5967;color:#4F5967}
+.sb{flex:1;min-width:0;display:flex;flex-direction:column}.sb b{font-size:15px;font-weight:600}.sb span{font-size:12px;color:#5B6675}
+.rc{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px}
+.btn{height:56px;width:100%;border:none;border-radius:12px;background:#0A7F85;color:#fff!important;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn2{height:48px;width:100%;border:1px solid #CBD2DB;border-radius:12px;background:#fff;font-size:15px;font-weight:600}
+.srch{margin:10px 16px 12px;height:48px;border-radius:12px;background:#F3F5F8;display:flex;align-items:center;gap:10px;padding:0 14px;color:#5B6675;font-size:16px}
+.opt{width:100%;min-height:56px;border:1px solid #E4E8EE;border-radius:12px;background:#fff;display:flex;align-items:center;gap:12px;padding:0 14px;text-align:left}
+.opt.on{border:2px solid #0A7F85;background:#F5FBFB;padding:0 13px}
+.rad{width:22px;height:22px;border-radius:11px;border:2px solid #CBD2DB;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.on .rad{border-color:#0A7F85}.on .rad:after{content:'';width:10px;height:10px;border-radius:5px;background:#0A7F85}
+.steps{margin:4px 16px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.steps div{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#5B6675}
+.steps span{height:4px;border-radius:2px;background:#E4E8EE}
+.steps .done span{background:#0A7F85}.steps .done{color:#0A7F85}.steps .cur span{background:#0E9FA6}.steps .cur{color:#0F1720}
+.ring{position:absolute;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:50%;border:1.5px solid #0E9FA6;opacity:0;animation:wlring 3s cubic-bezier(.33,1,.68,1) infinite}
+.r2{animation-delay:1.5s}
+@keyframes wlring{0%{transform:scale(.45);opacity:.55}100%{transform:scale(1);opacity:0}}
+.seg{display:flex;padding:3px;border-radius:10px;background:#F3F5F8;gap:2px}
+.seg button{flex:1;height:34px;border:none;border-radius:8px;background:transparent;font-size:13px;font-weight:500;color:#5B6675!important}
+.seg button.on{background:#fff;box-shadow:0 1px 2px rgba(15,23,32,.08);font-weight:600;color:#0F1720!important}
+.cb{width:22px;height:22px;border-radius:6px;border:2px solid #CBD2DB;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cb.on{background:#0A7F85;border-color:#0A7F85;color:#fff}
+@media (prefers-reduced-motion: reduce){.ring{animation:none;opacity:.15;transform:scale(.8)}}
+</style>
+</helmet>
+<div class="wl" style="width: 2190px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+
+  <div class="col">
+    <div class="lab"><b>Staff accounts</b><small>Your own role is read-only, not a disabled control</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0; display: flex; justify-content: space-between; align-items: center"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Admin</button><button type="button" style="height: 44px; margin-right: 8px; padding: 0 14px; border: none; border-radius: 12px; background: #E4F5F6; color: #0A7F85; font-size: 15px; font-weight: 600">Add staff</button></div>
+      <div class="h1">Staff <span class="tn" style="font-size: 17px; font-weight: 500; color: #5B6675">6</span></div>
+      <div class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Name or email</div>
+      <div class="box">
+        <div class="st" style="background: #FAFBFC"><span class="av ava">KW</span><span class="sb"><b>Katarzyna Wilk · You</b><span>Your role can't be changed by you</span></span><span class="rc" style="background: #F0F2F5; color: #4F5967">Admin</span></div>
+        <button type="button" class="st"><span class="av avn">AN</span><span class="sb"><b>Anna Nowak</b><span>anna.nowak@wardline.example</span></span><span class="rc" style="background: #E4F5F6; color: #0A7F85">Nurse</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button type="button" class="st"><span class="av avn">MK</span><span class="sb"><b>Marek Kowal</b><span>marek.kowal@wardline.example</span></span><span class="rc" style="background: #E4F5F6; color: #0A7F85">Nurse</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button type="button" class="st"><span class="av avn">EL</span><span class="sb"><b>Ewa Lis</b><span>ewa.lis@wardline.example</span></span><span class="rc" style="background: #E4F5F6; color: #0A7F85">Nurse</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button type="button" class="st"><span class="av avd">PZ</span><span class="sb"><b>Dr Piotr Zając</b><span>piotr.zajac@wardline.example</span></span><span class="rc" style="background: #F1ECFC; color: #6236C0">Doctor</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button type="button" class="st"><span class="av avd">JW</span><span class="sb"><b>Dr Julia Wróbel</b><span>julia.wrobel@wardline.example</span></span><span class="rc" style="background: #F1ECFC; color: #6236C0">Doctor</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div style="margin: 16px 16px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <button type="button" style="height: 76px; border: 1px solid #E4E8EE; border-radius: 16px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 600"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg>Program NFC tag</button>
+        <button type="button" style="height: 76px; border: 1px solid #E4E8EE; border-radius: 16px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 600"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 9V3h12v6"/><rect width="12" height="8" x="6" y="14" rx="1"/></svg>Print cards &amp; QR</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Edit role</b><small>Applies immediately; signs the person out</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Admin</button></div>
+      <div class="h1">Staff</div>
+      <div style="position: absolute; inset: 0; background: rgba(15,23,32,.32)"></div>
+      <div role="dialog" aria-label="Edit Marek Kowal" style="position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 24px 24px 0 0; box-shadow: 0 -8px 32px rgba(15,23,32,.12); padding: 8px 16px 34px; display: flex; flex-direction: column; gap: 14px">
+        <div style="align-self: center; width: 36px; height: 5px; border-radius: 3px; background: #CBD2DB"></div>
+        <div style="display: flex; gap: 12px; align-items: center"><span class="av avn" style="width: 48px; height: 48px">MK</span><div><div style="font-size: 20px; font-weight: 600">Marek Kowal</div><div style="font-size: 13px; color: #5B6675">marek.kowal@wardline.example</div></div></div>
+        <div role="radiogroup" aria-label="Role" style="display: flex; flex-direction: column; gap: 8px">
+          <button type="button" role="radio" aria-checked="true" class="opt on"><span class="rad"></span><span style="flex: 1"><b style="font-size: 15px">Nurse</b><br><span style="font-size: 12px; color: #5B6675">Can transfer patients</span></span><span class="rc" style="background: #E4F5F6; color: #0A7F85">Current</span></button>
+          <button type="button" role="radio" aria-checked="false" class="opt"><span class="rad"></span><span style="flex: 1"><b style="font-size: 15px">Doctor</b><br><span style="font-size: 12px; color: #5B6675">Can change status</span></span></button>
+          <button type="button" role="radio" aria-checked="false" class="opt"><span class="rad"></span><span style="flex: 1"><b style="font-size: 15px">Admin</b><br><span style="font-size: 12px; color: #5B6675">Manages staff, tags and printing</span></span></button>
+        </div>
+        <button type="button" class="btn">Save role</button>
+        <button type="button" class="btn2" style="border: none; color: #C9302C">Deactivate account</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Program NFC tag · step 2</b><small>Patient chosen; hold a blank tag</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Cancel</button></div>
+      <div class="h1">Program wristband</div>
+      <div class="steps"><div class="done"><span></span>1 Patient</div><div class="cur"><span></span>2 Write</div><div><span></span>3 Verify</div></div>
+      <div class="box" style="margin-top: 16px; padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span class="av" style="background: #F3F5F8; border: 1px solid #E4E8EE; color: #5B6675">MZ</span><span class="sb"><b>Maria Zielińska, 67</b><span class="id">HPT-4QW8N2KD</span></span><button type="button" style="height: 44px; border: none; background: transparent; color: #0A7F85; font-size: 14px; font-weight: 600">Change</button></div>
+      <div aria-hidden="true" style="position: relative; height: 280px">
+        <div class="ring"></div><div class="ring r2"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 48px; background: #0E9FA6; display: flex; align-items: center; justify-content: center; color: #fff"><svg class="i" viewBox="0 0 24 24" style="width: 40px; height: 40px"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg></div>
+      </div>
+      <div style="padding: 0 28px; text-align: center; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 20px; font-weight: 600">Hold a blank wristband to the phone</span><span style="font-size: 14px; line-height: 20px; color: #5B6675">Only the patient ID is written. Tags that already hold an ID are never overwritten.</span></div>
+      <div style="margin-top: auto; padding: 0 16px 34px"><button type="button" class="btn">Start writing</button></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Program NFC tag · step 3</b><small>Written, then read back and compared</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0; height: 107px"></div>
+      <div class="h1">Program wristband</div>
+      <div class="steps"><div class="done"><span></span>1 Patient</div><div class="done"><span></span>2 Write</div><div class="done"><span></span>3 Verify</div></div>
+      <div role="status" style="padding: 48px 24px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span style="width: 88px; height: 88px; border-radius: 44px; background: #E6F6EE; color: #0D7A43; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 40px; height: 40px; stroke-width: 2.25"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span style="font-size: 22px; font-weight: 600">Wristband ready</span>
+        <span style="font-size: 15px; color: #5B6675">Read back and matched.</span>
+      </div>
+      <div class="box" style="margin-top: 20px">
+        <div style="display: flex; justify-content: space-between; padding: 12px 14px; font-size: 14px; border-bottom: 1px solid #E4E8EE"><span style="color: #5B6675">Patient</span><b>Maria Zielińska</b></div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 14px; font-size: 14px; border-bottom: 1px solid #E4E8EE"><span style="color: #5B6675">Written</span><b class="id">HPT-4QW8N2KD</b></div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 14px; font-size: 14px"><span style="color: #5B6675">Read back</span><b class="id" style="color: #0D7A43">HPT-4QW8N2KD ✓</b></div>
+      </div>
+      <div style="margin-top: auto; padding: 0 16px 34px; display: flex; flex-direction: column; gap: 8px"><button type="button" class="btn">Done</button><button type="button" class="btn2">Program another</button></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Print patient cards &amp; QR</b><small>QR holds the ID only, no medical data</small></div>
+    <div class="ph">
+      <div style="padding: 59px 8px 0"><button type="button" class="back"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Admin</button></div>
+      <div class="h1">Print cards</div>
+      <div style="margin: 10px 16px 0" class="seg"><button type="button" class="on">Card 85×54 mm</button><button type="button">Wristband label</button></div>
+      <div style="margin: 14px 16px 0; background: #fff; border: 1px solid #CBD2DB; border-radius: 12px; padding: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 6px 20px rgba(15,23,32,.08)">
+        <div role="img" aria-label="QR code for HPT-4QW8N2KD" style="width: 105px; height: 105px; display: grid; grid-template-columns: repeat(21, 5px); flex-shrink: 0">
+          <sc-for list="{{ qr }}" as="c" hint-placeholder-count="441"><span style="{{ c.s }}"></span></sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: .06em; color: #0A7F85">WARDLINE</span>
+          <span style="font-size: 17px; font-weight: 700; line-height: 21px">Maria Zielińska</span>
+          <span class="tn" style="font-size: 12px; color: #5B6675">67 · Admitted 13 Nov 2026</span>
+          <span class="id" style="font-size: 13px; font-weight: 600">HPT-4QW8N2KD</span>
+        </div>
+      </div>
+      <div style="padding: 16px 20px 6px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #5B6675">Patients · 3 selected</div>
+      <div class="box">
+        <div class="st" style="min-height: 52px"><span class="cb on"><svg class="i i16" viewBox="0 0 24 24" style="stroke-width: 3"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sb"><b>Maria Zielińska</b><span class="id">HPT-4QW8N2KD</span></span></div>
+        <div class="st" style="min-height: 52px"><span class="cb on"><svg class="i i16" viewBox="0 0 24 24" style="stroke-width: 3"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sb"><b>Adam Wójcik</b><span class="id">HPT-9RT2KM5C</span></span></div>
+        <div class="st" style="min-height: 52px"><span class="cb on"><svg class="i i16" viewBox="0 0 24 24" style="stroke-width: 3"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sb"><b>Barbara Kwiatkowska</b><span class="id">HPT-9VG3HJ7N</span></span></div>
+      </div>
+      <div style="margin-top: auto; padding: 0 16px 34px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; color: #5B6675; text-align: center">Printer: Ward printer INT-02</span><button type="button" class="btn"><svg class="i" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 9V3h12v6"/><rect width="12" height="8" x="6" y="14" rx="1"/></svg>Print 3 cards</button></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2190,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const n = 21;
+    const finder = (r, c) => {
+      const inF = (r0, c0) => r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7;
+      const f = inF(0, 0) ? [0, 0] : inF(0, n - 7) ? [0, n - 7] : inF(n - 7, 0) ? [n - 7, 0] : null;
+      if (!f) return null;
+      const rr = r - f[0], cc = c - f[1];
+      const ring = rr === 0 || rr === 6 || cc === 0 || cc === 6;
+      const core = rr >= 2 && rr <= 4 && cc >= 2 && cc <= 4;
+      return ring || core;
+    };
+    const qr = [];
+    let seed = 7919;
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+        const f = finder(r, c);
+        const sep = (r === 7 && (c < 8 || c > n - 9)) || (c === 7 && (r < 8 || r > n - 9)) || (r === n - 8 && c < 8) || (c === n - 8 && r < 8);
+        const on = f !== null ? f : sep ? false : (r === 6 || c === 6) ? ((r + c) % 2 === 0) : (seed % 100) < 47;
+        qr.push({ s: 'width: 5px; height: 5px; background: ' + (on ? '#0F1720' : 'transparent') + ';' });
+      }
+    }
+    return { qr };
+  }
+}
+</script>
+</body>
+</html>

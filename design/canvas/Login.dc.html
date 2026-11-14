@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button,.wl input{font-family:inherit;color:inherit}
+.col{display:flex;flex-direction:column;gap:12px;width:390px;flex-shrink:0}
+.lab{height:40px;display:flex;flex-direction:column;justify-content:center}
+.lab b{font-size:15px;font-weight:600}.lab small{font-size:13px;color:#5B6675}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;display:flex;flex-direction:column;padding:120px 24px 34px}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{height:56px;width:100%;border:none;border-radius:12px;background:#0A7F85;color:#fff!important;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px}
+.fl{display:flex;flex-direction:column;gap:6px}.fl>span{font-size:13px;font-weight:600}
+.in{height:52px;border:1px solid #CBD2DB;border-radius:12px;background:#fff;display:flex;align-items:center;padding:0 6px 0 14px;gap:8px}
+.in input{border:none;outline:none;background:transparent;font-size:16px;flex:1;min-width:0}
+.eye{width:44px;height:44px;border:none;background:transparent;display:flex;align-items:center;justify-content:center;color:#5B6675!important}
+.sim{align-self:center;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;background:#F3F5F8;border:1px solid #E4E8EE;font-size:12px;font-weight:600;color:#4F5967}
+.spin{animation:wlspin .8s linear infinite}@keyframes wlspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation-duration:1.6s}}
+</style>
+</helmet>
+<div class="wl" style="width: 1330px; height: 976px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true"><defs>
+    <mask id="lgCut" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"></rect><path d="M20 84H40L80 36H100" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></mask>
+    <mask id="lgOut" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"></rect><rect x="48" y="26" width="24" height="68" rx="6" fill="#000"></rect><rect x="26" y="48" width="68" height="24" rx="6" fill="#000"></rect></mask>
+  </defs></svg>
+
+  <div class="col">
+    <div class="lab"><b>Default</b><small>Email + password, simulation note</small></div>
+    <div class="ph">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+        <svg viewBox="0 0 120 120" width="72" height="72" role="img" aria-label="Wardline"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#lgCut)" fill="#fff"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#lgOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#fff"></circle><circle cx="100" cy="36" r="6" fill="#fff"></circle></svg>
+        <div style="text-align: center"><div style="font-size: 30px; font-weight: 600; letter-spacing: -.025em">Wardline</div><div style="font-size: 14px; color: #5B6675">Hospital patient tracking</div></div>
+      </div>
+      <form style="margin-top: 44px; display: flex; flex-direction: column; gap: 16px">
+        <label class="fl"><span>Work email</span><span class="in"><input type="email" value="anna.nowak@wardline.example" autocomplete="username"></span></label>
+        <label class="fl"><span>Password</span><span class="in"><input type="password" value="simulation" autocomplete="current-password"><button type="button" class="eye" aria-label="Show password"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
+        <button type="button" class="btn" style="margin-top: 8px">Sign in</button>
+        <span style="text-align: center; font-size: 13px; color: #5B6675">Forgot your password? Ask your ward admin.</span>
+      </form>
+      <div style="margin-top: auto" class="sim"><svg class="i" viewBox="0 0 24 24" style="width: 14px; height: 14px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Simulation · fictional data</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Signing in</b><small>Fields locked, one request</small></div>
+    <div class="ph">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+        <svg viewBox="0 0 120 120" width="72" height="72" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#lgCut)" fill="#fff"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#lgOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#fff"></circle><circle cx="100" cy="36" r="6" fill="#fff"></circle></svg>
+        <div style="text-align: center"><div style="font-size: 30px; font-weight: 600; letter-spacing: -.025em">Wardline</div><div style="font-size: 14px; color: #5B6675">Hospital patient tracking</div></div>
+      </div>
+      <div style="margin-top: 44px; display: flex; flex-direction: column; gap: 16px; opacity: .6">
+        <div class="fl"><span>Work email</span><span class="in" style="background: #F3F5F8">anna.nowak@wardline.example</span></div>
+        <div class="fl"><span>Password</span><span class="in" style="background: #F3F5F8; letter-spacing: .2em">••••••••••</span></div>
+      </div>
+      <button type="button" class="btn" aria-busy="true" style="margin-top: 24px; background: #086A6F"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg>Signing in…</button>
+      <div style="margin-top: auto" class="sim"><svg class="i" viewBox="0 0 24 24" style="width: 14px; height: 14px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Simulation · fictional data</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="lab"><b>Error</b><small>Inline, next to the field it concerns</small></div>
+    <div class="ph">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+        <svg viewBox="0 0 120 120" width="72" height="72" aria-hidden="true"><rect width="120" height="120" rx="27" fill="#0E9FA6"></rect><g mask="url(#lgCut)" fill="#fff"><rect x="48" y="26" width="24" height="68" rx="6"></rect><rect x="26" y="48" width="68" height="24" rx="6"></rect></g><g mask="url(#lgOut)"><path d="M20 84H40L80 36H100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path></g><circle cx="20" cy="84" r="6" fill="#fff"></circle><circle cx="100" cy="36" r="6" fill="#fff"></circle></svg>
+        <div style="text-align: center"><div style="font-size: 30px; font-weight: 600; letter-spacing: -.025em">Wardline</div><div style="font-size: 14px; color: #5B6675">Hospital patient tracking</div></div>
+      </div>
+      <form style="margin-top: 44px; display: flex; flex-direction: column; gap: 16px">
+        <label class="fl"><span>Work email</span><span class="in"><input type="email" value="anna.nowak@wardline.example"></span></label>
+        <label class="fl"><span>Password</span><span class="in" style="border-color: #C9302C; box-shadow: 0 0 0 3px #FDECEC"><input type="password" value="" placeholder="Enter your password" aria-invalid="true" aria-describedby="pwerr"><button type="button" class="eye" aria-label="Show password"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
+          <span id="pwerr" role="alert" style="display: flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 500; color: #C9302C"><svg class="i" viewBox="0 0 24 24" style="width: 16px; height: 16px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Email or password is incorrect.</span></label>
+        <button type="button" class="btn" style="margin-top: 8px">Sign in</button>
+        <span style="text-align: center; font-size: 13px; color: #5B6675">Forgot your password? Ask your ward admin.</span>
+      </form>
+      <div style="margin-top: auto" class="sim"><svg class="i" viewBox="0 0 24 24" style="width: 14px; height: 14px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Simulation · fictional data</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1330,"height":976}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

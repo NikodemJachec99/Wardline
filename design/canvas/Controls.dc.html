@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Controls</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.wl button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+.spin{animation:wlspin 0.8s linear infinite}
+@keyframes wlspin{to{transform:rotate(360deg)}}
+.wl .scroller::-webkit-scrollbar{display:none}
+a{color:#0A7F85}a:hover{color:#086A6F}
+@media (prefers-reduced-motion: reduce){.wl *{transition:none!important}.spin{animation-duration:1.6s}}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1320px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">05 · Components</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Controls</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 540px; text-align: right">Press Play to try the live button and filter chips. Focus rings are 2 px teal with a 2 px white gap, so they show on any surface.</p>
+  </header>
+
+  <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 600"><span class="mono" style="font-size: 16px">WlButton</span></h2>
+      <span style="font-size: 13px; color: #5B6675">56 high · radius 12 · label 16/600 · full width in sheets</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 120px repeat(5, minmax(0, 1fr)); gap: 16px; align-items: center">
+      <span></span>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6675">Default</span>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6675">Pressed</span>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6675">Focus</span>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6675">Disabled</span>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6675">Loading</span>
+
+      <span class="mono" style="font-size: 12px; font-weight: 600">primary</span>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600">Confirm transfer</button>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #086A6F; color: #FFFFFF; font-size: 16px; font-weight: 600; transform: scale(0.98)">Confirm transfer</button>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #0E9FA6">Confirm transfer</button>
+      <button type="button" disabled style="height: 56px; border: none; border-radius: 12px; background: #E4E8EE; color: #9AA3AF; font-size: 16px; font-weight: 600">Confirm transfer</button>
+      <button type="button" aria-busy="true" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px"><svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>Confirming…</button>
+
+      <span class="mono" style="font-size: 12px; font-weight: 600">secondary</span>
+      <button type="button" style="height: 56px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; color: #0F1720; font-size: 16px; font-weight: 600">Open history</button>
+      <button type="button" style="height: 56px; border: 1px solid #CBD2DB; border-radius: 12px; background: #F3F5F8; color: #0F1720; font-size: 16px; font-weight: 600; transform: scale(0.98)">Open history</button>
+      <button type="button" style="height: 56px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; color: #0F1720; font-size: 16px; font-weight: 600; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #0E9FA6">Open history</button>
+      <button type="button" disabled style="height: 56px; border: 1px solid #E4E8EE; border-radius: 12px; background: #FFFFFF; color: #9AA3AF; font-size: 16px; font-weight: 600">Open history</button>
+      <button type="button" aria-busy="true" style="height: 56px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; color: #0F1720; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px"><svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9FA6" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>Refreshing…</button>
+
+      <span class="mono" style="font-size: 12px; font-weight: 600">destructive</span>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #C9302C; color: #FFFFFF; font-size: 16px; font-weight: 600">Discharge patient</button>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #A82622; color: #FFFFFF; font-size: 16px; font-weight: 600; transform: scale(0.98)">Discharge patient</button>
+      <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #C9302C; color: #FFFFFF; font-size: 16px; font-weight: 600; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #C9302C">Discharge patient</button>
+      <button type="button" disabled style="height: 56px; border: none; border-radius: 12px; background: #E4E8EE; color: #9AA3AF; font-size: 16px; font-weight: 600">Discharge patient</button>
+      <button type="button" aria-busy="true" style="height: 56px; border: none; border-radius: 12px; background: #C9302C; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px"><svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>Discharging…</button>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; padding-top: 20px; border-top: 1px solid #E4E8EE; align-items: center">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 14px; font-weight: 600">Success only after the server says so</span>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #5B6675">
+          <span style="padding: 6px 10px; border-radius: 8px; background: #F3F5F8">1 · Tap</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          <span style="padding: 6px 10px; border-radius: 8px; background: #F3F5F8">2 · Spinner, button locked, sheet can't close</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          <span style="padding: 6px 10px; border-radius: 8px; background: #E6F6EE; color: #0D7A43; font-weight: 600">3 · 200 OK → check + toast</span>
+        </div>
+        <span style="font-size: 13px; color: #5B6675">A 409 goes to the conflict state and never shows the check. A timeout after 10 s shows an error and keeps the user's choice.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <button type="button" onClick="{{ run }}" aria-live="polite" style="{{ demoStyle }}">
+          <sc-if value="{{ isIdle }}" hint-placeholder-val="{{ true }}"><span>Confirm transfer</span></sc-if>
+          <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}"><svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg><span>Confirming…</span></sc-if>
+          <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Transfer confirmed</span></sc-if>
+        </button>
+        <span style="font-size: 12px; color: #5B6675; text-align: center">Live demo: tap to simulate a 1.4 s server round-trip</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlStatusChip</span>
+        <span style="font-size: 13px; color: #5B6675">Display only, not tappable</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #EAF1FD; color: #1F55C2; font-size: 14px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>Admitted</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #F1ECFC; color: #6236C0; font-size: 14px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>In Treatment</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #E6F6EE; color: #0D7A43; font-size: 14px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>Ready for Discharge</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #F0F2F5; color: #4F5967; font-size: 14px; font-weight: 600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>Discharged</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+        <span style="font-size: 12px; color: #5B6675; width: 64px">size: sm</span>
+        <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #EAF1FD; color: #1F55C2; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>Admitted</span>
+        <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #F1ECFC; color: #6236C0; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>In Treatment</span>
+        <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #E6F6EE; color: #0D7A43; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>Ready</span>
+        <span style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #F0F2F5; color: #4F5967; font-size: 12px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>Discharged</span>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #5B6675">The sm size shortens "Ready for Discharge" to "Ready" only in dense lists. The screen reader label is always the full status name.</p>
+
+      <div style="height: 1px; background: #E4E8EE"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlInitialsAvatar</span>
+        <span style="font-size: 13px; color: #5B6675">Never a photo</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675">patient · neutral, no status colour</span>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div style="width: 56px; height: 56px; border-radius: 28px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: #5B6675">JK</div>
+            <div style="width: 40px; height: 40px; border-radius: 20px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #5B6675">MZ</div>
+            <div style="width: 32px; height: 32px; border-radius: 16px; background: #F3F5F8; border: 1px solid #E4E8EE; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #5B6675">JK</div>
+          </div>
+          <span class="mono tn" style="font-size: 11px; color: #5B6675">56 · 40 · 32</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675">staff · role ring + role label</span>
+          <div style="display: flex; align-items: center; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 8px">
+              <div style="width: 40px; height: 40px; border-radius: 20px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #0A7F85">AN</div>
+              <div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 600">Anna Nowak</span><span style="font-size: 12px; font-weight: 500; color: #0A7F85">Nurse</span></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <div style="width: 40px; height: 40px; border-radius: 20px; background: #F1ECFC; box-shadow: inset 0 0 0 2px #7C4DDB; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: #6236C0">PZ</div>
+              <div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 600">Dr Piotr Zając</span><span style="font-size: 12px; font-weight: 500; color: #6236C0">Doctor</span></div>
+            </div>
+          </div>
+          <span style="font-size: 11px; color: #5B6675">Ring + label so the doctor's violet never reads as "In Treatment".</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlSearchBar</span>
+        <span style="font-size: 13px; color: #5B6675">48 high · radius 12 · sticky under the title</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="sb1" style="font-size: 12px; font-weight: 600; color: #5B6675">Default</label>
+          <div style="height: 48px; border-radius: 12px; background: #F3F5F8; display: flex; align-items: center; gap: 10px; padding: 0 14px; color: #5B6675"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input id="sb1" placeholder="Name, ID or department" style="border: none; background: transparent; outline: none; font-family: inherit; font-size: 16px; color: #0F1720; flex: 1; min-width: 0"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="sb2" style="font-size: 12px; font-weight: 600; color: #5B6675">Focus · typing</label>
+          <div style="height: 48px; border-radius: 12px; background: #FFFFFF; border: 1px solid #0E9FA6; box-shadow: 0 0 0 3px #E4F5F6; box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 0 13px; color: #0F1720"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input id="sb2" value="Kowal" style="border: none; background: transparent; outline: none; font-family: inherit; font-size: 16px; color: #0F1720; flex: 1; min-width: 0"><button type="button" aria-label="Clear search" style="width: 32px; height: 32px; margin-right: -6px; border: none; border-radius: 16px; background: transparent; color: #5B6675; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg></button></div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 600; color: #5B6675">Sticky · after scroll (elevation.1, frosted page bg)</span>
+        <div style="border-radius: 12px; border: 1px solid #E4E8EE; overflow: hidden">
+          <div style="padding: 10px 12px; background: rgba(250, 251, 252, 0.92); box-shadow: 0 1px 2px rgba(15, 23, 32, 0.04), 0 2px 8px rgba(15, 23, 32, 0.04); border-bottom: 1px solid #E4E8EE; display: flex; gap: 8px">
+            <div style="height: 44px; flex: 1; border-radius: 12px; background: #F3F5F8; display: flex; align-items: center; gap: 10px; padding: 0 14px; color: #5B6675; font-size: 16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Search 149 patients</div>
+            <button type="button" aria-label="Scan wristband" style="width: 44px; height: 44px; border: 1px solid #E4E8EE; border-radius: 12px; background: #FFFFFF; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg></button>
+          </div>
+          <div style="height: 28px; background: #FAFBFC"></div>
+        </div>
+      </div>
+
+      <div style="height: 1px; background: #E4E8EE"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlFilterChips</span>
+        <span style="font-size: 13px; color: #5B6675">36 high, 48 tap area · scrolls sideways</span>
+      </div>
+      <div class="scroller" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -24px; padding: 6px 24px; scrollbar-width: none">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+          <button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="{{ c.style }}">{{ c.label }}<span class="tn" style="{{ c.countStyle }}">{{ c.count }}</span></button>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+        <span style="font-size: 12px; color: #5B6675; width: 64px">States</span>
+        <span style="height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #E4E8EE; background: #FFFFFF; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Default</span>
+        <span style="height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #CBD2DB; background: #F3F5F8; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Pressed</span>
+        <span style="height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #0E9FA6; background: #E4F5F6; color: #0A7F85; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Selected</span>
+        <span style="height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #E4E8EE; background: #FFFFFF; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #0E9FA6">Focus</span>
+        <span style="height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #E4E8EE; background: #FAFBFC; color: #9AA3AF; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Disabled</span>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1320}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { phase: 'idle', filter: 'all' };
+  }
+  componentWillUnmount() { clearTimeout(this.t1); clearTimeout(this.t2); }
+  run() {
+    if (this.state.phase !== 'idle') return;
+    this.setState({ phase: 'loading' });
+    this.t1 = setTimeout(() => {
+      this.setState({ phase: 'done' });
+      this.t2 = setTimeout(() => this.setState({ phase: 'idle' }), 2200);
+    }, 1400);
+  }
+  renderVals() {
+    const phase = this.state.phase;
+    const base = 'width: 100%; height: 56px; border: none; border-radius: 12px; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: background-color 220ms cubic-bezier(0.33, 1, 0.68, 1);';
+    const bg = phase === 'done' ? 'background: #0D7A43;' : 'background: #0A7F85;';
+    const list = [
+      { id: 'all', label: 'All', count: 149 },
+      { id: 'mine', label: 'My ward', count: 29 },
+      { id: 'adm', label: 'Admitted', count: 38 },
+      { id: 'tr', label: 'In Treatment', count: 87 },
+      { id: 'rd', label: 'Ready for Discharge', count: 11 },
+      { id: 'dc', label: 'Discharged today', count: 13 },
+      { id: 'icu', label: 'ICU', count: 8 }
+    ];
+    const chips = list.map((c) => {
+      const on = this.state.filter === c.id;
+      return {
+        label: c.label,
+        count: c.count,
+        on: on ? 'true' : 'false',
+        pick: () => this.setState({ filter: c.id }),
+        style: on
+          ? 'flex-shrink: 0; height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #0E9FA6; background: #E4F5F6; color: #0A7F85; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: background-color 120ms cubic-bezier(0.33, 1, 0.68, 1);'
+          : 'flex-shrink: 0; height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #E4E8EE; background: #FFFFFF; color: #0F1720; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: background-color 120ms cubic-bezier(0.33, 1, 0.68, 1);',
+        countStyle: on ? 'font-size: 12px; font-weight: 600; color: #0A7F85' : 'font-size: 12px; font-weight: 500; color: #5B6675'
+      };
+    });
+    return {
+      run: () => this.run(),
+      demoStyle: base + bg,
+      isIdle: phase === 'idle',
+      isLoading: phase === 'loading',
+      isDone: phase === 'done',
+      chips
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Connectivity and feedback states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.wl button{font-family:inherit}
+.spin{animation:wlspin 0.8s linear infinite}
+@keyframes wlspin{to{transform:rotate(360deg)}}
+.pulse{animation:wlpulse 2s cubic-bezier(0.33,1,0.68,1) infinite}
+@keyframes wlpulse{0%{box-shadow:0 0 0 0 rgba(20,163,91,0.45)}100%{box-shadow:0 0 0 8px rgba(20,163,91,0)}}
+.shim{background:linear-gradient(90deg,#EEF1F5 0%,#F7F8FA 50%,#EEF1F5 100%);background-size:400px 100%;animation:wlshimmer 1.2s linear infinite}
+@keyframes wlshimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+a{color:#0A7F85}a:hover{color:#086A6F}
+@media (prefers-reduced-motion: reduce){.pulse,.shim{animation:none}.spin{animation-duration:1.6s}}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1280px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">08 · Components</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Connectivity &amp; feedback</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 560px; text-align: right">Offline, stale and conflicting data are normal in a hospital with thick walls. Each one gets plain words, a time, and one clear next step.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start">
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlConnectionIndicator</span>
+          <span style="font-size: 12px; color: #5B6675">App bar, top right</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px" role="status">
+          <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 16px; background: #E6F6EE; color: #0D7A43; font-size: 13px; font-weight: 600"><span class="pulse" style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 16px; background: #FFF6E8; color: #8A5207; font-size: 13px; font-weight: 600"><svg class="spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>Reconnecting…</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 16px; background: #F0F2F5; color: #4F5967; font-size: 13px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg>Offline</span>
+        </div>
+        <span style="font-size: 12px; line-height: 17px; color: #5B6675">Reconnecting appears after 3 s without the socket; Offline after 15 s or when the OS reports no network.</span>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlOfflineBanner</span>
+          <span style="font-size: 12px; color: #5B6675">Pinned under app bar</span>
+        </div>
+        <div role="alert" style="border-radius: 12px; background: #FFF6E8; border: 1px solid #F6D9A8; padding: 14px; display: flex; gap: 12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A5207" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg>
+          <div style="display: flex; flex-direction: column; gap: 4px; flex: 1">
+            <span style="font-size: 15px; font-weight: 600; color: #6B3F05">You're offline</span>
+            <span style="font-size: 13px; line-height: 18px; color: #8A5207">Showing data from <span class="tn" style="font-weight: 600">10:42</span>. It may be out of date. Transfers and status changes are paused.</span>
+          </div>
+        </div>
+        <div role="status" style="border-radius: 12px; background: #E6F6EE; border: 1px solid #BFE6D0; padding: 10px 14px; display: flex; align-items: center; gap: 10px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D7A43" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span style="font-size: 13px; font-weight: 600; color: #0D7A43">Back online · synced <span class="tn">10:58</span></span>
+          <span style="margin-left: auto; font-size: 12px; color: #0D7A43">auto-hides 3 s</span>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlCacheBadge</span>
+          <span style="font-size: 12px; color: #5B6675">On every cached record</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+          <span class="tn" style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px; background: #F0F2F5; color: #4F5967; font-size: 12px; font-weight: 600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg>Cached · synced 10:42</span>
+          <span class="tn" style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 12px; font-weight: 600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>Cached · synced 09:58 · may be outdated</span>
+        </div>
+        <span style="font-size: 12px; line-height: 17px; color: #5B6675">Neutral under 15 min old, amber after. Always an absolute time, never "a while ago".</span>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+        <div style="padding: 14px 20px; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #E4E8EE">
+          <span style="font-size: 13px; font-weight: 600">Offline · patient footer</span>
+          <span style="font-size: 12px; color: #5B6675">Edit actions removed</span>
+        </div>
+        <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="font-size: 15px; font-weight: 600">Jan Kowalczyk</span><span class="tn" style="height: 20px; padding: 0 6px; border-radius: 6px; background: #F0F2F5; color: #4F5967; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Cached · 10:42</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #F3F5F8; font-size: 13px; line-height: 18px; color: #4F5967"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg>Transfers resume when you're back online.</div>
+        </div>
+      </section>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="background: #F3F5F8; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlToast</span>
+          <span style="font-size: 12px; color: #5B6675">Above nav · 4 s · elevation.2</span>
+        </div>
+        <div role="status" style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; box-shadow: 0 6px 20px rgba(15, 23, 32, 0.08); padding: 12px 14px; display: flex; gap: 12px; align-items: center">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #E6F6EE; color: #0D7A43; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Transfer confirmed</span><span style="font-size: 13px; color: #5B6675">Jan Kowalczyk is now in Laboratory</span></div>
+          <span class="tn" style="font-size: 12px; color: #5B6675">10:31</span>
+        </div>
+        <div role="alert" style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; box-shadow: 0 6px 20px rgba(15, 23, 32, 0.08); padding: 12px 8px 12px 14px; display: flex; gap: 12px; align-items: center">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #FDECEC; color: #C9302C; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg></div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Transfer not saved</span><span style="font-size: 13px; color: #5B6675">No reply from server. Nothing changed.</span></div>
+          <button type="button" style="height: 48px; padding: 0 12px; border: none; border-radius: 12px; background: transparent; color: #0A7F85; font-size: 14px; font-weight: 600">Try again</button>
+        </div>
+        <div role="status" style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; box-shadow: 0 6px 20px rgba(15, 23, 32, 0.08); padding: 12px 8px 12px 14px; display: flex; gap: 12px; align-items: center">
+          <div style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #EAF1FD; color: #1F55C2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg></div>
+          <div style="display: flex; flex-direction: column; flex: 1; min-width: 0"><span style="font-size: 14px; font-weight: 600">Record updated</span><span style="font-size: 13px; color: #5B6675">Dr Julia Wróbel added a note</span></div>
+          <button type="button" style="height: 48px; padding: 0 12px; border: none; border-radius: 12px; background: transparent; color: #0A7F85; font-size: 14px; font-weight: 600">View</button>
+        </div>
+        <span style="font-size: 12px; line-height: 17px; color: #5B6675">"Try again" is a user tap. The app never retries a write on its own.</span>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px" aria-busy="true">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlSkeleton</span>
+          <span style="font-size: 12px; color: #5B6675">Shimmer 1.2 s · static if reduced</span>
+        </div>
+        <div style="position: relative; display: flex; align-items: center; gap: 12px; height: 72px; padding: 0 16px 0 20px; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+          <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #E4E8EE"></div>
+          <div class="shim" style="width: 40px; height: 40px; border-radius: 20px; flex-shrink: 0"></div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 8px"><div class="shim" style="height: 12px; width: 60%; border-radius: 6px"></div><div class="shim" style="height: 10px; width: 80%; border-radius: 5px"></div></div>
+          <div class="shim" style="width: 72px; height: 22px; border-radius: 6px"></div>
+        </div>
+        <div style="position: relative; display: flex; align-items: center; gap: 12px; height: 72px; padding: 0 16px 0 20px; border: 1px solid #E4E8EE; border-radius: 16px; overflow: hidden">
+          <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #E4E8EE"></div>
+          <div class="shim" style="width: 40px; height: 40px; border-radius: 20px; flex-shrink: 0"></div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 8px"><div class="shim" style="height: 12px; width: 45%; border-radius: 6px"></div><div class="shim" style="height: 10px; width: 70%; border-radius: 5px"></div></div>
+          <div class="shim" style="width: 72px; height: 22px; border-radius: 6px"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px"><div class="shim" style="height: 10px; width: 70%; border-radius: 5px"></div><div class="shim" style="height: 26px; width: 45%; border-radius: 8px"></div></div>
+          <div style="border: 1px solid #E4E8EE; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px"><div class="shim" style="height: 10px; width: 60%; border-radius: 5px"></div><div class="shim" style="height: 26px; width: 35%; border-radius: 8px"></div></div>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span class="mono" style="align-self: flex-start; font-size: 15px; font-weight: 600">WlErrorState · load failed</span>
+        <div style="width: 56px; height: 56px; border-radius: 28px; background: #FDECEC; color: #C9302C; display: flex; align-items: center; justify-content: center; margin-top: 6px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></div>
+        <span style="font-size: 17px; font-weight: 600">Couldn't load patients</span>
+        <span style="font-size: 14px; line-height: 20px; color: #5B6675; max-width: 300px">The server didn't respond. Data cached at <span class="tn">10:42</span> is still available.</span>
+        <div style="display: flex; gap: 8px; width: 100%; margin-top: 4px">
+          <button type="button" style="flex: 1; height: 48px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; color: #0F1720; font-size: 15px; font-weight: 600">View cached</button>
+          <button type="button" style="flex: 1; height: 48px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 15px; font-weight: 600">Try again</button>
+        </div>
+      </section>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <section style="background: #FFFFFF; border: 1px solid #F6D9A8; border-radius: 16px; overflow: hidden">
+        <div style="padding: 14px 20px; background: #FFF6E8; display: flex; justify-content: space-between; align-items: baseline">
+          <span class="mono" style="font-size: 15px; font-weight: 600">WlErrorState · conflict</span>
+          <span style="font-size: 12px; color: #8A5207">HTTP 409</span>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 14px" role="alert">
+          <div style="display: flex; gap: 12px; align-items: flex-start">
+            <div style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #FFF6E8; color: #8A5207; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></div>
+            <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Someone moved this patient first</span><span style="font-size: 14px; line-height: 20px; color: #5B6675">Your transfer to Radiology was not saved.</span></div>
+          </div>
+          <div style="border: 1px solid #E4E8EE; border-radius: 12px; display: flex; flex-direction: column">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #E4E8EE"><span style="width: 56px; font-size: 12px; font-weight: 600; color: #5B6675">Who</span><div style="width: 28px; height: 28px; border-radius: 14px; background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #0A7F85">EL</div><span style="font-size: 14px; font-weight: 600">Ewa Lis</span><span style="font-size: 13px; color: #0A7F85; font-weight: 500">Nurse</span></div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #E4E8EE"><span style="width: 56px; font-size: 12px; font-weight: 600; color: #5B6675">Where</span><span style="font-size: 14px; color: #5B6675">Internal Medicine</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg><span style="font-size: 14px; font-weight: 600">Laboratory</span></div>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px"><span style="width: 56px; font-size: 12px; font-weight: 600; color: #5B6675">When</span><span class="tn" style="font-size: 14px; font-weight: 600">Today, 10:31</span><span style="font-size: 13px; color: #5B6675">· 2 min ago</span></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <button type="button" style="height: 56px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Refresh patient</button>
+            <button type="button" style="height: 48px; border: none; border-radius: 12px; background: transparent; color: #0F1720; font-size: 15px; font-weight: 600">Close</button>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span class="mono" style="align-self: flex-start; font-size: 15px; font-weight: 600">WlEmptyState</span>
+        <div style="width: 56px; height: 56px; border-radius: 28px; background: #F3F5F8; color: #5B6675; display: flex; align-items: center; justify-content: center; margin-top: 6px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13.5 8.5-5 5"></path><path d="m8.5 8.5 5 5"></path><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
+        <span style="font-size: 17px; font-weight: 600">No patients match "Kowalski"</span>
+        <span style="font-size: 14px; line-height: 20px; color: #5B6675; max-width: 300px">Check the spelling, or search by patient ID, e.g. HPT-7K3M9QX2.</span>
+        <button type="button" style="height: 48px; padding: 0 20px; margin-top: 4px; border: 1px solid #CBD2DB; border-radius: 12px; background: #FFFFFF; color: #0F1720; font-size: 15px; font-weight: 600">Clear search</button>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; gap: 14px; align-items: flex-start">
+        <div style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #F3F5F8; color: #5B6675; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.32a7.43 7.43 0 0 1 0 7.36"></path><path d="M9.46 6.21a11.76 11.76 0 0 1 0 11.58"></path><path d="M12.91 4.1a15.91 15.91 0 0 1 .01 15.8"></path><path d="M16.37 2a20.16 20.16 0 0 1 0 20"></path></svg></div>
+        <div style="display: flex; flex-direction: column; gap: 4px; flex: 1">
+          <span class="mono" style="font-size: 12px; color: #5B6675">WlErrorState · unknown tag</span>
+          <span style="font-size: 16px; font-weight: 600">Wristband not recognised</span>
+          <span style="font-size: 13px; line-height: 18px; color: #5B6675">This tag isn't linked to a patient. Scan the QR code on the band or search by ID.</span>
+          <button type="button" style="align-self: flex-start; height: 48px; padding: 0 4px; border: none; background: transparent; color: #0A7F85; font-size: 15px; font-weight: 600">Search by ID</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1280}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

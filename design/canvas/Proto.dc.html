@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · clickable prototype</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F5}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.wl *{box-sizing:border-box}
+.wl button,.wl input,.wl textarea{font-family:inherit;color:inherit}
+.wl button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.wl button:active{transform:scale(.98)}
+.tn{font-variant-numeric:tabular-nums}.id{font-variant-numeric:tabular-nums slashed-zero;letter-spacing:.02em}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;border:1px solid #E4E8EE;background:#FAFBFC;overflow:hidden;flex-shrink:0}
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;animation:wlin 220ms cubic-bezier(.33,1,.68,1) both}
+@keyframes wlin{0%{opacity:0;transform:translateX(12px)}100%{opacity:1;transform:none}}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.i16{width:16px;height:16px}.i22{width:22px;height:22px}
+.top{padding:59px 8px 0;display:flex;justify-content:space-between;align-items:center;min-height:107px}
+.back{height:48px;border:none;background:transparent;display:inline-flex;align-items:center;gap:2px;font-size:16px;font-weight:500;padding:0 8px;color:#0A7F85!important}
+.h1{padding:0 16px;font-size:26px;line-height:32px;font-weight:700;letter-spacing:-.02em}
+.btn{height:56px;width:100%;border:none;border-radius:12px;background:#0A7F85;color:#fff!important;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;transition:background-color 220ms}
+.btn2{height:48px;width:100%;border:1px solid #CBD2DB;border-radius:12px;background:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn3{height:48px;width:100%;border:none;background:transparent;font-size:15px;font-weight:600}
+.scrim{position:absolute;inset:0;background:rgba(15,23,32,.32);animation:wlfade 220ms both}
+@keyframes wlfade{0%{opacity:0}100%{opacity:1}}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -8px 32px rgba(15,23,32,.12);padding:8px 16px 34px;display:flex;flex-direction:column;gap:12px;animation:wlsheet 420ms cubic-bezier(.22,1,.36,1) both}
+@keyframes wlsheet{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+.handle{align-self:center;width:36px;height:5px;border-radius:3px;background:#CBD2DB;flex-shrink:0}
+.card{background:#fff;border:1px solid #E4E8EE;border-radius:16px}
+.sub{font-size:13px;color:#5B6675}
+.ov{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5B6675}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:46px;padding:0 14px;font-size:14px;border-top:1px solid #E4E8EE}.kv:first-child{border-top:none}.kv>span:first-child{color:#5B6675}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.avp{background:#F3F5F8;border:1px solid #E4E8EE;color:#5B6675}
+.nav{margin-top:auto;height:98px;flex-shrink:0;background:rgba(255,255,255,.96);border-top:1px solid #E4E8EE;display:flex;padding:0 4px 34px;position:relative}
+.tab{flex:1;height:64px;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;color:#5B6675!important;font-size:11px;font-weight:500;position:relative}
+.tab>span{display:flex;align-items:center;justify-content:center;width:56px;height:30px;border-radius:15px;transition:background-color 220ms}
+.tab.on{color:#0A7F85!important;font-weight:600}.tab.on>span{background:#E4F5F6}
+.tab .fab{position:absolute;top:-26px;left:50%;margin-left:-32px;width:64px;height:64px;border-radius:32px;background:#0E9FA6;box-shadow:0 0 0 4px #fff,0 6px 20px rgba(15,23,32,.12);color:#fff}
+.glass{border-radius:16px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.6);padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.qa{height:72px;border:1px solid #E4E8EE;border-radius:16px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600}
+.fi{display:flex;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid #E4E8EE}.fi:first-child{border-top:none}
+.srch{height:48px;border-radius:12px;background:#F3F5F8;display:flex;align-items:center;gap:10px;padding:0 14px;color:#5B6675}
+.srch input{border:none;outline:none;background:transparent;font-size:16px;flex:1;min-width:0;color:#0F1720}
+.pc{position:relative;width:100%;display:flex;align-items:center;gap:12px;min-height:70px;padding:10px 12px 10px 18px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;overflow:hidden;text-align:left;transition:background-color 380ms}
+.bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600;flex-shrink:0;transition:background-color 220ms,color 220ms}
+.dr{width:100%;min-height:54px;border:none;border-bottom:1px solid #E4E8EE;background:#fff;display:flex;align-items:center;gap:12px;padding:6px 2px;text-align:left}
+.ring{position:absolute;left:50%;top:50%;width:250px;height:250px;margin:-125px 0 0 -125px;border-radius:50%;border:1.5px solid #0E9FA6;opacity:0;animation:wlring 3s cubic-bezier(.33,1,.68,1) infinite}
+.r2{animation-delay:1s}.r3{animation-delay:2s}
+@keyframes wlring{0%{transform:scale(.42);opacity:.55}100%{transform:scale(1);opacity:0}}
+.mv{position:absolute;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:5px;background:#0E9FA6;animation:wlmove 1.6s cubic-bezier(.65,0,.35,1) infinite}
+.fast{animation-duration:.9s}
+@keyframes wlmove{0%{top:2px;opacity:0}20%{opacity:1}80%{opacity:1}100%{top:30px;opacity:0}}
+.spin{animation:wlspin .8s linear infinite}@keyframes wlspin{to{transform:rotate(360deg)}}
+.draw circle{stroke-dasharray:164;stroke-dashoffset:164;animation:wldraw 380ms cubic-bezier(.33,1,.68,1) forwards}
+.draw path{stroke-dasharray:40;stroke-dashoffset:40;animation:wldraw 260ms cubic-bezier(.33,1,.68,1) 300ms forwards}
+@keyframes wldraw{to{stroke-dashoffset:0}}
+.glow{animation:wlbright 380ms cubic-bezier(.33,1,.68,1) both}
+@keyframes wlbright{0%{background-color:#F3F5F8;transform:scale(.92)}100%{background-color:#D5F0F1;transform:scale(1)}}
+.fresh{animation:wlfresh 2.4s cubic-bezier(.33,1,.68,1) .3s both}
+@keyframes wlfresh{0%,60%{background-color:#E4F5F6}100%{background-color:#FFFFFF}}
+.toast{position:absolute;left:16px;right:16px;bottom:112px;background:#fff;border:1px solid #E4E8EE;border-radius:16px;box-shadow:0 6px 20px rgba(15,23,32,.1);padding:12px 14px;display:flex;gap:12px;align-items:center;animation:wltoast 220ms cubic-bezier(.33,1,.68,1) both;z-index:5}
+@keyframes wltoast{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.pill{position:absolute;left:50%;top:52px;transform:translateX(-50%);z-index:6;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;font-size:12px;font-weight:600;white-space:nowrap;box-shadow:0 2px 8px rgba(15,23,32,.08)}
+.panel{width:340px;display:flex;flex-direction:column;gap:14px}
+.pbox{background:#fff;border:1px solid #E4E8EE;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.fl{width:100%;min-height:52px;border:1px solid #E4E8EE;border-radius:12px;background:#fff;display:flex;align-items:center;gap:12px;padding:8px 12px;text-align:left}
+.fl b{width:26px;height:26px;border-radius:13px;background:#0F1720;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sw{width:51px;height:31px;border-radius:16px;border:none;padding:2px;display:flex;flex-shrink:0;transition:background-color 220ms}
+.sw span{width:27px;height:27px;border-radius:14px;background:#fff;box-shadow:0 2px 4px rgba(15,23,32,.2);transition:transform 220ms cubic-bezier(.33,1,.68,1)}
+@media (prefers-reduced-motion: reduce){.scr,.sheet,.toast,.scrim{animation:wlfade 120ms both}.ring,.mv,.glow,.fresh{animation:none}.ring{opacity:.15;transform:scale(.8)}.mv{top:16px}.draw circle,.draw path{animation:none;stroke-dashoffset:0}.spin{animation-duration:1.6s}.wl *{transition:none!important}}
+</style>
+</helmet>
+<div class="wl" style="width: 850px; height: 924px; padding: 40px; display: flex; gap: 40px; align-items: flex-start; background: #EEF1F5">
+  <div class="ph">
+
+    <!-- DASHBOARD -->
+    <sc-if value="{{ is.dash }}" hint-placeholder-val="{{ true }}">
+      <div class="scr">
+        <div style="background: linear-gradient(340deg, #13A8AE 0%, #0A7F85 100%); padding: 59px 16px 14px; border-radius: 0 0 24px 24px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div style="{{ me.avatar }}">{{ me.ini }}</div>
+            <div style="flex: 1; min-width: 0"><div style="font-size: 21px; line-height: 27px; font-weight: 700; color: #fff; letter-spacing: -.02em">{{ me.greet }}</div><div style="font-size: 13px; font-weight: 500; color: rgba(255,255,255,.92)">{{ me.line }}</div></div>
+            <span style="{{ conn.style }}"><span style="{{ conn.dot }}"></span>{{ conn.label }}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+            <div class="glass"><span class="sub" style="font-size: 12px">Total patients</span><span class="tn" style="font-size: 26px; font-weight: 600">128</span><span class="sub tn" style="font-size: 11px">↑ 3 vs last hour</span></div>
+            <div class="glass"><span class="sub" style="font-size: 12px">In treatment</span><span class="tn" style="font-size: 26px; font-weight: 600">{{ kpi.tr }}</span><span class="sub tn" style="font-size: 11px">↑ 2 vs last hour</span></div>
+            <div class="glass"><span class="sub" style="font-size: 12px">Ready for discharge</span><span class="tn" style="font-size: 26px; font-weight: 600">{{ kpi.rd }}</span><span class="sub tn" style="font-size: 11px">↑ 4 vs last hour</span></div>
+            <div class="glass"><span class="sub" style="font-size: 12px">Transfers today</span><span class="tn" style="font-size: 26px; font-weight: 600">{{ kpi.tf }}</span><span class="sub tn" style="font-size: 11px">↑ 5 vs last hour</span></div>
+          </div>
+        </div>
+        <div style="padding: 14px 16px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg>Scan NFC</button>
+          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3M12 7v3a2 2 0 0 1-2 2H7M16 12h1"/></svg>Scan QR</button>
+          <button type="button" class="qa" onClick="{{ go.list }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search patient</button>
+        </div>
+        <button type="button" onClick="{{ go.map }}" style="margin: 12px 16px 0; border: 1px solid #E4E8EE; border-radius: 16px; background: #fff; padding: 12px 14px; display: flex; align-items: center; gap: 12px; text-align: left">
+          <span style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="m12.8 2.2a2 2 0 0 0-1.7 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.7 0l8.6-3.9a1 1 0 0 0 0-1.8ZM22 17.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 17.7M22 12.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 12.7"/></svg></span>
+          <span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 600">Hospital map</span><span class="sub">3 floors · <span style="color: #C9302C; font-weight: 600">2 bottlenecks</span></span></span>
+          <svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <div class="card" style="margin: 12px 16px 0; overflow: hidden">
+          <div style="padding: 10px 14px 4px; display: flex; justify-content: space-between"><span style="font-size: 16px; font-weight: 600">Recent transfers</span><span class="sub">Live</span></div>
+          <sc-for list="{{ feed }}" as="f" hint-placeholder-count="3"><div class="fi" style="{{ f.bg }}"><span class="av" style="{{ f.av }}">{{ f.ini }}</span><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">{{ f.t }}</span><span class="sub" style="font-size: 12px">{{ f.s }}</span></span><span class="tn sub" style="font-size: 12px">{{ f.ago }}</span></div></sc-for>
+        </div>
+        <nav class="nav" aria-label="Main">
+          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+          <button type="button" class="tab" onClick="{{ go.list }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+        </nav>
+      </div>
+    </sc-if>
+
+    <!-- SCAN -->
+    <sc-if value="{{ is.scan }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close scanner" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
+        <div aria-hidden="true" style="position: relative; height: 330px; margin-top: 10px">
+          <div style="position: absolute; left: 50%; top: 50%; width: 250px; height: 250px; margin: -125px 0 0 -125px; border-radius: 50%; border: 1px solid #E4E8EE"></div>
+          <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 116px; height: 116px; margin: -58px 0 0 -58px; border-radius: 58px; background: #E4F5F6; display: flex; align-items: center; justify-content: center"><div style="width: 82px; height: 82px; border-radius: 41px; background: #0E9FA6; display: flex; align-items: center; justify-content: center; color: #fff"><svg class="i" viewBox="0 0 24 24" style="width: 38px; height: 38px"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg></div></div>
+        </div>
+        <div style="padding: 0 32px; text-align: center; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 22px; line-height: 28px; font-weight: 600">Hold your phone near the patient's wristband</span><span class="sub" style="font-size: 15px">Top edge of the iPhone, 1–2 cm from the band.</span></div>
+        <div style="margin: 18px 16px 0; padding: 10px 14px; border-radius: 12px; background: #F3F5F8; font-size: 13px; color: #4F5967">Scanning opens the record — it never moves the patient.</div>
+        <div style="margin-top: auto; padding: 0 16px 34px; display: flex; flex-direction: column; gap: 6px"><button type="button" class="btn" onClick="{{ startScan }}">Start scanning</button><button type="button" class="btn3" onClick="{{ go.dash }}">Cancel</button></div>
+        <sc-if value="{{ reading }}" hint-placeholder-val="{{ false }}">
+          <div class="scrim"></div>
+          <div role="img" aria-label="iOS Ready to Scan system sheet placeholder" style="position: absolute; left: 8px; right: 8px; bottom: 8px; height: 320px; border-radius: 40px; background: #EEF0F3; border: 2px dashed #9AA3AF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; animation: wlsheet 420ms cubic-bezier(.22,1,.36,1) both"><span class="ov">iOS system sheet · placeholder</span><span style="font-size: 20px; font-weight: 600; color: #4F5967">"Ready to Scan"</span><span class="sub">Reading wristband…</span></div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- READ / QUICK SUMMARY -->
+    <sc-if value="{{ is.read }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
+        <div aria-hidden="true" style="position: relative; height: 230px">
+          <div class="glow" style="position: absolute; left: 50%; top: 50%; width: 210px; height: 210px; margin: -105px 0 0 -105px; border-radius: 50%; background: #D5F0F1"></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 42px; background: #0E9FA6; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 40px; height: 40px; color: #fff; stroke-width: 2.25"><path d="M20 6 9 17l-5-5"/></svg></div>
+        </div>
+        <div class="scrim" style="background: rgba(15,23,32,.12)"></div>
+        <div class="sheet" role="dialog" aria-label="Patient identified">
+          <div class="handle"></div>
+          <div style="display: flex; justify-content: space-between"><span style="font-size: 13px; font-weight: 600; color: #0A7F85">Patient identified</span><span class="sub tn">NFC · 10:44</span></div>
+          <sc-if value="{{ refreshed }}" hint-placeholder-val="{{ false }}"><div class="fresh" style="padding: 10px 12px; border-radius: 12px; font-size: 13px; color: #0A7F85; font-weight: 600">Updated · moved by Marek Kowal at 10:41</div></sc-if>
+          <div style="display: flex; gap: 12px; align-items: center"><div class="av avp" style="width: 52px; height: 52px; font-size: 18px">JK</div><div><div style="font-size: 21px; font-weight: 600">Jan Kowalczyk</div><div class="sub"><span class="tn">54</span> · <span class="id">HPT-7K3M9QX2</span></div></div></div>
+          <div class="card" style="border-radius: 12px">
+            <div class="kv"><span>Status</span><span class="chip" style="{{ pat.chip }}">{{ pat.statusLabel }}</span></div>
+            <div class="kv" style="padding: 8px 14px"><span>Last location</span><span style="text-align: right"><b>{{ pat.locName }}</b><br><span class="sub tn" style="font-size: 12px">{{ pat.locMeta }}</span></span></div>
+          </div>
+          <button type="button" class="btn" onClick="{{ go.profileFromRead }}">View profile</button>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+            <button type="button" class="btn2" onClick="{{ go.profileFromRead }}">History</button>
+            <sc-if value="{{ canAct }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn2" onClick="{{ roleAction }}">{{ roleActionLabel }} →</button></sc-if>
+            <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}"><span class="sub" style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px">Changes need a connection</span></sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- DESTINATION -->
+    <sc-if value="{{ is.dest }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"></div>
+        <div class="h1">Jan Kowalczyk</div>
+        <div class="scrim"></div>
+        <div class="sheet" style="top: 80px; gap: 10px" role="dialog" aria-label="Choose destination">
+          <div class="handle"></div>
+          <div style="display: flex; justify-content: space-between; align-items: center"><div><div style="font-size: 20px; font-weight: 600">Move Jan Kowalczyk</div><div class="sub">From {{ pat.locName }} · {{ pat.floorName }}</div></div><button type="button" aria-label="Close" onClick="{{ go.backFromDest }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Search departments, e.g. rad" aria-label="Search departments"></label>
+          <div style="flex: 1; overflow-y: auto; margin: 0 -4px; padding: 0 4px">
+            <sc-for list="{{ dests }}" as="d" hint-placeholder-count="8">
+              <button type="button" class="dr" onClick="{{ d.pick }}"><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 15px; font-weight: 600">{{ d.name }}</span><span class="sub tn" style="font-size: 12px">{{ d.meta }}</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; width: 52px"><span class="tn" style="font-size: 13px; font-weight: 600">{{ d.pct }}</span><span style="display: block; width: 48px; height: 4px; border-radius: 2px; background: #F3F5F8"><span style="{{ d.bar }}"></span></span></span></button>
+            </sc-for>
+            <sc-if value="{{ noDest }}" hint-placeholder-val="{{ false }}"><div class="sub" style="padding: 24px 0; text-align: center">No department matches "{{ search }}"</div></sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- CONFIRM / SAVING -->
+    <sc-if value="{{ is.confirm }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"><sc-if value="{{ notSaving }}" hint-placeholder-val="{{ true }}"><button type="button" class="back" onClick="{{ go.dest }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Destination</button></sc-if><span style="font-size: 17px; font-weight: 600; margin-right: auto; margin-left: 12px">Confirm transfer</span></div>
+        <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: center; gap: 12px"><div class="av avp" style="width: 44px; height: 44px; font-size: 16px">JK</div><div style="flex: 1"><div style="font-size: 17px; font-weight: 600">Jan Kowalczyk</div><div class="sub id">HPT-7K3M9QX2</div></div><span class="chip" style="{{ pat.chip }}">{{ pat.statusLabel }}</span></div>
+          <div style="display: flex; flex-direction: column">
+            <div style="border-radius: 14px; padding: 12px 14px; background: #F3F5F8"><div class="ov">From · now</div><div style="font-size: 20px; font-weight: 600">{{ pat.locName }}</div><div class="sub tn">{{ pat.locMeta }}</div></div>
+            <div aria-hidden="true" style="position: relative; height: 40px"><div style="position: absolute; left: 50%; top: 4px; bottom: 4px; border-left: 2px dashed #CBD2DB"></div><div class="{{ mvClass }}"></div></div>
+            <div style="border-radius: 14px; padding: 12px 14px; background: #E4F5F6; border: 1.5px solid #0E9FA6"><div class="ov" style="color: #0A7F85">To</div><div style="font-size: 20px; font-weight: 600">{{ destName }}</div><div class="sub tn">{{ destMeta }}</div></div>
+          </div>
+          <div class="card"><div class="kv"><span>Performed by</span><b>Anna Nowak · Nurse</b></div><div class="kv"><span>Status</span><b>{{ pat.statusLabel }} · unchanged</b></div></div>
+        </div>
+        <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 6px">
+          <sc-if value="{{ canConfirm }}" hint-placeholder-val="{{ true }}">
+            <button type="button" class="btn" onClick="{{ confirm }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg></sc-if>{{ confirmLabel }}</button>
+            <sc-if value="{{ notSaving }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn3" onClick="{{ go.backFromDest }}">Cancel</button></sc-if>
+            <sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><span class="sub" style="height: 48px; display: flex; align-items: center; justify-content: center">Waiting for the server · repeat taps are ignored</span></sc-if>
+          </sc-if>
+          <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}">
+            <div style="min-height: 56px; border-radius: 12px; background: #F3F5F8; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #4F5967"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg>Changes need a connection</div>
+            <button type="button" class="btn2" onClick="{{ go.backFromDest }}">Back to patient</button>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- SUCCESS -->
+    <sc-if value="{{ is.success }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"></div>
+        <div role="status" style="padding: 8px 24px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <svg class="draw" width="88" height="88" viewBox="0 0 56 56" aria-hidden="true" style="fill: none; stroke: #14A35B; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round"><circle cx="28" cy="28" r="26" style="fill: #E6F6EE"></circle><path d="M17 29l7 7 15-15"></path></svg>
+          <span style="font-size: 24px; line-height: 30px; font-weight: 700">Patient moved to {{ pat.locName }}</span>
+          <span class="sub tn" style="font-size: 14px">Confirmed by the server at 10:46. Every device sees it now.</span>
+        </div>
+        <div style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 8px"><span class="ov">Updated automatically</span>
+          <div class="card fresh" style="padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span class="av" style="width: 32px; height: 32px; background: #E4F5F6; color: #0A7F85"><svg class="i i16" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><div style="flex: 1"><div style="font-size: 14px; font-weight: 600">{{ lastEventLine }}</div><div class="sub">History · Anna Nowak · Nurse</div></div><span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:46</span></div>
+        </div>
+        <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 8px"><button type="button" class="btn" onClick="{{ go.profileAfter }}">Back to patient</button><button type="button" class="btn2" onClick="{{ go.scan }}">Scan next patient</button></div>
+      </div>
+    </sc-if>
+
+    <!-- CONFLICT -->
+    <sc-if value="{{ is.conflict }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"><span style="font-size: 17px; font-weight: 600; margin: 0 auto">Confirm transfer</span></div>
+        <div class="scrim"></div>
+        <div class="sheet" role="alertdialog" aria-label="Patient was already moved">
+          <div class="handle"></div>
+          <div style="display: flex; gap: 12px; align-items: flex-start"><span class="av" style="width: 44px; height: 44px; background: #FFF6E8; color: #8A5207"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></span><div><div style="font-size: 20px; font-weight: 600">Patient was already moved</div><div class="sub" style="font-size: 15px">Your change wasn't saved.</div></div></div>
+          <div class="card"><div class="kv"><span>Who</span><b>Marek Kowal · Nurse</b></div><div class="kv"><span>When</span><b class="tn">Today, 10:41</b></div><div class="kv"><span>Where</span><b>{{ conflictWhere }}</b></div></div>
+          <button type="button" class="btn" onClick="{{ refreshConflict }}">Refresh and choose again</button>
+          <button type="button" class="btn3" onClick="{{ refreshConflict }}">Back to patient</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PATIENTS LIST -->
+    <sc-if value="{{ is.list }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top" style="padding: 59px 16px 0; min-height: 100px"><span style="font-size: 28px; font-weight: 700; letter-spacing: -.02em">Patients <span class="tn" style="font-size: 16px; font-weight: 500; color: #5B6675">128</span></span><span style="{{ conn.styleLight }}"><span style="{{ conn.dot }}"></span>{{ conn.label }}</span></div>
+        <div style="padding: 4px 16px 10px; display: flex; flex-direction: column; gap: 10px">
+          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input value="{{ listSearch }}" onChange="{{ onListSearch }}" placeholder="Name, ID or department" aria-label="Search patients"></label>
+          <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}"><span class="tn" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 12px; font-weight: 600">Cached · synced 10:42 · may be outdated</span></sc-if>
+        </div>
+        <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto" aria-live="polite">
+          <sc-for list="{{ patients }}" as="p" hint-placeholder-count="6">
+            <button type="button" class="pc" onClick="{{ p.open }}" style="{{ p.box }}"><span class="bar" style="{{ p.bar }}"></span><span class="av avp" style="width: 40px; height: 40px; font-size: 15px">{{ p.ini }}</span><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 16px; font-weight: 600">{{ p.name }}</span><span style="{{ p.subStyle }}">{{ p.sub }}</span></span><span class="chip" style="{{ p.chip }}">{{ p.status }}</span></button>
+          </sc-for>
+          <sc-if value="{{ noPatients }}" hint-placeholder-val="{{ false }}"><div style="padding: 40px 20px; text-align: center"><div style="font-size: 17px; font-weight: 600">No patients match "{{ listSearch }}"</div><div class="sub">Try a surname or an ID like HPT-7K3M9QX2.</div></div></sc-if>
+        </div>
+        <nav class="nav" aria-label="Main">
+          <button type="button" class="tab" onClick="{{ go.dash }}"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
+          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
+          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+        </nav>
+      </div>
+    </sc-if>
+
+    <!-- PROFILE -->
+    <sc-if value="{{ is.profile }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top" style="min-height: 100px"><button type="button" class="back" onClick="{{ go.profileBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>{{ profileBackLabel }}</button><button type="button" class="back" onClick="{{ go.routeJan }}" style="font-size: 15px">Show on map</button></div>
+        <div style="flex: 1; overflow-y: auto; padding: 0 16px 16px; display: flex; flex-direction: column; gap: 16px">
+          <div class="card" style="position: relative; overflow: hidden; padding: 16px 16px 14px 20px; display: flex; flex-direction: column; gap: 12px">
+            <span class="bar" style="{{ pat.barStyle }}"></span>
+            <div style="display: flex; gap: 12px; align-items: center"><div class="av avp" style="width: 56px; height: 56px; font-size: 20px">JK</div><div><div style="font-size: 24px; font-weight: 700; letter-spacing: -.02em">Jan Kowalczyk</div><div class="sub"><span class="tn">54</span> years · <span class="id">HPT-7K3M9QX2</span></div></div></div>
+            <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; height: 22px; padding: 0 7px; border-radius: 6px; background: #F0F2F5; color: #4F5967; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Cached · synced 10:42</span></sc-if>
+            <div style="border-top: 1px solid #E4E8EE; margin: 0 -16px 0 -20px">
+              <div class="kv" style="padding-left: 20px"><span>Status</span><span class="chip" style="{{ pat.chip }}">{{ pat.statusLabel }}</span></div>
+              <div class="kv" style="padding: 8px 14px 0 20px; border-top: 1px solid #E4E8EE"><span>Last location</span><span style="text-align: right"><b>{{ pat.locName }} · {{ pat.floorName }}</b><br><span class="sub tn" style="font-size: 12px">{{ pat.locMeta }}</span></span></div>
+            </div>
+          </div>
+          <div class="card"><div class="kv"><span>Condition</span><b>Pneumonia</b></div><div class="kv"><span>Admitted</span><b class="tn">Today, 08:12</b></div></div>
+          <div style="display: flex; flex-direction: column; gap: 8px"><span class="ov">History · today</span>
+            <div class="card" style="overflow: hidden">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="5"><div class="{{ e.cls }}" style="display: flex; gap: 12px; padding: 10px 14px; border-top: 1px solid #E4E8EE"><span class="av" style="{{ e.node }}">{{ e.icon }}</span><span style="flex: 1"><span style="display: flex; justify-content: space-between"><b style="font-size: 14px">{{ e.title }}</b><span class="tn sub">{{ e.time }}</span></span><span style="display: block; font-size: 14px">{{ e.line }}</span><span class="sub" style="font-size: 12px">{{ e.who }} · {{ e.role }}</span></span></div></sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,.96); border-top: 1px solid #E4E8EE; padding: 12px 16px 34px">
+          <sc-if value="{{ canAct }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn" onClick="{{ roleAction }}">{{ roleActionLabel }}</button></sc-if>
+          <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}"><div style="min-height: 56px; border-radius: 12px; background: #F3F5F8; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #4F5967">Changes need a connection. Transfers resume when you're back online.</div></sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- STATUS SHEET -->
+    <sc-if value="{{ is.status }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"></div>
+        <div class="h1">Jan Kowalczyk</div>
+        <div class="scrim"></div>
+        <div class="sheet" role="dialog" aria-label="Change status">
+          <div class="handle"></div>
+          <div><div style="font-size: 20px; font-weight: 600">Change status</div><div class="sub">Jan Kowalczyk · <span class="id">HPT-7K3M9QX2</span></div></div>
+          <div style="display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: #F3F5F8; font-size: 13px; color: #4F5967">Location doesn't change. Jan stays in <b>{{ pat.locName }}</b>.</div>
+          <div role="radiogroup" aria-label="Status" style="display: flex; flex-direction: column; gap: 8px">
+            <sc-for list="{{ statusOpts }}" as="o" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{ o.checked }}" onClick="{{ o.pick }}" style="{{ o.box }}"><span style="{{ o.rad }}"><span style="{{ o.dot }}"></span></span><span style="flex: 1; font-size: 15px; font-weight: 600">{{ o.label }}</span><span style="{{ o.curStyle }}">Current</span></button></sc-for>
+          </div>
+          <button type="button" class="btn" onClick="{{ saveStatus }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg></sc-if>{{ saveLabel }}</button>
+          <button type="button" class="btn3" onClick="{{ go.profileAfter }}">Cancel</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- MAP + ROUTE -->
+    <sc-if value="{{ is.mapAny }}" hint-placeholder-val="{{ false }}">
+      <div class="scr">
+        <div class="top"><button type="button" class="back" onClick="{{ mapBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>{{ mapBackLabel }}</button></div>
+        <div class="h1" style="font-size: 22px">{{ mapTitle }}</div>
+        <div style="position: relative; height: 440px; margin-top: 4px">
+          <svg width="390" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+            <sc-for list="{{ map.polys }}" as="p" hint-placeholder-count="40"><polygon points="{{ p.pts }}" style="{{ p.style }}"></polygon></sc-for>
+            <sc-if value="{{ is.route }}" hint-placeholder-val="{{ false }}"><polyline points="{{ route.pts }}" style="fill: none; stroke: #FFFFFF; stroke-width: 6; stroke-linejoin: round; stroke-linecap: round"></polyline><polyline points="{{ route.pts }}" class="routeline" style="fill: none; stroke: #0A7F85; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; animation: wldraw 900ms cubic-bezier(.33,1,.68,1) forwards"></polyline></sc-if>
+          </svg>
+          <sc-for list="{{ map.floorLabels }}" as="f" hint-placeholder-count="3"><span style="{{ f.style }}">{{ f.label }}</span></sc-for>
+          <sc-if value="{{ is.map }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ map.labels }}" as="l" hint-placeholder-count="12"><button type="button" onClick="{{ l.pick }}" aria-label="{{ l.aria }}" style="{{ l.style }}"><b>{{ l.code }}</b><span class="tn">{{ l.stat }}</span></button></sc-for></sc-if>
+          <sc-if value="{{ is.route }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ route.lifts }}" as="l" hint-placeholder-count="2"><span style="{{ l.style }}">⇅ Lift</span></sc-for>
+            <sc-for list="{{ route.stops }}" as="s" hint-placeholder-count="4"><span style="{{ s.style }}">{{ s.n }}</span></sc-for>
+          </sc-if>
+        </div>
+        <sc-if value="{{ is.route }}" hint-placeholder-val="{{ false }}">
+          <ol style="margin: 0 16px; padding: 4px 0; list-style: none; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px">
+            <sc-for list="{{ route.list }}" as="r" hint-placeholder-count="4"><li style="{{ r.row }}"><span style="{{ r.badge }}">{{ r.n }}</span><span style="flex: 1; font-size: 14px; font-weight: 600">{{ r.name }} <span class="sub" style="font-size: 12px; font-weight: 500">{{ r.note }}</span></span><span class="tn sub">{{ r.time }}</span></li></sc-for>
+          </ol>
+        </sc-if>
+        <sc-if value="{{ hasMapSel }}" hint-placeholder-val="{{ false }}">
+          <div class="sheet" role="dialog" aria-label="{{ ms.name }}">
+            <div class="handle"></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start"><div><div class="sub" style="font-weight: 600; font-size: 12px">{{ ms.code }} · {{ ms.floor }}</div><div style="font-size: 21px; font-weight: 600">{{ ms.name }}</div></div><button type="button" aria-label="Close" onClick="{{ closeMapSel }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px"><b class="tn">{{ ms.occ }}</b><span class="sub tn">{{ ms.free }}</span></div>
+            <div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="{{ ms.bar }}"></div></div>
+            <span class="ov">Patients here · tap for route</span>
+            <div class="card" style="overflow: hidden">
+              <sc-for list="{{ ms.pts }}" as="p" hint-placeholder-count="2"><button type="button" onClick="{{ p.pick }}" style="{{ p.row }}"><span style="{{ p.dot }}"></span><span style="flex: 1; font-size: 15px; font-weight: 600; text-align: left">{{ p.name }}</span><span class="sub">{{ p.status }}</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button></sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- global overlays -->
+    <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}"><span class="pill" role="status" style="background: #FFF6E8; color: #8A5207; border: 1px solid #F6D9A8">Offline · showing data from 10:42</span></sc-if>
+    <sc-if value="{{ backOnline }}" hint-placeholder-val="{{ false }}"><span class="pill" role="status" style="background: #E6F6EE; color: #0D7A43; border: 1px solid #BFE6D0">Back online · synced 10:47</span></sc-if>
+    <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}"><div class="toast" role="status"><span class="av" style="{{ toast.icon }}">{{ toast.glyph }}</span><span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 600">{{ toast.title }}</span><span class="sub">{{ toast.body }}</span></span></div></sc-if>
+  </div>
+
+  <aside class="panel" aria-label="Prototype controls">
+    <div><div style="font-size: 22px; font-weight: 700; letter-spacing: -.02em">Prototype controls</div><div class="sub">Press Play, pick a flow, then tap through the phone.</div></div>
+    <div class="pbox"><span class="ov">Start a flow</span>
+      <sc-for list="{{ flows }}" as="f" hint-placeholder-count="5"><button type="button" class="fl" onClick="{{ f.start }}" style="{{ f.box }}"><b>{{ f.n }}</b><span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 600">{{ f.title }}</span><span class="sub" style="font-size: 12px">{{ f.desc }}</span></span></button></sc-for>
+    </div>
+    <div class="pbox">
+      <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px; font-weight: 600">Role</span><div style="display: flex; padding: 3px; border-radius: 10px; background: #F3F5F8; gap: 2px"><button type="button" onClick="{{ setNurse }}" style="{{ roleN }}">Nurse</button><button type="button" onClick="{{ setDoctor }}" style="{{ roleD }}">Doctor</button></div></div>
+      <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px; font-weight: 600">Offline</span><button type="button" role="switch" aria-checked="{{ offChecked }}" aria-label="Offline" class="sw" onClick="{{ toggleOffline }}" style="{{ offTrack }}"><span style="{{ offKnob }}"></span></button></div>
+      <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px; font-weight: 600">Conflict on next confirm</span><button type="button" role="switch" aria-checked="{{ cfChecked }}" aria-label="Conflict on next confirm" class="sw" onClick="{{ toggleConflict }}" style="{{ cfTrack }}"><span style="{{ cfKnob }}"></span></button></div>
+    </div>
+    <div class="pbox" style="background: #F5FBFB; border-color: #9FD8DB"><span class="ov" style="color: #0A7F85">Next tap</span><span style="font-size: 14px; line-height: 20px">{{ hint }}</span></div>
+    <button type="button" class="btn2" onClick="{{ resetAll }}">Reset prototype</button>
+    <span class="sub" style="font-size: 12px">History and Profile tabs aren't wired. Only Jan Kowalczyk has a full record in this prototype.</span>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":850,"height":924}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.timers = []; this.state = this.fresh({}); }
+  componentWillUnmount() { this.clear(); }
+  clear() { this.timers.forEach((t) => clearTimeout(t)); this.timers = []; }
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  fresh(o) {
+    return Object.assign({
+      screen: 'dash', role: 'nurse', offline: false, conflict: false, flow: 1,
+      loc: 'LAB', locTime: '10:31', locBy: 'Ewa Lis', status: 'tr', search: '', listSearch: '', dest: null,
+      reading: false, saving: false, refreshed: false, mapSel: null, routeFor: null, toast: null, backOnline: false,
+      transfers: 42, profileBack: 'dash', destBack: 'read', statusPick: 'rd', listHL: false, feedNew: null,
+      events: [
+        { k: 't', from: 'INT', to: 'LAB', who: 'Ewa Lis', role: 'Nurse', time: '10:31' },
+        { k: 's', line: 'Admitted → In Treatment', who: 'Dr Piotr Zając', role: 'Doctor', time: '09:52' },
+        { k: 't', from: 'RAD', to: 'INT', who: 'Anna Nowak', role: 'Nurse', time: '09:35' },
+        { k: 't', from: 'ER', to: 'RAD', who: 'Marek Kowal', role: 'Nurse', time: '08:47' },
+        { k: 'a', to: 'ER', who: 'Anna Nowak', role: 'Nurse', time: '08:12' }
+      ]
+    }, o);
+  }
+  toast(t) { this.setState({ toast: t }); this.later(() => this.setState({ toast: null }), 3200); }
+  start(n) {
+    this.clear();
+    const m = { 1: { role: 'nurse', screen: 'dash' }, 2: { role: 'nurse', conflict: true, dest: 'RAD', screen: 'confirm', destBack: 'read' }, 3: { role: 'doctor', screen: 'list' }, 4: { role: 'nurse', offline: true, screen: 'list' }, 5: { role: 'nurse', screen: 'dash' } };
+    this.setState(this.fresh(Object.assign({ flow: n }, m[n])));
+  }
+  scene(o) {
+    const D = [
+      ['ER', 0, 0, 0, 4, 3], ['RAD', 0, 4.3, 0, 2.7, 3], ['LAB', 0, 7.3, 0, 2.7, 3], ['ADM', 0, 0, 3.4, 4, 2.6],
+      ['INT', 1, 0, 0, 5, 3], ['CAR', 1, 5.3, 0, 4.7, 3], ['SUR', 1, 0, 3.4, 4.6, 2.6], ['OR', 1, 4.9, 3.4, 3.3, 2.6],
+      ['ICU', 2, 0, 0, 3, 3], ['NEU', 2, 3.3, 0, 3.4, 3], ['ORT', 2, 7, 0, 3, 3], ['REH', 2, 0, 3.4, 8.2, 2.6]
+    ].map(([c, f, x, y, w, d]) => ({ c, f, x, y, w, d }));
+    const EX = [[0, 4.3, 3.4, 3.9, 2.6], [0, 8.5, 3.4, 1.5, 2.6], [1, 8.5, 3.4, 1.5, 2.6], [2, 8.5, 3.4, 1.5, 2.6]].map(([f, x, y, w, d]) => ({ f, x, y, w, d }));
+    const s = 16, ox = 167, oy = 300, gap = 8.6;
+    const f2 = (n) => n.toFixed(1), pts = (a) => a.map((p) => f2(p[0]) + ',' + f2(p[1])).join(' ');
+    const P = (fi, x, y, z) => [ox + (x - y) * 0.866 * s, oy + (x + y) * 0.5 * s - (z + fi * gap) * s];
+    const polys = [], labels = [], floorLabels = [];
+    const box = (fi, x, y, w, d, z0, h, top, l, r, st, sw, op) => {
+      const z1 = z0 + h, a = op ? ' opacity: ' + op + ';' : '';
+      polys.push({ pts: pts([P(fi, x, y + d, z1), P(fi, x + w, y + d, z1), P(fi, x + w, y + d, z0), P(fi, x, y + d, z0)]), style: 'fill: ' + l + '; stroke: ' + st + '; stroke-width: .75;' + a });
+      polys.push({ pts: pts([P(fi, x + w, y, z1), P(fi, x + w, y + d, z1), P(fi, x + w, y + d, z0), P(fi, x + w, y, z0)]), style: 'fill: ' + r + '; stroke: ' + st + '; stroke-width: .75;' + a });
+      polys.push({ pts: pts([P(fi, x, y, z1), P(fi, x + w, y, z1), P(fi, x + w, y + d, z1), P(fi, x, y + d, z1)]), style: 'fill: ' + top + '; stroke: ' + st + '; stroke-width: ' + sw + '; stroke-linejoin: round;' + a });
+    };
+    [0, 1, 2].forEach((fi) => {
+      box(fi, -0.3, -0.3, 10.6, 6.6, -0.35, 0.35, '#FFFFFF', '#E4E8EE', '#D5DBE3', '#CBD2DB', 1);
+      const fl = P(fi, -0.3, 6.3, 0);
+      floorLabels.push({ label: this.FLOORS[fi], style: 'position: absolute; left: ' + f2(Math.max(4, fl[0] - 8)) + 'px; top: ' + f2(fl[1] + 4) + 'px; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #5B6675' });
+      const items = EX.filter((e) => e.f === fi).map((e) => ({ e })).concat(D.filter((d) => d.f === fi).map((d) => ({ d })));
+      items.sort((A, B) => { const a = A.d || A.e, b = B.d || B.e; return (a.x + a.y) - (b.x + b.y); });
+      items.forEach((it) => {
+        const g = 0.12;
+        if (it.e) { const e = it.e; box(fi, e.x + g, e.y + g, e.w - 2 * g, e.d - 2 * g, 0, 0.18, '#F3F5F8', '#E4E8EE', '#DCE1E8', '#CBD2DB', .75); return; }
+        const d = it.d, occ = this.OCC[d.c], pct = Math.round(occ[0] / occ[1] * 100), c = this.pal(pct), on = o.sel === d.c;
+        box(fi, d.x + g, d.y + g, d.w - 2 * g, d.d - 2 * g, 0, 0.55, c.t, '#EEF0F3', '#E2E6EB', on ? '#0A7F85' : c.b, on ? 2.5 : 1.25, o.dim ? .55 : null);
+        const cc = P(fi, d.x + d.w / 2, d.y + d.d / 2, 0.55);
+        labels.push({ code: d.c, stat: pct + '%', aria: this.NAMES[d.c] + ', ' + pct + ' percent', pick: () => this.setState({ mapSel: d.c }),
+          style: 'position: absolute; left: ' + f2(cc[0]) + 'px; top: ' + f2(cc[1]) + 'px; transform: translate(-50%, -50%); min-width: 40px; min-height: 30px; padding: 2px 6px; border-radius: 8px; font-size: 10.5px; line-height: 1.15; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(15,23,32,.12); ' + (on ? 'background: #0F1720; color: #fff; border: 1px solid #0F1720;' : 'background: #fff; border: 1px solid ' + (pct > 85 ? '#E5484D' : '#E4E8EE') + ';') });
+      });
+    });
+    const center = (code) => { const d = D.find((x) => x.c === code); return P(d.f, d.x + d.w / 2, d.y + d.d / 2, 0.55); };
+    const lift = (fi) => P(fi, 9.25, 4.7, 0.18);
+    return { polys, labels, floorLabels, center, lift };
+  }
+  pal(p) { return p > 85 ? { t: '#FCE6E7', b: '#E5484D' } : p >= 60 ? { t: '#FDF0DD', b: '#F29A2E' } : { t: '#E3F6EC', b: '#22B573' }; }
+  renderVals() {
+    const st = this.state;
+    this.NAMES = { ER: 'Emergency', ADM: 'Admissions', RAD: 'Radiology', LAB: 'Laboratory', INT: 'Internal Medicine', CAR: 'Cardiology', SUR: 'Surgery', OR: 'Operating Theatre', ICU: 'Intensive Care', NEU: 'Neurology', ORT: 'Orthopaedics', REH: 'Rehabilitation' };
+    this.OCC = { ER: [19, 24], ADM: [5, 10], RAD: [6, 14], LAB: [5, 12], INT: [29, 32], CAR: [13, 20], SUR: [14, 24], OR: [4, 8], ICU: [8, 8], NEU: [10, 20], ORT: [9, 22], REH: [6, 16] };
+    this.FLOORS = ['Ground', 'Floor 1', 'Floor 2'];
+    const FL = { ER: 0, ADM: 0, RAD: 0, LAB: 0, INT: 1, CAR: 1, SUR: 1, OR: 1, ICU: 2, NEU: 2, ORT: 2, REH: 2 };
+    const N = this.NAMES, O = this.OCC;
+    const ST = { adm: { l: 'Admitted', bg: '#EAF1FD', fg: '#1F55C2', b: '#2F6FEB' }, tr: { l: 'In Treatment', bg: '#F1ECFC', fg: '#6236C0', b: '#7C4DDB' }, rd: { l: 'Ready for Discharge', bg: '#E6F6EE', fg: '#0D7A43', b: '#14A35B' }, dc: { l: 'Discharged', bg: '#F0F2F5', fg: '#4F5967', b: '#8A94A3' } };
+    const set = (o) => this.setState(o);
+    const scr = st.screen;
+    const is = { dash: scr === 'dash', scan: scr === 'scan', read: scr === 'read', dest: scr === 'dest', confirm: scr === 'confirm', success: scr === 'success', conflict: scr === 'conflict', list: scr === 'list', profile: scr === 'profile', status: scr === 'status', map: scr === 'map', route: scr === 'route', mapAny: scr === 'map' || scr === 'route' };
+    const nurse = st.role === 'nurse';
+    const s0 = ST[st.status];
+    const pat = {
+      locName: N[st.loc], floorName: this.FLOORS[FL[st.loc]], statusLabel: s0.l,
+      locMeta: 'since ' + st.locTime + ' · ' + st.locBy + (st.offline ? ' · may have changed' : ''),
+      chip: 'background: ' + s0.bg + '; color: ' + s0.fg + ';', barStyle: 'background: ' + s0.b + ';'
+    };
+    const go = {
+      dash: () => set({ screen: 'dash', reading: false, mapSel: null }),
+      scan: () => set({ screen: 'scan', reading: false, refreshed: false }),
+      list: () => set({ screen: 'list' }),
+      map: () => set({ screen: 'map', mapSel: null }),
+      dest: () => set({ screen: 'dest', saving: false }),
+      profileFromRead: () => set({ screen: 'profile', profileBack: 'read' }),
+      profileAfter: () => set({ screen: 'profile', saving: false }),
+      backFromDest: () => set({ screen: st.destBack, saving: false }),
+      profileBack: () => set({ screen: st.profileBack }),
+      routeJan: () => set({ screen: 'route', routeFor: 'jan', mapBackTo: 'profile' })
+    };
+    const roleAction = () => {
+      if (nurse) set({ screen: 'dest', destBack: scr, search: '' });
+      else set({ screen: 'status', statusPick: st.status === 'rd' ? 'dc' : 'rd' });
+    };
+    const startScan = () => { set({ reading: true }); this.later(() => set({ reading: false, screen: 'read' }), 1300); };
+    const confirm = () => {
+      if (st.saving) return;
+      set({ saving: true });
+      this.later(() => {
+        if (this.state.conflict) { set({ saving: false, screen: 'conflict' }); return; }
+        const from = this.state.loc, to = this.state.dest;
+        const ev = [{ k: 't', from, to, who: 'Anna Nowak', role: 'Nurse', time: '10:46', fresh: true }].concat(this.state.events.map((e) => Object.assign({}, e, { fresh: false })));
+        set({ saving: false, screen: 'success', loc: to, locTime: '10:46', locBy: 'Anna Nowak', events: ev, transfers: this.state.transfers + 1, listHL: true, feedNew: 'Jan Kowalczyk → ' + N[to], profileBack: 'dash' });
+      }, 1400);
+    };
+    const refreshConflict = () => {
+      const from = st.loc, to = st.loc === 'CAR' ? 'SUR' : 'CAR';
+      const ev = [{ k: 't', from, to, who: 'Marek Kowal', role: 'Nurse', time: '10:41', fresh: true }].concat(st.events.map((e) => Object.assign({}, e, { fresh: false })));
+      set({ screen: 'read', loc: to, locTime: '10:41', locBy: 'Marek Kowal', events: ev, conflict: false, refreshed: true, dest: null });
+    };
+    const saveStatus = () => {
+      if (st.saving) return;
+      set({ saving: true });
+      this.later(() => {
+        const old = ST[this.state.status].l, nw = this.state.statusPick;
+        const ev = [{ k: 's', line: old + ' → ' + ST[nw].l, who: 'Dr Piotr Zając', role: 'Doctor', time: '10:52', fresh: true }].concat(this.state.events.map((e) => Object.assign({}, e, { fresh: false })));
+        set({ saving: false, screen: 'profile', status: nw, events: ev, listHL: true });
+        this.toast({ title: 'Status updated', body: ST[nw].l + ' · location unchanged', ok: true });
+      }, 1200);
+    };
+    // dests
+    const q = st.search.trim().toLowerCase();
+    const dests = Object.keys(N).filter((c) => c !== st.loc).filter((c) => !q || N[c].toLowerCase().indexOf(q) >= 0 || c.toLowerCase().indexOf(q) >= 0).map((c) => {
+      const o = O[c], pct = Math.round(o[0] / o[1] * 100), cl = this.pal(pct);
+      return { name: N[c], meta: c + ' · ' + this.FLOORS[FL[c]] + ' · ' + o[0] + '/' + o[1] + ' · ' + (o[1] - o[0] === 0 ? 'Full' : (o[1] - o[0]) + ' free'), pct: pct + '%', bar: 'display: block; height: 4px; border-radius: 2px; width: ' + pct + '%; background: ' + cl.b + ';', pick: () => set({ dest: c, screen: 'confirm' }) };
+    });
+    const dO = st.dest ? O[st.dest] : [0, 1];
+    // patients list
+    const people = [
+      { id: 'jan', name: 'Jan Kowalczyk', ini: 'JK', loc: st.loc, s: st.status, idc: 'HPT-7K3M9QX2' },
+      { id: 'mz', name: 'Maria Zielińska', ini: 'MZ', loc: 'ER', s: 'adm', idc: 'HPT-4QW8N2KD' },
+      { id: 'aw', name: 'Adam Wójcik', ini: 'AW', loc: 'RAD', s: 'adm', idc: 'HPT-9RT2KM5C' },
+      { id: 'km', name: 'Krystyna Mazur', ini: 'KM', loc: 'INT', s: 'rd', idc: 'HPT-3HV6PQ8N' },
+      { id: 'zk', name: 'Zofia Kamińska', ini: 'ZK', loc: 'CAR', s: 'tr', idc: 'HPT-6XK4WB2J' },
+      { id: 'tw', name: 'Tomasz Wiśniewski', ini: 'TW', loc: 'CAR', s: 'rd', idc: 'HPT-2DF7YQ9M' }
+    ];
+    const lq = st.listSearch.trim().toLowerCase();
+    const patients = people.filter((p) => !lq || p.name.toLowerCase().indexOf(lq) >= 0 || p.idc.toLowerCase().indexOf(lq) >= 0 || N[p.loc].toLowerCase().indexOf(lq) >= 0).map((p) => {
+      const s = ST[p.s], hl = p.id === 'jan' && st.listHL && !st.offline;
+      return { name: p.name, ini: p.ini, status: s.l === 'Ready for Discharge' ? 'Ready' : s.l, chip: 'background: ' + s.bg + '; color: ' + s.fg + ';', bar: 'background: ' + s.b + ';',
+        sub: hl ? 'Updated · ' + N[p.loc] + ' · now' : N[p.loc] + (st.offline ? ' · as of 10:42' : ''),
+        subStyle: 'display: block; font-size: 13px; ' + (hl ? 'color: #0A7F85; font-weight: 600;' : 'color: #5B6675;'),
+        box: hl ? 'background: #F5FBFB; border-color: #9FD8DB;' : '',
+        open: () => { if (p.id === 'jan') set({ screen: 'profile', profileBack: 'list' }); else this.toast({ title: 'Not wired in the prototype', body: 'Open Jan Kowalczyk to continue.' }); } };
+    });
+    // events
+    const icon = { t: '⇄', s: '∿', a: '→' };
+    const node = { t: 'background: #E4F5F6; color: #0A7F85;', s: 'background: #F1ECFC; color: #6236C0;', a: 'background: #EAF1FD; color: #1F55C2;' };
+    const events = st.events.map((e) => ({
+      title: e.k === 't' ? 'Transferred' : e.k === 's' ? 'Status changed' : 'Admitted',
+      line: e.k === 't' ? N[e.from] + ' → ' + N[e.to] : e.k === 's' ? e.line : N[e.to], who: e.who, role: e.role, time: e.time,
+      icon: icon[e.k], node: 'width: 30px; height: 30px; font-size: 14px; ' + node[e.k], cls: e.fresh ? 'fresh' : ''
+    }));
+    const le = st.events[0];
+    // feed
+    const baseFeed = [
+      { t: 'Adam Wójcik → Radiology', s: 'from Emergency · A. Nowak · Nurse', ago: '2 min', ini: 'AN', d: 0 },
+      { t: 'Krystyna Mazur · Ready for Discharge', s: 'Dr P. Zając · Doctor', ago: '6 min', ini: 'PZ', d: 1 },
+      { t: 'Jan Kowalczyk → Laboratory', s: 'from Internal Medicine · E. Lis · Nurse', ago: '9 min', ini: 'EL', d: 0 }
+    ];
+    const feedArr = st.feedNew ? [{ t: st.feedNew, s: 'A. Nowak · Nurse', ago: 'now', ini: 'AN', d: 0, fresh: true }].concat(baseFeed.slice(0, 2)) : baseFeed;
+    const feed = feedArr.map((f) => ({ t: f.t, s: f.s, ago: f.ago, ini: f.ini, bg: f.fresh ? 'animation: wlfresh 2.4s cubic-bezier(.33,1,.68,1) .3s both;' : '',
+      av: 'width: 30px; height: 30px; font-size: 11px; ' + (f.d ? 'background: #F1ECFC; box-shadow: inset 0 0 0 2px #7C4DDB; color: #6236C0;' : 'background: #E4F5F6; box-shadow: inset 0 0 0 2px #0E9FA6; color: #0A7F85;') }));
+    // status options
+    const statusOpts = ['adm', 'tr', 'rd', 'dc'].map((k) => {
+      const on = st.statusPick === k, cur = st.status === k;
+      return { label: ST[k].l, checked: on ? 'true' : 'false', pick: () => { if (!st.saving && !cur) set({ statusPick: k }); },
+        box: 'width: 100%; min-height: 52px; border-radius: 12px; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-align: left; ' + (on ? 'border: 2px solid #0A7F85; background: #F5FBFB;' : 'border: 1px solid #E4E8EE; background: #fff;') + (cur ? ' opacity: .75;' : ''),
+        rad: 'width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid ' + (on ? '#0A7F85' : '#CBD2DB') + ';',
+        dot: 'width: 10px; height: 10px; border-radius: 5px; background: ' + (on ? '#0A7F85' : 'transparent') + ';',
+        curStyle: cur ? 'height: 22px; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; background: ' + ST[k].bg + '; color: ' + ST[k].fg + ';' : 'display: none;' };
+    });
+    // map & route
+    const sc = this.scene({ sel: st.mapSel, dim: is.route });
+    let route = { pts: '', stops: [], lifts: [], list: [] };
+    let mapTitle = 'Hospital map';
+    if (is.route) {
+      let codes, times;
+      if (st.routeFor === 'adam') { codes = ['ER', 'RAD']; times = ['09:58', '10:38']; mapTitle = 'Adam Wójcik · route today'; }
+      else { const chron = st.events.filter((e) => e.k !== 's').slice().reverse(); codes = chron.map((e) => e.to); times = chron.map((e) => e.time); mapTitle = 'Jan Kowalczyk · route today'; }
+      const pathPts = []; const lifts = {};
+      codes.forEach((c, i) => {
+        if (i > 0 && FL[codes[i - 1]] !== FL[c]) { const a = sc.lift(FL[codes[i - 1]]), b = sc.lift(FL[c]); pathPts.push(a, b); lifts[FL[codes[i - 1]]] = a; lifts[FL[c]] = b; }
+        pathPts.push(sc.center(c));
+      });
+      const f2 = (n) => n.toFixed(1);
+      route.pts = pathPts.map((p) => f2(p[0]) + ',' + f2(p[1])).join(' ');
+      route.stops = codes.map((c, i) => { const p = sc.center(c), last = i === codes.length - 1; return { n: String(i + 1), style: 'position: absolute; left: ' + f2(p[0]) + 'px; top: ' + f2(p[1]) + 'px; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 12px; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px #fff; background: ' + (last ? '#0A7F85' : '#0F1720') + ';' }; });
+      route.lifts = Object.keys(lifts).map((k) => { const p = lifts[k]; return { style: 'position: absolute; left: ' + f2(p[0] + 24) + 'px; top: ' + f2(p[1]) + 'px; transform: translate(-50%, -50%); height: 20px; padding: 0 6px; border-radius: 6px; background: #fff; border: 1px solid #CBD2DB; font-size: 10px; font-weight: 600; color: #4F5967; display: inline-flex; align-items: center' }; });
+      route.list = codes.map((c, i) => { const last = i === codes.length - 1, fc = i > 0 && FL[codes[i - 1]] !== FL[c]; return { n: String(i + 1), name: N[c], note: fc ? '· lift ' + (FL[c] > FL[codes[i - 1]] ? '↑ ' : '↓ ') + this.FLOORS[FL[c]] : '', time: times[i] + (last ? ' · now' : ''), row: 'display: flex; align-items: center; gap: 10px; padding: 7px 14px;' + (i ? ' border-top: 1px solid #E4E8EE;' : ''), badge: 'width: 22px; height: 22px; border-radius: 11px; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; background: ' + (last ? '#0A7F85' : '#0F1720') + ';' }; });
+    }
+    let ms = { name: '', code: '', floor: '', occ: '', free: '', bar: '', pts: [] };
+    if (is.map && st.mapSel) {
+      const c = st.mapSel, o = O[c], pct = Math.round(o[0] / o[1] * 100);
+      const here = [];
+      if (st.loc === c) here.push({ name: 'Jan Kowalczyk', s: st.status, r: 'jan' });
+      const others = { RAD: [['Adam Wójcik', 'adm', 'adam']], ER: [['Maria Zielińska', 'adm', null]], INT: [['Krystyna Mazur', 'rd', null]], CAR: [['Zofia Kamińska', 'tr', null], ['Tomasz Wiśniewski', 'rd', null]] };
+      (others[c] || []).forEach((x) => here.push({ name: x[0], s: x[1], r: x[2] }));
+      ms = { name: N[c], code: c, floor: this.FLOORS[FL[c]], occ: o[0] + ' of ' + o[1] + ' beds · ' + pct + '%', free: o[1] - o[0] === 0 ? 'Full' : (o[1] - o[0]) + ' free', bar: 'height: 8px; border-radius: 4px; width: ' + pct + '%; background: ' + this.pal(pct).b + ';',
+        pts: here.map((h, i) => ({ name: h.name, status: ST[h.s].l, row: 'width: 100%; min-height: 52px; border: none; background: #fff; display: flex; align-items: center; gap: 10px; padding: 0 12px;' + (i ? ' border-top: 1px solid #E4E8EE;' : ''), dot: 'width: 4px; height: 22px; border-radius: 2px; background: ' + ST[h.s].b + ';',
+          pick: () => { if (h.r) set({ screen: 'route', routeFor: h.r, mapSel: null, mapBackTo: 'map' }); else this.toast({ title: 'Route not wired', body: 'Try Adam Wójcik or Jan Kowalczyk.' }); } })) };
+    }
+    // hints
+    const H = {
+      dash: st.flow === 5 ? 'Tap the "Hospital map" card.' : nurse ? 'Tap "Scan NFC" (or the raised Scan tab).' : 'Tap "Search patient" or the Patients tab.',
+      scan: 'Tap "Start scanning". On iPhone the system sheet covers the app while it reads.',
+      read: st.offline ? 'Offline: the action is replaced by a note. Switch Offline off in this panel.' : nurse ? 'Tap "Transfer →". Scanning changed nothing.' : 'Tap "Change status →".',
+      dest: 'Type "rad", then tap Radiology.',
+      confirm: st.offline ? 'Confirm is replaced while offline. Switch Offline off, then confirm.' : st.saving ? 'Saving… tap again: nothing happens.' : st.conflict ? 'Tap "Confirm transfer": Marek Kowal got there first.' : 'Tap "Confirm transfer". Try tapping twice.',
+      success: 'Tap "Back to patient": the new timeline item is highlighted.',
+      conflict: 'Tap "Refresh and choose again": the summary updates to Cardiology.',
+      list: st.offline ? 'Cached badges shown. Open Jan: actions are blocked. Then switch Offline off.' : 'Type "Kowalczyk", then tap Jan.',
+      profile: st.offline ? 'Offline: switch Offline off in this panel to see it refresh.' : nurse ? 'Tap "Transfer patient", or "Show on map" for today\'s route.' : 'Tap "Change status".',
+      status: 'Ready for Discharge is preselected. Tap "Save status".',
+      map: st.mapSel ? 'Tap a patient in the sheet to draw the route.' : 'Tap the RAD label (Radiology).',
+      route: 'Numbered stops; the lift marks floor changes. Flow complete.'
+    };
+    const flows = [
+      [1, 'Nurse: scan → transfer', 'Dashboard → Scan → Radiology → success'],
+      [2, 'Conflict', 'Confirm → conflict → refresh'],
+      [3, 'Doctor: change status', 'Search → profile → Ready for Discharge'],
+      [4, 'Offline', 'Cached data, blocked transfer, back online'],
+      [5, 'Map', 'Map → Radiology → patient → route']
+    ].map(([n, title, desc]) => ({ n: String(n), title, desc, start: () => this.start(n), box: st.flow === n ? 'border-color: #0E9FA6; background: #F5FBFB;' : '' }));
+    const sw = (on) => ({ t: 'background: ' + (on ? '#0A7F85' : '#CBD2DB') + ';', k: 'transform: translateX(' + (on ? '20px' : '0') + ');' });
+    const a = sw(st.offline), b = sw(st.conflict);
+    const segBtn = (on) => 'height: 32px; padding: 0 12px; border: none; border-radius: 8px; font-size: 13px; ' + (on ? 'background: #fff; box-shadow: 0 1px 2px rgba(15,23,32,.08); font-weight: 600;' : 'background: transparent; color: #5B6675; font-weight: 500;');
+    const conn = st.offline
+      ? { label: 'Offline', dot: 'display: none;', style: 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255,255,255,.72); font-size: 12px; font-weight: 600; color: #4F5967;', styleLight: 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: #F0F2F5; font-size: 12px; font-weight: 600; color: #4F5967;' }
+      : { label: 'Live', dot: 'width: 8px; height: 8px; border-radius: 4px; background: #14A35B;', style: 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255,255,255,.72); font-size: 12px; font-weight: 600; color: #0D7A43;', styleLight: 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E6F6EE; font-size: 12px; font-weight: 600; color: #0D7A43;' };
+    const me = nurse
+      ? { ini: 'AN', greet: 'Good morning, Anna', line: 'Nurse · Day shift 07:00–19:00', avatar: 'width: 42px; height: 42px; border-radius: 21px; background: #fff; color: #0A7F85; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0' }
+      : { ini: 'PZ', greet: 'Good morning, Dr Zając', line: 'Doctor · Internal Medicine · 08:00–16:00', avatar: 'width: 42px; height: 42px; border-radius: 21px; background: #fff; box-shadow: inset 0 0 0 2px #7C4DDB; color: #6236C0; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0' };
+    const t = st.toast;
+    return {
+      is, me, conn, pat, go, roleAction, startScan, confirm, refreshConflict, saveStatus, feed, events, dests, patients, statusOpts, flows, route, mapTitle, ms,
+      map: { polys: sc.polys, labels: sc.labels, floorLabels: sc.floorLabels },
+      kpi: { tr: st.status === 'tr' ? 54 : 53, rd: st.status === 'rd' ? 18 : 17, tf: st.transfers },
+      reading: st.reading, offline: st.offline, backOnline: st.backOnline, refreshed: st.refreshed,
+      canAct: !st.offline, blocked: st.offline, canConfirm: !st.offline,
+      roleActionLabel: nurse ? 'Transfer' + (is.profile ? ' patient' : '') : 'Change status',
+      search: st.search, onSearch: (e) => set({ search: e.target.value }), noDest: dests.length === 0,
+      listSearch: st.listSearch, onListSearch: (e) => set({ listSearch: e.target.value }), noPatients: patients.length === 0,
+      destName: st.dest ? N[st.dest] : '', destMeta: st.dest ? this.FLOORS[FL[st.dest]] + ' · ' + dO[0] + '/' + dO[1] + ' beds · ' + Math.round(dO[0] / dO[1] * 100) + '%' : '',
+      saving: st.saving, notSaving: !st.saving, busy: st.saving ? 'true' : 'false', mvClass: st.saving ? 'mv fast' : 'mv',
+      confirmLabel: st.saving ? 'Confirming…' : 'Confirm transfer', saveLabel: st.saving ? 'Saving…' : 'Save status',
+      confirmStyle: st.saving ? 'background: #086A6F; cursor: progress;' : '',
+      lastEventLine: le && le.k === 't' ? N[le.from] + ' → ' + N[le.to] : '',
+      conflictWhere: N[st.loc] + ' → ' + (st.loc === 'CAR' ? 'Surgery' : 'Cardiology'),
+      profileBackLabel: st.profileBack === 'list' ? 'Patients' : st.profileBack === 'read' ? 'Scan' : 'Dashboard',
+      hasMapSel: is.map && !!st.mapSel, closeMapSel: () => set({ mapSel: null }),
+      mapBack: () => is.route ? set({ screen: st.mapBackTo || 'map' }) : set({ screen: 'dash', mapSel: null }),
+      mapBackLabel: is.route ? (st.mapBackTo === 'profile' ? 'Jan Kowalczyk' : 'Map') : 'Dashboard',
+      hasToast: !!t, toast: t ? { title: t.title, body: t.body, glyph: t.ok ? '✓' : 'i', icon: 'width: 32px; height: 32px; font-size: 14px; ' + (t.ok ? 'background: #E6F6EE; color: #0D7A43;' : 'background: #F3F5F8; color: #4F5967;') } : { title: '', body: '', glyph: '', icon: '' },
+      notWired: () => this.toast({ title: 'Not wired in the prototype', body: 'History and Profile tabs are designed on the Journeys page.' }),
+      hint: H[scr] || '',
+      roleN: segBtn(nurse), roleD: segBtn(!nurse), setNurse: () => set({ role: 'nurse' }), setDoctor: () => set({ role: 'doctor' }),
+      offChecked: st.offline ? 'true' : 'false', offTrack: a.t, offKnob: a.k,
+      toggleOffline: () => { if (st.offline) { set({ offline: false, backOnline: true, listHL: false }); this.later(() => set({ backOnline: false }), 3000); } else set({ offline: true, backOnline: false }); },
+      cfChecked: st.conflict ? 'true' : 'false', cfTrack: b.t, cfKnob: b.k, toggleConflict: () => set({ conflict: !st.conflict }),
+      resetAll: () => { this.clear(); this.setState(this.fresh({})); }
+    };
+  }
+}
+</script>
+</body>
+</html>

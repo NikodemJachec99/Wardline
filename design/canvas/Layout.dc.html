@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Space, radius, elevation, motion</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+a{color:#0A7F85}a:hover{color:#086A6F}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1120px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">04 · Space, radius, elevation, motion</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Layout &amp; motion tokens</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 520px; text-align: right">Borders do the work shadows usually do. Shadows only appear on things that float above content: the Scan button, toasts and sheets.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Spacing · 4-pt base</h2>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.xxs</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">4</span><div style="width: 4px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.xs</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">8</span><div style="width: 8px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.sm</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">12</span><div style="width: 12px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.md</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">16</span><div style="width: 16px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.lg</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">24</span><div style="width: 24px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.xl</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">32</span><div style="width: 32px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+          <div style="display: flex; align-items: center; gap: 12px"><span class="mono" style="font-size: 12px; font-weight: 600; width: 84px">space.xxl</span><span class="mono tn" style="font-size: 12px; color: #5B6675; width: 24px">48</span><div style="width: 48px; height: 16px; border-radius: 2px; background: #0E9FA6"></div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; border-left: 1px solid #E4E8EE; padding-left: 24px">
+          <span style="font-size: 12px; font-weight: 600; color: #5B6675">Sizes</span>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">size.touchMin</span><span class="mono tn" style="font-size: 12px; color: #5B6675">48 × 48</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">size.action</span><span class="mono tn" style="font-size: 12px; color: #5B6675">56 high</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">size.input</span><span class="mono tn" style="font-size: 12px; color: #5B6675">48 high</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">size.navBar</span><span class="mono tn" style="font-size: 12px; color: #5B6675">64 + safe area</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">size.scanButton</span><span class="mono tn" style="font-size: 12px; color: #5B6675">64 ⌀ · raised 16</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">layout.gutter</span><span class="mono tn" style="font-size: 12px; color: #5B6675">16</span></div>
+          <div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">layout.thumbZone</span><span style="font-size: 12px; color: #5B6675">bottom 40%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Radius</h2>
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: end">
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 72px; border-radius: 8px; background: #E4F5F6; border: 1px solid #0E9FA6"></div><span class="mono" style="font-size: 12px; font-weight: 600">radius.chip</span><span class="mono tn" style="font-size: 12px; color: #5B6675">8 · chips, badges</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 72px; border-radius: 12px; background: #E4F5F6; border: 1px solid #0E9FA6"></div><span class="mono" style="font-size: 12px; font-weight: 600">radius.input</span><span class="mono tn" style="font-size: 12px; color: #5B6675">12 · inputs, buttons</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 72px; border-radius: 16px; background: #E4F5F6; border: 1px solid #0E9FA6"></div><span class="mono" style="font-size: 12px; font-weight: 600">radius.card</span><span class="mono tn" style="font-size: 12px; color: #5B6675">16 · cards</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 72px; border-radius: 24px 24px 0 0; background: #E4F5F6; border: 1px solid #0E9FA6; border-bottom: none"></div><span class="mono" style="font-size: 12px; font-weight: 600">radius.sheet</span><span class="mono tn" style="font-size: 12px; color: #5B6675">24 · top only</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 72px; width: 72px; border-radius: 999px; background: #E4F5F6; border: 1px solid #0E9FA6"></div><span class="mono" style="font-size: 12px; font-weight: 600">radius.full</span><span class="mono tn" style="font-size: 12px; color: #5B6675">avatars, dots</span></div>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #5B6675">Buttons use <span class="mono" style="font-size: 12px; color: #0F1720">radius.input</span> so a button and the field above it share one edge language. Nested radius = outer − padding.</p>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Elevation</h2>
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; padding: 16px; border-radius: 12px; background: #F3F5F8">
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 64px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E8EE"></div><span class="mono" style="font-size: 11px; font-weight: 600">elevation.0</span><span style="font-size: 11px; line-height: 15px; color: #5B6675">Hairline only. Cards, lists. Default.</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 64px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E8EE; box-shadow: 0 1px 2px rgba(15, 23, 32, 0.04), 0 2px 8px rgba(15, 23, 32, 0.04)"></div><span class="mono" style="font-size: 11px; font-weight: 600">elevation.1</span><span style="font-size: 11px; line-height: 15px; color: #5B6675">Sticky search once scrolled.</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 64px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E4E8EE; box-shadow: 0 6px 20px rgba(15, 23, 32, 0.08)"></div><span class="mono" style="font-size: 11px; font-weight: 600">elevation.2</span><span style="font-size: 11px; line-height: 15px; color: #5B6675">Scan button, toast, map panel.</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 64px; border-radius: 12px; background: rgba(15, 23, 32, 0.32); display: flex; align-items: flex-end; overflow: hidden"><div style="height: 40px; width: 100%; background: #FFFFFF; border-radius: 12px 12px 0 0; box-shadow: 0 -8px 32px rgba(15, 23, 32, 0.12)"></div></div><span class="mono" style="font-size: 11px; font-weight: 600">elevation.3</span><span style="font-size: 11px; line-height: 15px; color: #5B6675">Sheets over 32% scrim.</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px"><div style="height: 64px; border-radius: 12px; background: linear-gradient(160deg, #13A8AE 0%, #0A7F85 100%); padding: 10px; box-sizing: border-box"><div style="height: 100%; border-radius: 8px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px)"></div></div><span class="mono" style="font-size: 11px; font-weight: 600">elevation.glass</span><span style="font-size: 11px; line-height: 15px; color: #5B6675">KPI cards + map panel only.</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <span class="mono" style="font-size: 11px; color: #5B6675">e1: 0 1 2 / 4% · 0 2 8 / 4%</span>
+        <span class="mono" style="font-size: 11px; color: #5B6675">e2: 0 6 20 / 8%</span>
+        <span class="mono" style="font-size: 11px; color: #5B6675">e3: 0 −8 32 / 12% · scrim #0F1720 32%</span>
+        <span class="mono" style="font-size: 11px; color: #5B6675">glass: white 72% · blur 20 · border white 60%</span>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <h2 style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6675">Motion</h2>
+        <span class="mono" style="font-size: 11px; color: #5B6675">easing.out = Curves.easeOutCubic</span>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) 140px; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">motion.fast · 120ms</span><span style="font-size: 12px; color: #5B6675">press, chip toggle, exits</span></div><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 31.6%; height: 6px; border-radius: 3px; background: #0E9FA6"></div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">motion.base · 220ms</span><span style="font-size: 12px; color: #5B6675">banners, page push, cards</span></div><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 57.9%; height: 6px; border-radius: 3px; background: #0E9FA6"></div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 4px"><div style="display: flex; justify-content: space-between"><span class="mono" style="font-size: 12px; font-weight: 600">motion.slow · 380ms</span><span style="font-size: 12px; color: #5B6675">charts, bars, map pan</span></div><div style="height: 6px; border-radius: 3px; background: #F3F5F8"><div style="width: 100%; height: 6px; border-radius: 3px; background: #0E9FA6"></div></div></div>
+          <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #F3F5F8"><span class="mono" style="font-size: 12px; font-weight: 600">motion.sheetSpring</span><span class="mono" style="font-size: 11px; color: #5B6675">SpringDescription(mass 1, stiffness 420, damping 38) · ζ ≈ 0.93, no visible bounce</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <svg viewBox="0 0 140 140" width="140" height="140" role="img" aria-label="Ease-out cubic curve, cubic-bezier 0.33, 1, 0.68, 1">
+            <rect x="0.5" y="0.5" width="139" height="139" rx="12" fill="#FAFBFC" stroke="#E4E8EE"></rect>
+            <path d="M20 120 L120 120 M20 120 L20 20" stroke="#E4E8EE" stroke-width="1"></path>
+            <path d="M20 120 C53 20 88 20 120 20" fill="none" stroke="#0E9FA6" stroke-width="2.5" stroke-linecap="round"></path>
+            <circle cx="20" cy="120" r="3" fill="#0E9FA6"></circle><circle cx="120" cy="20" r="3" fill="#0E9FA6"></circle>
+          </svg>
+          <span class="mono" style="font-size: 10px; color: #5B6675">bezier(.33, 1, .68, 1)</span>
+        </div>
+      </div>
+      <div style="border: 1px solid #E4E8EE; border-radius: 12px; overflow: hidden">
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; background: #F3F5F8; font-size: 11px; font-weight: 600; color: #5B6675"><span>Animation</span><span>Default</span><span>Reduced motion</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Bottom sheet</span><span style="color: #5B6675">Spring slide up</span><span style="color: #5B6675">Fade in, 120ms</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Page push</span><span style="color: #5B6675">Slide 24pt + fade, 220ms</span><span style="color: #5B6675">Crossfade, 120ms</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Skeleton shimmer</span><span style="color: #5B6675">Sweep, 1.2s loop</span><span style="color: #5B6675">Static grey blocks</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Live row update</span><span style="color: #5B6675">Teal tint fades out, 380ms</span><span style="color: #5B6675">Static "Updated" dot for 5s</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Button success</span><span style="color: #5B6675">Spinner → check scales in</span><span style="color: #5B6675">Spinner kept (essential), check appears</span></div>
+        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 8px 12px; border-top: 1px solid #E4E8EE; font-size: 12px"><span style="font-weight: 600">Live dot, bars, KPIs</span><span style="color: #5B6675">Pulse · grow · count up</span><span style="color: #5B6675">Static dot · final width · final value</span></div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

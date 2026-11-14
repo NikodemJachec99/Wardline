@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wardline · Dashboard and map components</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAFBFC}
+.wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
+.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.wl button{font-family:inherit}
+.shim{background:linear-gradient(90deg,rgba(228,232,238,0.9) 0%,rgba(243,245,248,0.9) 50%,rgba(228,232,238,0.9) 100%);background-size:400px 100%;animation:wlshimmer 1.2s linear infinite}
+@keyframes wlshimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+a{color:#0A7F85}a:hover{color:#086A6F}
+@media (prefers-reduced-motion: reduce){.shim{animation:none}}
+</style>
+</helmet>
+<div class="wl" style="width: 1440px; height: 1240px; box-sizing: border-box; padding: 64px 80px; background: #FAFBFC; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 24px; border-bottom: 1px solid #E4E8EE">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0A7F85">07 · Components</div>
+      <h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Dashboard &amp; map</h1>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 20px; color: #5B6675; max-width: 560px; text-align: right">The only gradient in the app lives behind these KPI cards, and they are the only glass besides the map panel. Deltas stay neutral grey: more patients is not "good" or "bad".</p>
+  </header>
+
+  <section style="border-radius: 24px; background: linear-gradient(340deg, #13A8AE 0%, #0A7F85 100%); padding: 28px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.9)">Friday 13 November · Day shift</span>
+        <span style="font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF">Good morning, Anna</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span class="mono" style="font-size: 12px; color: rgba(255, 255, 255, 0.9)">WlKpiCard ×4 · glass</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); font-size: 12px; font-weight: 600; color: #0D7A43"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 16px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Patients in house</span>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+          <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">149</span>
+          <svg width="96" height="32" viewBox="0 0 120 32" aria-hidden="true"><path d="M0 24 L15 22 L30 23 L45 18 L60 19 L75 14 L90 12 L105 10 L120 8 L120 32 L0 32 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 24 L15 22 L30 23 L45 18 L60 19 L75 14 L90 12 L105 10 L120 8" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path></svg>
+        </div>
+        <span class="tn" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: #5B6675"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>+6 vs yesterday</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 16px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Transfers today</span>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+          <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">37</span>
+          <svg width="96" height="32" viewBox="0 0 120 32" aria-hidden="true"><path d="M0 28 L15 26 L30 20 L45 22 L60 16 L75 14 L90 15 L105 9 L120 6 L120 32 L0 32 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 28 L15 26 L30 20 L45 22 L60 16 L75 14 L90 15 L105 9 L120 6" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path></svg>
+        </div>
+        <span class="tn" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: #5B6675"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>+4 vs this time yesterday</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 16px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Bed occupancy</span>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+          <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">71%</span>
+          <svg width="96" height="32" viewBox="0 0 120 32" aria-hidden="true"><path d="M0 16 L15 15 L30 17 L45 14 L60 13 L75 14 L90 11 L105 12 L120 10 L120 32 L0 32 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 16 L15 15 L30 17 L45 14 L60 13 L75 14 L90 11 L105 12 L120 10" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path></svg>
+        </div>
+        <span class="tn" style="font-size: 12px; font-weight: 500; color: #5B6675">149 of 210 beds · +2 pts</span>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 16px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 500; color: #5B6675">Ready for discharge</span>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+          <span class="tn" style="font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.02em">11</span>
+          <svg width="96" height="32" viewBox="0 0 120 32" aria-hidden="true"><path d="M0 8 L15 10 L30 9 L45 13 L60 12 L75 16 L90 15 L105 18 L120 20 L120 32 L0 32 Z" fill="#0E9FA6" fill-opacity="0.12"></path><path d="M0 8 L15 10 L30 9 L45 13 L60 12 L75 16 L90 15 L105 18 L120 20" fill="none" stroke="#0A7F85" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path></svg>
+        </div>
+        <span class="tn" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: #5B6675"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg>−3 vs yesterday</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 6px">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlDeptOccupancyBar</span>
+        <span style="font-size: 12px; color: #5B6675">Sorted fullest first</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">ICU</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Intensive Care</span><span class="tn" style="font-size: 13px; color: #5B6675">8/8 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 100%; height: 8px; border-radius: 4px; background: #E5484D"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">100%</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">INT</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Internal Medicine</span><span class="tn" style="font-size: 13px; color: #5B6675">29/32 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 91%; height: 8px; border-radius: 4px; background: #E5484D"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">91%</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">ER</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Emergency Department</span><span class="tn" style="font-size: 13px; color: #5B6675">21/24 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 88%; height: 8px; border-radius: 4px; background: #E5484D"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">88%</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">CAR</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Cardiology</span><span class="tn" style="font-size: 13px; color: #5B6675">16/20 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 80%; height: 8px; border-radius: 4px; background: #F29A2E"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">80%</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">SUR</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Surgery</span><span class="tn" style="font-size: 13px; color: #5B6675">18/24 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 75%; height: 8px; border-radius: 4px; background: #F29A2E"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">75%</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; height: 52px">
+        <span style="width: 40px; text-align: center; padding: 4px 0; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">LAB</span>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between"><span style="font-size: 14px; font-weight: 500">Laboratory</span><span class="tn" style="font-size: 13px; color: #5B6675">5/12 beds</span></div><div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 42%; height: 8px; border-radius: 4px; background: #22B573"></div></div></div>
+        <span class="tn" style="width: 48px; text-align: right; font-size: 15px; font-weight: 600">42%</span>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <span class="mono" style="font-size: 16px; font-weight: 600">WlMiniMap</span>
+        <div role="tablist" aria-label="Floor" style="display: flex; padding: 3px; border-radius: 10px; background: #F3F5F8; gap: 2px">
+          <button type="button" role="tab" aria-selected="true" style="height: 30px; padding: 0 12px; border: none; border-radius: 8px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(15, 23, 32, 0.08); font-size: 13px; font-weight: 600; color: #0F1720">Ground</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 30px; padding: 0 12px; border: none; border-radius: 8px; background: transparent; font-size: 13px; font-weight: 500; color: #5B6675">Floor 1</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 30px; padding: 0 12px; border: none; border-radius: 8px; background: transparent; font-size: 13px; font-weight: 500; color: #5B6675">Floor 2</button>
+        </div>
+      </div>
+      <div style="position: relative; height: 290px; border-radius: 12px; background-color: #F3F5F8; background-image: linear-gradient(#E4E8EE 1px, transparent 1px), linear-gradient(90deg, #E4E8EE 1px, transparent 1px); background-size: 24px 24px; overflow: hidden; border: 1px solid #E4E8EE">
+        <div style="position: absolute; left: 3%; right: 3%; top: 50%; height: 8%; background: #FFFFFF; border-radius: 4px"></div>
+        <div style="position: absolute; left: 3%; top: 6%; width: 34%; height: 41%; border-radius: 10px; background: #FCE6E7; border: 1.5px solid #E5484D; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 12px; font-weight: 700">ER</span><span class="tn" style="font-size: 13px; font-weight: 600">88% · 21/24</span></div>
+        <div style="position: absolute; left: 39%; top: 6%; width: 28%; height: 41%; border-radius: 10px; background: #E3F6EC; border: 1.5px solid #22B573; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 12px; font-weight: 700">RAD</span><span class="tn" style="font-size: 13px; font-weight: 600">50% · 7/14</span></div>
+        <div style="position: absolute; left: 69%; top: 6%; width: 28%; height: 41%; border-radius: 10px; background: #E3F6EC; border: 1.5px solid #22B573; box-shadow: 0 0 0 3px #0E9FA6; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 12px; font-weight: 700">LAB</span><span class="tn" style="font-size: 13px; font-weight: 600">42% · 5/12</span></div>
+        <div style="position: absolute; left: 82%; top: 17%; width: 28px; height: 28px; border-radius: 14px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #0E9FA6, 0 2px 6px rgba(15, 23, 32, 0.12); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #0A7F85">JK</div>
+        <div style="position: absolute; left: 3%; top: 61%; width: 26%; height: 36%; border-radius: 10px; background: #FDF0DD; border: 1.5px solid #F29A2E; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 12px; font-weight: 700">ADM</span><span class="tn" style="font-size: 13px; font-weight: 600">60% · 6/10</span></div>
+        <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); box-shadow: 0 6px 20px rgba(15, 23, 32, 0.08); padding: 12px 14px; display: flex; align-items: center; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span style="font-size: 15px; font-weight: 600">Laboratory <span style="font-size: 13px; font-weight: 500; color: #5B6675">· Ground floor</span></span>
+            <span class="tn" style="font-size: 13px; color: #5B6675">42% occupied · 5 of 12 · Jan Kowalczyk is here</span>
+          </div>
+          <button type="button" style="height: 48px; padding: 0 16px; border: none; border-radius: 12px; background: #0A7F85; color: #FFFFFF; font-size: 15px; font-weight: 600">Open department</button>
+        </div>
+      </div>
+      <span style="font-size: 12px; color: #5B6675">Selected department gets a 3 px teal ring. Blocks always print code + % + beds. The panel is the only other glass surface.</span>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <span style="display: flex; align-items: center; gap: 8px"><span style="padding: 4px 8px; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">ICU</span><span style="font-size: 13px; color: #5B6675">Floor 2</span></span>
+        <span class="mono" style="font-size: 11px; color: #5B6675">WlDepartmentCard</span>
+      </div>
+      <span style="font-size: 18px; font-weight: 600">Intensive Care</span>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between"><span class="tn" style="font-size: 13px; font-weight: 600">100% · Full</span><span class="tn" style="font-size: 13px; color: #5B6675">0 free of 8</span></div>
+        <div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 100%; height: 8px; border-radius: 4px; background: #E5484D"></div></div>
+      </div>
+      <div style="display: flex; gap: 14px; font-size: 13px; color: #5B6675; padding-top: 10px; border-top: 1px solid #E4E8EE">
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #2F6FEB"></span>Admitted <span class="tn" style="font-weight: 600; color: #0F1720">1</span></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #7C4DDB"></span>In Treatment <span class="tn" style="font-weight: 600; color: #0F1720">7</span></span>
+      </div>
+    </section>
+    <section style="background: #FFFFFF; border: 1px solid #E4E8EE; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <span style="display: flex; align-items: center; gap: 8px"><span style="padding: 4px 8px; border-radius: 6px; background: #F3F5F8; font-size: 12px; font-weight: 600">LAB</span><span style="font-size: 13px; color: #5B6675">Ground</span></span>
+        <span class="mono" style="font-size: 11px; color: #5B6675">WlDepartmentCard</span>
+      </div>
+      <span style="font-size: 18px; font-weight: 600">Laboratory</span>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between"><span class="tn" style="font-size: 13px; font-weight: 600">42%</span><span class="tn" style="font-size: 13px; color: #5B6675">7 free of 12</span></div>
+        <div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="width: 42%; height: 8px; border-radius: 4px; background: #22B573"></div></div>
+      </div>
+      <div style="display: flex; gap: 14px; font-size: 13px; color: #5B6675; padding-top: 10px; border-top: 1px solid #E4E8EE">
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #2F6FEB"></span>Admitted <span class="tn" style="font-weight: 600; color: #0F1720">1</span></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #7C4DDB"></span>In Treatment <span class="tn" style="font-weight: 600; color: #0F1720">4</span></span>
+      </div>
+    </section>
+    <section style="border-radius: 16px; background: linear-gradient(340deg, #13A8AE 0%, #0A7F85 100%); padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 10px" aria-busy="true">
+        <span style="font-size: 11px; font-weight: 600; color: #5B6675">Loading</span>
+        <div class="shim" style="height: 12px; width: 70%; border-radius: 6px"></div>
+        <div class="shim" style="height: 28px; width: 50%; border-radius: 8px"></div>
+        <div class="shim" style="height: 10px; width: 85%; border-radius: 5px"></div>
+      </div>
+      <div style="border-radius: 16px; background: rgba(255, 255, 255, 0.72); border: 1px solid rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); padding: 14px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 11px; font-weight: 600; color: #5B6675">Cached</span>
+        <span style="font-size: 12px; font-weight: 500; color: #5B6675">Patients in house</span>
+        <span class="tn" style="font-size: 26px; line-height: 30px; font-weight: 600; color: #5B6675">149</span>
+        <span class="tn" style="align-self: flex-start; height: 20px; padding: 0 6px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center">Synced 10:42</span>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
