@@ -92,7 +92,7 @@ class Component extends DCLogic {
       ['color.status.{admitted,inTreatment,ready,discharged} base / fg / bg', 'WlStatusColors via colors.status(PatientStatus)', 'Base = bars/dots, fg = text+icon on bg tint.'],
       ['color.occupancy.{low,medium,high} + tints', 'colors.occupancy(int percent)', '<60 / 60–85 / >85. Always paired with a % label.'],
       ['color.role.nurse · doctor', 'colors.role(UserRole)', 'Avatar ring + role label, never colour alone.'],
-      ['type.* (display … id, kpi)', 'WlTokens.type.display … id (TextStyle)', 'Inter; kpi and id use tabular figures; id adds slashed zero.'],
+      ['type.* (display … id, kpi)', 'WlTokens.typography.display … id (TextStyle)', 'Inter; kpi and id use tabular figures; id adds slashed zero.'],
       ['space.xxs … xxl (4 … 48)', 'WlTokens.space.xxs … xxl', 'Gutter 16; sheets 16 side padding.'],
       ['radius.chip 8 · input 12 · card 16 · sheet 24', 'WlTokens.radius.*', 'Buttons use radius.input.'],
       ['elevation.0–3 · glass', 'WlTokens.elevation.*', 'Shadows only on floating layers.'],

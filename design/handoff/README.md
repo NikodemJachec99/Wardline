@@ -20,7 +20,7 @@ Everything Claude Code (or a person) needs to build the Wardline UI in Flutter, 
 |---|---|
 | `CLAUDE_CODE_BRIEF.md` | The brief to give Claude Code. Start here. |
 | `tokens.json` | All design tokens, names exactly as on the canvas. |
-| `flutter/wl_tokens.dart` | Ready `ThemeExtension<WlTokens>` + status/occupancy/role helpers. Move to `app/lib/core/theme/`. |
+| `flutter/wl_tokens.dart` | `ThemeExtension<WlTokens>` + status/occupancy/role helpers. Verified copy of `app/lib/core/theme/wl_tokens.dart` (PR #70); typography lives in `WlTokens.typography`. |
 | `components.md` | Every `Wl*` widget: purpose, API, states, semantics. |
 | `screens.md` | Every screen: route, components, states, data, role differences. |
 | `flows.md` | The 6 prototype flows as acceptance criteria. |

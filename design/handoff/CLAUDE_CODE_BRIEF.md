@@ -14,7 +14,7 @@ You are implementing the Wardline Flutter app UI in `app/` from this handoff bun
 
 ## Implementation order (each step = one PR, green CI)
 
-1. **Theme**: move `design/handoff/flutter/wl_tokens.dart` to `app/lib/core/theme/wl_tokens.dart`; register `WlTokens.light` in `buildTheme()` (`app/lib/app/theme.dart`) as a `ThemeExtension`; bundle Inter (400/500/600/700) as assets; add `lucide_icons_flutter` (or equivalent) for icons. Widget test: `Theme.of(context).extension<WlTokens>()` is not null.
+1. **Theme**: done in PR #70 (`app/lib/core/theme/wl_tokens.dart`, `buildTheme()` registers `WlTokens.light`, Inter 400–700 bundled). Remaining: add `lucide_icons_flutter` (or equivalent) for icons. Widget test: `Theme.of(context).extension<WlTokens>()` is not null.
 2. **Core widgets** in `app/lib/core/widgets/wl/`: `WlButton`, `WlStatusChip`, `WlInitialsAvatar`, `WlPatientCard`, `WlSearchBar`, `WlFilterChips`, `WlBottomNav`, `WlBottomSheet`, `WlSkeleton`, `WlToast`, `WlOfflineBanner`, `WlCacheBadge`, `WlConnectionIndicator`, `WlEmptyState`, `WlErrorState`. Golden test per widget per state listed in `components.md`.
 3. **Shell + navigation**: replace the Material `NavigationBar` in `shell_scaffold.dart` with `WlBottomNav` (raised Scan button). English labels: Dashboard, Patients, Scan, History, Profile.
 4. **Patients list → profile** (flows 3 and 4): sticky search, filter chips, live highlight, offline cached state, empty/loading/error.
