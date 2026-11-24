@@ -2,6 +2,16 @@
 
 Źródło prawdy dla zakresu i priorytetów: [docs/PLAN.md](docs/PLAN.md). Tablica: [Wardline project](https://github.com/users/NikodemJachec99/projects/4).
 
+## Design (obowiązkowy)
+
+Każdy, kto robi cokolwiek w UI, używa designu z `design/`. Bez wyjątków i bez "zrobię po swojemu".
+
+- Zacznij od skilla [`.agents/skills/wardline-design/SKILL.md`](.agents/skills/wardline-design/SKILL.md). To skill w standardzie [Agent Skills](https://agentskills.io/specification): Codex, Copilot, Gemini CLI i Cursor czytają `.agents/skills/` same. Claude Code czyta tylko `.claude/skills/`, więc hook z `.claude/settings.json` kopiuje tam skill przy starcie sesji (`tools/sync-agent-skills.sh`, kopia jest w `.gitignore`). Edytujesz tylko `.agents/skills/`. Ludzie czytają ten sam plik.
+- Gdzie co leży: [topology.md](.agents/skills/wardline-design/topology.md). Przed PR: [checklist.md](.agents/skills/wardline-design/checklist.md).
+- Podgląd designu lokalnie: `cd design/canvas && python3 -m http.server 8080`, potem `http://localhost:8080/DashB.dc.html`.
+- Kolory, odstępy, czasy: tylko `WlTokens`. Teksty: tylko `design/handoff/copy.md`.
+- Czegoś brakuje w designie? Dopisz to do `design/handoff/` w tym samym PR. Zmiana wyglądu istniejącego elementu: najpierw canvas, potem kod.
+
 ## Flow pracy
 
 ```

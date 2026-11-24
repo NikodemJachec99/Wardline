@@ -137,10 +137,21 @@ jobs:
         if: always() && steps.detect.outputs.has_migrations == 'true'
         run: supabase stop --no-backup
 
+  agent-skills:
+    name: agent-skills
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # .agents/skills/ must follow https://agentskills.io/specification.
+      - run: python3 tools/validate-agent-skills.py
+
   ci-ok:
     name: ci-ok
     if: always()
-    needs: [analyze-test, build-android, build-ios, supabase-db-test]
+    needs: [analyze-test, build-android, build-ios, supabase-db-test, agent-skills]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
