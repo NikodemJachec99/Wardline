@@ -18,7 +18,7 @@ Closes #
 
 ## Zrzuty / nagranie
 
-<!-- Wymagane przy zmianach UI. Przeciągnij plik tutaj. -->
+<!-- Wymagane przy zmianach UI. Zrzut z aplikacji obok artboardu z design/canvas (podaj jego nazwę). -->
 
 ## Wpływ na bezpieczeństwo
 
@@ -34,4 +34,5 @@ Closes #
 - [ ] PR mały (< ~400 linii poza plikami generowanymi) albo uzasadnione, czemu większy
 - [ ] Skan nie zapisuje lokalizacji; sukces pokazywany dopiero po odpowiedzi backendu (jeśli dotyczy)
 - [ ] Przetestowane na fizycznym urządzeniu (NFC / kamera / realtime)
+- [ ] UI zgodne z designem: przeszedłem `.agents/skills/wardline-design/checklist.md`, w opisie nazwa artboardu (jeśli dotyczy)
 - [ ] Zaktualizowane `docs/` (jeśli dotyczy)

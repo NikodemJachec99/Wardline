@@ -65,3 +65,10 @@ tools/generate_tags/out/
 *.swp
 .DS_Store
 Thumbs.db
+
+# --- Agent Skills ---
+# Source of truth is .agents/skills/ (Agent Skills standard, read by Codex,
+# Copilot, Gemini CLI, Cursor, ...). Claude Code only reads .claude/skills/, so
+# tools/sync-agent-skills.sh makes a local copy there. Never commit the copy.
+.claude/skills/
+.claude/settings.local.json
