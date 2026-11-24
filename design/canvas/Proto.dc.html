@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>Wardline · clickable prototype</title>
-<script src="./support.js"></script>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#EEF1F5}
 .wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
@@ -99,25 +101,25 @@ body{margin:0;background:#EEF1F5}
           </div>
         </div>
         <div style="padding: 14px 16px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
-          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg>Scan NFC</button>
-          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3M12 7v3a2 2 0 0 1-2 2H7M16 12h1"/></svg>Scan QR</button>
-          <button type="button" class="qa" onClick="{{ go.list }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search patient</button>
+          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"></path></svg>Scan NFC</button>
+          <button type="button" class="qa" onClick="{{ go.scan }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3M12 7v3a2 2 0 0 1-2 2H7M16 12h1"></path></svg>Scan QR</button>
+          <button type="button" class="qa" onClick="{{ go.list }}"><svg class="i" viewBox="0 0 24 24" style="color: #0A7F85"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Search patient</button>
         </div>
         <button type="button" onClick="{{ go.map }}" style="margin: 12px 16px 0; border: 1px solid #E4E8EE; border-radius: 16px; background: #fff; padding: 12px 14px; display: flex; align-items: center; gap: 12px; text-align: left">
-          <span style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="m12.8 2.2a2 2 0 0 0-1.7 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.7 0l8.6-3.9a1 1 0 0 0 0-1.8ZM22 17.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 17.7M22 12.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 12.7"/></svg></span>
+          <span style="width: 40px; height: 40px; border-radius: 12px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="m12.8 2.2a2 2 0 0 0-1.7 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.7 0l8.6-3.9a1 1 0 0 0 0-1.8ZM22 17.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 17.7M22 12.7l-9.2 4.1a2 2 0 0 1-1.7 0L2 12.7"></path></svg></span>
           <span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 600">Hospital map</span><span class="sub">3 floors · <span style="color: #C9302C; font-weight: 600">2 bottlenecks</span></span></span>
-          <svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg>
+          <svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"></path></svg>
         </button>
         <div class="card" style="margin: 12px 16px 0; overflow: hidden">
           <div style="padding: 10px 14px 4px; display: flex; justify-content: space-between"><span style="font-size: 16px; font-weight: 600">Recent transfers</span><span class="sub">Live</span></div>
           <sc-for list="{{ feed }}" as="f" hint-placeholder-count="3"><div class="fi" style="{{ f.bg }}"><span class="av" style="{{ f.av }}">{{ f.ini }}</span><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">{{ f.t }}</span><span class="sub" style="font-size: 12px">{{ f.s }}</span></span><span class="tn sub" style="font-size: 12px">{{ f.ago }}</span></div></sc-for>
         </div>
         <nav class="nav" aria-label="Main">
-          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
-          <button type="button" class="tab" onClick="{{ go.list }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
-          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
-          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
-          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>Dashboard</button>
+          <button type="button" class="tab" onClick="{{ go.list }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"></path></svg></span>Patients</button>
+          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"></path></svg></span>Scan</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"></path></svg></span>History</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"></path></svg></span>Profile</button>
         </nav>
       </div>
     </sc-if>
@@ -125,11 +127,11 @@ body{margin:0;background:#EEF1F5}
     <!-- SCAN -->
     <sc-if value="{{ is.scan }}" hint-placeholder-val="{{ false }}">
       <div class="scr">
-        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close scanner" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
+        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close scanner" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"></path></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
         <div aria-hidden="true" style="position: relative; height: 330px; margin-top: 10px">
           <div style="position: absolute; left: 50%; top: 50%; width: 250px; height: 250px; margin: -125px 0 0 -125px; border-radius: 50%; border: 1px solid #E4E8EE"></div>
           <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
-          <div style="position: absolute; left: 50%; top: 50%; width: 116px; height: 116px; margin: -58px 0 0 -58px; border-radius: 58px; background: #E4F5F6; display: flex; align-items: center; justify-content: center"><div style="width: 82px; height: 82px; border-radius: 41px; background: #0E9FA6; display: flex; align-items: center; justify-content: center; color: #fff"><svg class="i" viewBox="0 0 24 24" style="width: 38px; height: 38px"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"/></svg></div></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 116px; height: 116px; margin: -58px 0 0 -58px; border-radius: 58px; background: #E4F5F6; display: flex; align-items: center; justify-content: center"><div style="width: 82px; height: 82px; border-radius: 41px; background: #0E9FA6; display: flex; align-items: center; justify-content: center; color: #fff"><svg class="i" viewBox="0 0 24 24" style="width: 38px; height: 38px"><path d="M6 8.3a7.4 7.4 0 0 1 0 7.4M9.5 6.2a11.8 11.8 0 0 1 0 11.6M12.9 4.1a15.9 15.9 0 0 1 0 15.8M16.4 2a20.2 20.2 0 0 1 0 20"></path></svg></div></div>
         </div>
         <div style="padding: 0 32px; text-align: center; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 22px; line-height: 28px; font-weight: 600">Hold your phone near the patient's wristband</span><span class="sub" style="font-size: 15px">Top edge of the iPhone, 1–2 cm from the band.</span></div>
         <div style="margin: 18px 16px 0; padding: 10px 14px; border-radius: 12px; background: #F3F5F8; font-size: 13px; color: #4F5967">Scanning opens the record — it never moves the patient.</div>
@@ -144,10 +146,10 @@ body{margin:0;background:#EEF1F5}
     <!-- READ / QUICK SUMMARY -->
     <sc-if value="{{ is.read }}" hint-placeholder-val="{{ false }}">
       <div class="scr">
-        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
+        <div class="top"><button type="button" class="back" onClick="{{ go.dash }}" aria-label="Close" style="color: #0F1720!important"><svg class="i i22" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"></path></svg></button><span style="font-size: 17px; font-weight: 600">Scan patient</span><span style="width: 48px"></span></div>
         <div aria-hidden="true" style="position: relative; height: 230px">
           <div class="glow" style="position: absolute; left: 50%; top: 50%; width: 210px; height: 210px; margin: -105px 0 0 -105px; border-radius: 50%; background: #D5F0F1"></div>
-          <div style="position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 42px; background: #0E9FA6; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 40px; height: 40px; color: #fff; stroke-width: 2.25"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 42px; background: #0E9FA6; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 40px; height: 40px; color: #fff; stroke-width: 2.25"><path d="M20 6 9 17l-5-5"></path></svg></div>
         </div>
         <div class="scrim" style="background: rgba(15,23,32,.12)"></div>
         <div class="sheet" role="dialog" aria-label="Patient identified">
@@ -177,8 +179,8 @@ body{margin:0;background:#EEF1F5}
         <div class="scrim"></div>
         <div class="sheet" style="top: 80px; gap: 10px" role="dialog" aria-label="Choose destination">
           <div class="handle"></div>
-          <div style="display: flex; justify-content: space-between; align-items: center"><div><div style="font-size: 20px; font-weight: 600">Move Jan Kowalczyk</div><div class="sub">From {{ pat.locName }} · {{ pat.floorName }}</div></div><button type="button" aria-label="Close" onClick="{{ go.backFromDest }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
-          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Search departments, e.g. rad" aria-label="Search departments"></label>
+          <div style="display: flex; justify-content: space-between; align-items: center"><div><div style="font-size: 20px; font-weight: 600">Move Jan Kowalczyk</div><div class="sub">From {{ pat.locName }} · {{ pat.floorName }}</div></div><button type="button" aria-label="Close" onClick="{{ go.backFromDest }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div>
+          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Search departments, e.g. rad" aria-label="Search departments"></label>
           <div style="flex: 1; overflow-y: auto; margin: 0 -4px; padding: 0 4px">
             <sc-for list="{{ dests }}" as="d" hint-placeholder-count="8">
               <button type="button" class="dr" onClick="{{ d.pick }}"><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 15px; font-weight: 600">{{ d.name }}</span><span class="sub tn" style="font-size: 12px">{{ d.meta }}</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; width: 52px"><span class="tn" style="font-size: 13px; font-weight: 600">{{ d.pct }}</span><span style="display: block; width: 48px; height: 4px; border-radius: 2px; background: #F3F5F8"><span style="{{ d.bar }}"></span></span></span></button>
@@ -192,7 +194,7 @@ body{margin:0;background:#EEF1F5}
     <!-- CONFIRM / SAVING -->
     <sc-if value="{{ is.confirm }}" hint-placeholder-val="{{ false }}">
       <div class="scr">
-        <div class="top"><sc-if value="{{ notSaving }}" hint-placeholder-val="{{ true }}"><button type="button" class="back" onClick="{{ go.dest }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>Destination</button></sc-if><span style="font-size: 17px; font-weight: 600; margin-right: auto; margin-left: 12px">Confirm transfer</span></div>
+        <div class="top"><sc-if value="{{ notSaving }}" hint-placeholder-val="{{ true }}"><button type="button" class="back" onClick="{{ go.dest }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"></path></svg>Destination</button></sc-if><span style="font-size: 17px; font-weight: 600; margin-right: auto; margin-left: 12px">Confirm transfer</span></div>
         <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 12px">
           <div style="display: flex; align-items: center; gap: 12px"><div class="av avp" style="width: 44px; height: 44px; font-size: 16px">JK</div><div style="flex: 1"><div style="font-size: 17px; font-weight: 600">Jan Kowalczyk</div><div class="sub id">HPT-7K3M9QX2</div></div><span class="chip" style="{{ pat.chip }}">{{ pat.statusLabel }}</span></div>
           <div style="display: flex; flex-direction: column">
@@ -204,12 +206,12 @@ body{margin:0;background:#EEF1F5}
         </div>
         <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 6px">
           <sc-if value="{{ canConfirm }}" hint-placeholder-val="{{ true }}">
-            <button type="button" class="btn" onClick="{{ confirm }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg></sc-if>{{ confirmLabel }}</button>
+            <button type="button" class="btn" onClick="{{ confirm }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg></sc-if>{{ confirmLabel }}</button>
             <sc-if value="{{ notSaving }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn3" onClick="{{ go.backFromDest }}">Cancel</button></sc-if>
             <sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><span class="sub" style="height: 48px; display: flex; align-items: center; justify-content: center">Waiting for the server · repeat taps are ignored</span></sc-if>
           </sc-if>
           <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}">
-            <div style="min-height: 56px; border-radius: 12px; background: #F3F5F8; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #4F5967"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"/></svg>Changes need a connection</div>
+            <div style="min-height: 56px; border-radius: 12px; background: #F3F5F8; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #4F5967"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h.01M8.5 16.4a5 5 0 0 1 7 0M5 12.9a10 10 0 0 1 5.2-2.7M19 12.9a10 10 0 0 0-2-1.5M2 8.8a15 15 0 0 1 4.2-2.6M22 8.8a15 15 0 0 0-11.3-3.8M2 2l20 20"></path></svg>Changes need a connection</div>
             <button type="button" class="btn2" onClick="{{ go.backFromDest }}">Back to patient</button>
           </sc-if>
         </div>
@@ -226,7 +228,7 @@ body{margin:0;background:#EEF1F5}
           <span class="sub tn" style="font-size: 14px">Confirmed by the server at 10:46. Every device sees it now.</span>
         </div>
         <div style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 8px"><span class="ov">Updated automatically</span>
-          <div class="card fresh" style="padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span class="av" style="width: 32px; height: 32px; background: #E4F5F6; color: #0A7F85"><svg class="i i16" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><div style="flex: 1"><div style="font-size: 14px; font-weight: 600">{{ lastEventLine }}</div><div class="sub">History · Anna Nowak · Nurse</div></div><span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:46</span></div>
+          <div class="card fresh" style="padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span class="av" style="width: 32px; height: 32px; background: #E4F5F6; color: #0A7F85"><svg class="i i16" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"></path></svg></span><div style="flex: 1"><div style="font-size: 14px; font-weight: 600">{{ lastEventLine }}</div><div class="sub">History · Anna Nowak · Nurse</div></div><span class="tn" style="font-size: 13px; font-weight: 600; color: #0A7F85">10:46</span></div>
         </div>
         <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 8px"><button type="button" class="btn" onClick="{{ go.profileAfter }}">Back to patient</button><button type="button" class="btn2" onClick="{{ go.scan }}">Scan next patient</button></div>
       </div>
@@ -239,7 +241,7 @@ body{margin:0;background:#EEF1F5}
         <div class="scrim"></div>
         <div class="sheet" role="alertdialog" aria-label="Patient was already moved">
           <div class="handle"></div>
-          <div style="display: flex; gap: 12px; align-items: flex-start"><span class="av" style="width: 44px; height: 44px; background: #FFF6E8; color: #8A5207"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"/></svg></span><div><div style="font-size: 20px; font-weight: 600">Patient was already moved</div><div class="sub" style="font-size: 15px">Your change wasn't saved.</div></div></div>
+          <div style="display: flex; gap: 12px; align-items: flex-start"><span class="av" style="width: 44px; height: 44px; background: #FFF6E8; color: #8A5207"><svg class="i" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3M12 9v4M12 17h.01"></path></svg></span><div><div style="font-size: 20px; font-weight: 600">Patient was already moved</div><div class="sub" style="font-size: 15px">Your change wasn't saved.</div></div></div>
           <div class="card"><div class="kv"><span>Who</span><b>Marek Kowal · Nurse</b></div><div class="kv"><span>When</span><b class="tn">Today, 10:41</b></div><div class="kv"><span>Where</span><b>{{ conflictWhere }}</b></div></div>
           <button type="button" class="btn" onClick="{{ refreshConflict }}">Refresh and choose again</button>
           <button type="button" class="btn3" onClick="{{ refreshConflict }}">Back to patient</button>
@@ -252,7 +254,7 @@ body{margin:0;background:#EEF1F5}
       <div class="scr">
         <div class="top" style="padding: 59px 16px 0; min-height: 100px"><span style="font-size: 28px; font-weight: 700; letter-spacing: -.02em">Patients <span class="tn" style="font-size: 16px; font-weight: 500; color: #5B6675">128</span></span><span style="{{ conn.styleLight }}"><span style="{{ conn.dot }}"></span>{{ conn.label }}</span></div>
         <div style="padding: 4px 16px 10px; display: flex; flex-direction: column; gap: 10px">
-          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input value="{{ listSearch }}" onChange="{{ onListSearch }}" placeholder="Name, ID or department" aria-label="Search patients"></label>
+          <label class="srch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input value="{{ listSearch }}" onChange="{{ onListSearch }}" placeholder="Name, ID or department" aria-label="Search patients"></label>
           <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}"><span class="tn" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px; background: #FFF6E8; color: #8A5207; font-size: 12px; font-weight: 600">Cached · synced 10:42 · may be outdated</span></sc-if>
         </div>
         <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto" aria-live="polite">
@@ -262,11 +264,11 @@ body{margin:0;background:#EEF1F5}
           <sc-if value="{{ noPatients }}" hint-placeholder-val="{{ false }}"><div style="padding: 40px 20px; text-align: center"><div style="font-size: 17px; font-weight: 600">No patients match "{{ listSearch }}"</div><div class="sub">Try a surname or an ID like HPT-7K3M9QX2.</div></div></sc-if>
         </div>
         <nav class="nav" aria-label="Main">
-          <button type="button" class="tab" onClick="{{ go.dash }}"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
-          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Patients</button>
-          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg></span>Scan</button>
-          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"/></svg></span>History</button>
-          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"/></svg></span>Profile</button>
+          <button type="button" class="tab" onClick="{{ go.dash }}"><span><svg class="i i22" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>Dashboard</button>
+          <button type="button" class="tab on" aria-current="page"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"></path></svg></span>Patients</button>
+          <button type="button" class="tab" onClick="{{ go.scan }}" aria-label="Scan" style="justify-content: flex-end; padding-bottom: 6px"><span class="fab"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"></path></svg></span>Scan</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8M3 3v5h5M12 7v5l4 2"></path></svg></span>History</button>
+          <button type="button" class="tab" onClick="{{ notWired }}"><span><svg class="i i22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.7V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.7"></path></svg></span>Profile</button>
         </nav>
       </div>
     </sc-if>
@@ -274,7 +276,7 @@ body{margin:0;background:#EEF1F5}
     <!-- PROFILE -->
     <sc-if value="{{ is.profile }}" hint-placeholder-val="{{ false }}">
       <div class="scr">
-        <div class="top" style="min-height: 100px"><button type="button" class="back" onClick="{{ go.profileBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>{{ profileBackLabel }}</button><button type="button" class="back" onClick="{{ go.routeJan }}" style="font-size: 15px">Show on map</button></div>
+        <div class="top" style="min-height: 100px"><button type="button" class="back" onClick="{{ go.profileBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"></path></svg>{{ profileBackLabel }}</button><button type="button" class="back" onClick="{{ go.routeJan }}" style="font-size: 15px">Show on map</button></div>
         <div style="flex: 1; overflow-y: auto; padding: 0 16px 16px; display: flex; flex-direction: column; gap: 16px">
           <div class="card" style="position: relative; overflow: hidden; padding: 16px 16px 14px 20px; display: flex; flex-direction: column; gap: 12px">
             <span class="bar" style="{{ pat.barStyle }}"></span>
@@ -312,7 +314,7 @@ body{margin:0;background:#EEF1F5}
           <div role="radiogroup" aria-label="Status" style="display: flex; flex-direction: column; gap: 8px">
             <sc-for list="{{ statusOpts }}" as="o" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{ o.checked }}" onClick="{{ o.pick }}" style="{{ o.box }}"><span style="{{ o.rad }}"><span style="{{ o.dot }}"></span></span><span style="flex: 1; font-size: 15px; font-weight: 600">{{ o.label }}</span><span style="{{ o.curStyle }}">Current</span></button></sc-for>
           </div>
-          <button type="button" class="btn" onClick="{{ saveStatus }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg></sc-if>{{ saveLabel }}</button>
+          <button type="button" class="btn" onClick="{{ saveStatus }}" aria-busy="{{ busy }}" style="{{ confirmStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg></sc-if>{{ saveLabel }}</button>
           <button type="button" class="btn3" onClick="{{ go.profileAfter }}">Cancel</button>
         </div>
       </div>
@@ -321,7 +323,7 @@ body{margin:0;background:#EEF1F5}
     <!-- MAP + ROUTE -->
     <sc-if value="{{ is.mapAny }}" hint-placeholder-val="{{ false }}">
       <div class="scr">
-        <div class="top"><button type="button" class="back" onClick="{{ mapBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"/></svg>{{ mapBackLabel }}</button></div>
+        <div class="top"><button type="button" class="back" onClick="{{ mapBack }}"><svg class="i i22" viewBox="0 0 24 24" style="stroke-width: 2"><path d="m15 18-6-6 6-6"></path></svg>{{ mapBackLabel }}</button></div>
         <div class="h1" style="font-size: 22px">{{ mapTitle }}</div>
         <div style="position: relative; height: 440px; margin-top: 4px">
           <svg width="390" height="440" aria-hidden="true" style="position: absolute; left: 0; top: 0">
@@ -343,12 +345,12 @@ body{margin:0;background:#EEF1F5}
         <sc-if value="{{ hasMapSel }}" hint-placeholder-val="{{ false }}">
           <div class="sheet" role="dialog" aria-label="{{ ms.name }}">
             <div class="handle"></div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start"><div><div class="sub" style="font-weight: 600; font-size: 12px">{{ ms.code }} · {{ ms.floor }}</div><div style="font-size: 21px; font-weight: 600">{{ ms.name }}</div></div><button type="button" aria-label="Close" onClick="{{ closeMapSel }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start"><div><div class="sub" style="font-weight: 600; font-size: 12px">{{ ms.code }} · {{ ms.floor }}</div><div style="font-size: 21px; font-weight: 600">{{ ms.name }}</div></div><button type="button" aria-label="Close" onClick="{{ closeMapSel }}" style="width: 44px; height: 44px; border: none; border-radius: 22px; background: #F3F5F8; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></div>
             <div style="display: flex; justify-content: space-between; font-size: 13px"><b class="tn">{{ ms.occ }}</b><span class="sub tn">{{ ms.free }}</span></div>
             <div style="height: 8px; border-radius: 4px; background: #F3F5F8"><div style="{{ ms.bar }}"></div></div>
             <span class="ov">Patients here · tap for route</span>
             <div class="card" style="overflow: hidden">
-              <sc-for list="{{ ms.pts }}" as="p" hint-placeholder-count="2"><button type="button" onClick="{{ p.pick }}" style="{{ p.row }}"><span style="{{ p.dot }}"></span><span style="flex: 1; font-size: 15px; font-weight: 600; text-align: left">{{ p.name }}</span><span class="sub">{{ p.status }}</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"/></svg></button></sc-for>
+              <sc-for list="{{ ms.pts }}" as="p" hint-placeholder-count="2"><button type="button" onClick="{{ p.pick }}" style="{{ p.row }}"><span style="{{ p.dot }}"></span><span style="flex: 1; font-size: 15px; font-weight: 600; text-align: left">{{ p.name }}</span><span class="sub">{{ p.status }}</span><svg class="i" viewBox="0 0 24 24" style="color: #9AA3AF"><path d="m9 18 6-6-6-6"></path></svg></button></sc-for>
             </div>
           </div>
         </sc-if>

@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>Two devices · realtime sync</title>
-<script src="./support.js"></script>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#EEF1F5}
 .wl{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0F1720;-webkit-font-smoothing:antialiased}
@@ -58,7 +60,7 @@ body{margin:0;background:#EEF1F5}
           </div>
         </div>
         <div style="margin-top: auto; padding: 12px 16px 34px; display: flex; flex-direction: column; gap: 6px">
-          <button type="button" class="btn" onClick="{{ confirm }}" aria-busy="{{ busy }}" style="{{ btnStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"/></svg></sc-if>{{ btnLabel }}</button>
+          <button type="button" class="btn" onClick="{{ confirm }}" aria-busy="{{ busy }}" style="{{ btnStyle }}"><sc-if value="{{ saving }}" hint-placeholder-val="{{ false }}"><svg class="i spin" viewBox="0 0 24 24" style="stroke-width: 2"><path d="M21 12a9 9 0 1 1-6.2-8.6"></path></svg></sc-if>{{ btnLabel }}</button>
           <span class="sub" style="height: 48px; display: flex; align-items: center; justify-content: center">{{ leftHint }}</span>
         </div>
       </sc-if>
@@ -74,7 +76,7 @@ body{margin:0;background:#EEF1F5}
 
     <div style="position: relative; width: 412px; height: 915px; border-radius: 28px; border: 1px solid #E4E8EE; background: #FAFBFC; overflow: hidden; display: flex; flex-direction: column">
       <div style="padding: 40px 16px 0; min-height: 100px; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 22px; font-weight: 600">Patients <span class="tn" style="font-size: 16px; font-weight: 500; color: #5B6675">128</span></span><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E6F6EE; color: #0D7A43; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 4px; background: #14A35B"></span>Live</span></div>
-      <div style="margin: 0 16px 12px; height: 52px; border-radius: 12px; background: #F3F5F8; display: flex; align-items: center; gap: 10px; padding: 0 16px; color: #5B6675; font-size: 16px"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Name, ID or department</div>
+      <div style="margin: 0 16px 12px; height: 52px; border-radius: 12px; background: #F3F5F8; display: flex; align-items: center; gap: 10px; padding: 0 16px; color: #5B6675; font-size: 16px"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Name, ID or department</div>
       <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px" aria-live="polite">
         <div class="{{ janClass }}" style="{{ janBox }}"><span class="bar" style="background: #7C4DDB"></span><span class="avp">JK</span><span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 600">Jan Kowalczyk</span><span style="{{ janSubStyle }}">{{ janSub }}</span></span><span class="chip" style="background: #F1ECFC; color: #6236C0">In Treatment</span></div>
         <div class="pc"><span class="bar" style="background: #2F6FEB"></span><span class="avp">MZ</span><span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 600">Maria Zielińska</span><span class="sub">Emergency</span></span><span class="chip" style="background: #EAF1FD; color: #1F55C2">Admitted</span></div>
@@ -83,7 +85,7 @@ body{margin:0;background:#EEF1F5}
         <div class="pc"><span class="bar" style="background: #7C4DDB"></span><span class="avp">ZK</span><span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 600">Zofia Kamińska</span><span class="sub">Cardiology</span></span><span class="chip" style="background: #F1ECFC; color: #6236C0">In Treatment</span></div>
       </div>
       <sc-if value="{{ rightToast }}" hint-placeholder-val="{{ false }}">
-        <div class="toast" role="status" style="position: absolute; left: 16px; right: 16px; bottom: 120px; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; box-shadow: 0 6px 20px rgba(15,23,32,.1); padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span style="width: 32px; height: 32px; border-radius: 16px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 16px; height: 16px"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg></span><span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 600">Jan Kowalczyk moved to Radiology</span><span class="sub">by A. Nowak · Nurse · just now</span></span></div>
+        <div class="toast" role="status" style="position: absolute; left: 16px; right: 16px; bottom: 120px; background: #fff; border: 1px solid #E4E8EE; border-radius: 16px; box-shadow: 0 6px 20px rgba(15,23,32,.1); padding: 12px 14px; display: flex; gap: 12px; align-items: center"><span style="width: 32px; height: 32px; border-radius: 16px; background: #E4F5F6; color: #0A7F85; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 16px; height: 16px"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"></path></svg></span><span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 600">Jan Kowalczyk moved to Radiology</span><span class="sub">by A. Nowak · Nurse · just now</span></span></div>
       </sc-if>
       <div style="margin-top: auto; height: 104px; background: #fff; border-top: 1px solid #E4E8EE; display: flex; align-items: flex-start; justify-content: space-around; padding-top: 14px; font-size: 12px; color: #5B6675; position: relative">
         <span>Dashboard</span><span style="color: #0A7F85; font-weight: 600; background: #E4F5F6; padding: 6px 14px; border-radius: 16px; margin-top: -6px">Patients</span><span>Scan</span><span>History</span><span>Profile</span>
