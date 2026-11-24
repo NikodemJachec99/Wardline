@@ -16,6 +16,7 @@ gradlew text eol=lf
 *.ttf  binary
 *.otf  binary
 *.webp binary
+*.zip  binary
 
 # Generated, collapse in PR diffs
 *.g.dart              linguist-generated=true
