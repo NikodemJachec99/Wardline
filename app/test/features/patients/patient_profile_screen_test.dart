@@ -28,8 +28,8 @@ void main() {
 
     await tester.tap(find.text('Transfer patient'));
     await settle(tester);
-    // Destination sheet (stub owned by the transfer flow).
-    expect(find.text('Choose destination'), findsOneWidget);
+    // Destination sheet from the transfer flow.
+    expect(find.text('Move Jan Kowalczyk'), findsOneWidget);
   });
 
   testWidgets('doctor: Change status, no Transfer patient', (tester) async {

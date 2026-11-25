@@ -17,6 +17,9 @@ const String doctor = 'Dr Piotr Zając';
 Finder option(PatientStatus s) =>
     find.byKey(ValueKey('status-option-${s.name}'));
 
+Finder inSheet(Finder f) =>
+    find.descendant(of: find.byType(WlBottomSheet), matching: f);
+
 Finder get saveButton => find.byKey(const ValueKey('status-save'));
 
 Future<void> openSheet(WidgetTester tester, RecordingRepository repo) async {
@@ -32,7 +35,7 @@ void main() {
     await pumpApp(tester, repo, as: doctor);
     await openSheet(tester, repo);
 
-    expect(find.text('Change status'), findsOneWidget);
+    expect(inSheet(find.text('Change status')), findsOneWidget);
     expect(
       find.text("Location doesn't change. Jan stays in Laboratory."),
       findsOneWidget,
@@ -69,7 +72,7 @@ void main() {
 
     await settle(tester);
     expect(repo.statusRequestIds, hasLength(1));
-    expect(find.text('Change status'), findsNothing);
+    expect(inSheet(find.text('Change status')), findsNothing);
     expect(find.text('Status updated'), findsOneWidget);
     expect(
       find.text('Ready for Discharge · location unchanged'),
@@ -141,7 +144,7 @@ void main() {
 
     await tester.tap(find.text('Refresh and choose again'));
     await settle(tester);
-    expect(find.text('Change status'), findsOneWidget);
+    expect(inSheet(find.text('Change status')), findsOneWidget);
     expect(
       find.text("Location doesn't change. Jan stays in Cardiology."),
       findsOneWidget,
@@ -189,7 +192,7 @@ void main() {
         .read(connectivityProvider.notifier)
         .setOnline(false);
     await openSheet(tester, repo);
-    expect(find.text('Changes need a connection'), findsOneWidget);
+    expect(inSheet(find.text('Changes need a connection')), findsOneWidget);
     expect(saveButton, findsNothing);
     expect(repo.statusRequestIds, isEmpty);
   });
