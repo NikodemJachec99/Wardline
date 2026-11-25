@@ -8,7 +8,9 @@ import 'wl_live_highlight.dart';
 enum WlTimelineKind { transfer, status, admission }
 
 /// One history entry on the patient profile: node, rail, title, time, line,
-/// staff. Tap expands the details (From, To, identified by, ...).
+/// staff. Tap expands the details (From, To, identified by, ...): they open
+/// their height and fade in over `motion.base` (motion.md "Timeline item
+/// expand"); reduced motion opens and closes them at once.
 class WlTimelineItem extends StatefulWidget {
   const WlTimelineItem({
     required this.kind,
@@ -43,8 +45,34 @@ class WlTimelineItem extends StatefulWidget {
   State<WlTimelineItem> createState() => _WlTimelineItemState();
 }
 
-class _WlTimelineItemState extends State<WlTimelineItem> {
+class _WlTimelineItemState extends State<WlTimelineItem>
+    with SingleTickerProviderStateMixin {
   bool _open = false;
+  late final AnimationController _expand = AnimationController(vsync: this)
+    // Rebuild when fully closed so the details leave the tree.
+    ..addStatusListener((_) => setState(() {}));
+  CurvedAnimation? _curve; // built on first use, with the token curve
+
+  @override
+  void dispose() {
+    _curve?.dispose();
+    _expand.dispose();
+    super.dispose();
+  }
+
+  void _toggle() {
+    setState(() => _open = !_open);
+    if (WlMotion.reduced(context)) {
+      _expand.value = _open ? 1 : 0;
+      return;
+    }
+    _expand.duration = WlTokens.of(context).motion.base;
+    if (_open) {
+      _expand.forward();
+    } else {
+      _expand.reverse();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +96,10 @@ class _WlTimelineItemState extends State<WlTimelineItem> {
       ),
     };
     final role = c.role(widget.staffRole);
+    final curve = _curve ??= CurvedAnimation(
+      parent: _expand,
+      curve: t.motion.out,
+    );
 
     return WlLiveHighlight(
       pulseKey: widget.highlightKey,
@@ -100,9 +132,7 @@ class _WlTimelineItemState extends State<WlTimelineItem> {
                 button: widget.details.isNotEmpty,
                 expanded: widget.details.isEmpty ? null : _open,
                 child: InkWell(
-                  onTap: widget.details.isEmpty
-                      ? null
-                      : () => setState(() => _open = !_open),
+                  onTap: widget.details.isEmpty ? null : _toggle,
                   borderRadius: t.radius.inputBr,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -173,50 +203,60 @@ class _WlTimelineItemState extends State<WlTimelineItem> {
                             ),
                           ],
                         ),
-                        if (_open) ...[
-                          SizedBox(height: t.space.sm),
-                          Container(
-                            padding: EdgeInsets.all(t.space.sm),
-                            decoration: BoxDecoration(
-                              color: c.subtle,
-                              borderRadius: t.radius.inputBr,
-                            ),
-                            child: Column(
-                              children: [
-                                for (final (k, v) in widget.details)
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: t.space.xxs / 2,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            k,
-                                            style: t.typography.caption
-                                                .copyWith(
-                                                  color: c.textSecondary,
-                                                ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            v,
-                                            style: t.typography
-                                                .tabular(t.typography.caption)
-                                                .copyWith(color: c.text),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                        if (!_expand.isDismissed)
+                          SizeTransition(
+                            sizeFactor: curve,
+                            alignment: Alignment.topCenter,
+                            child: FadeTransition(
+                              opacity: curve,
+                              child: Padding(
+                                padding: EdgeInsets.only(top: t.space.sm),
+                                child: Container(
+                                  padding: EdgeInsets.all(t.space.sm),
+                                  decoration: BoxDecoration(
+                                    color: c.subtle,
+                                    borderRadius: t.radius.inputBr,
                                   ),
-                              ],
+                                  child: Column(
+                                    children: [
+                                      for (final (k, v) in widget.details)
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: t.space.xxs / 2,
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  k,
+                                                  style: t.typography.caption
+                                                      .copyWith(
+                                                        color: c.textSecondary,
+                                                      ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  v,
+                                                  style: t.typography
+                                                      .tabular(
+                                                        t.typography.caption,
+                                                      )
+                                                      .copyWith(color: c.text),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ],
                       ],
                     ),
                   ),

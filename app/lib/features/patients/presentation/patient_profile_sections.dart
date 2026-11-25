@@ -274,13 +274,16 @@ class StatusStepper extends StatelessWidget {
   }
 }
 
-/// Builds timeline rows (newest first) for one patient.
+/// Builds timeline rows for one patient, newest first by server time
+/// (`created_at`), whatever order [history] comes in. Equal times: the
+/// transfer before the status change, then by id, so rows never swap.
 List<WlTimelineItem> buildTimeline({
   required HospitalSnapshot snapshot,
   required Patient patient,
   required List<HistoryEvent> history,
   required Set<String> highlight,
 }) {
+  final events = [...history]..sort(compareTimeline);
   String dept(String code) => snapshot.department(code)?.name ?? code;
   String short(String code) => snapshot.department(code)?.shortName ?? code;
   String deptFloor(String code) {
@@ -297,16 +300,16 @@ List<WlTimelineItem> buildTimeline({
   };
 
   LocationEvent? olderLocation(int index) {
-    for (var j = index + 1; j < history.length; j++) {
-      final e = history[j];
+    for (var j = index + 1; j < events.length; j++) {
+      final e = events[j];
       if (e is LocationEvent) return e;
     }
     return null;
   }
 
   final items = <WlTimelineItem>[];
-  for (final (i, e) in history.indexed) {
-    final isLast = i == history.length - 1;
+  for (final (i, e) in events.indexed) {
+    final isLast = i == events.length - 1;
     final key = highlight.contains(e.id) ? e.id : null;
     switch (e) {
       case LocationEvent(isAdmission: true):
@@ -384,6 +387,14 @@ List<WlTimelineItem> buildTimeline({
     }
   }
   return items;
+}
+
+/// Newest first; ties: transfer before status change, then by id.
+int compareTimeline(HistoryEvent a, HistoryEvent b) {
+  final byTime = b.at.compareTo(a.at);
+  if (byTime != 0) return byTime;
+  final byKind = (a is StatusEvent ? 1 : 0).compareTo(b is StatusEvent ? 1 : 0);
+  return byKind != 0 ? byKind : a.id.compareTo(b.id);
 }
 
 /// Floor label used in the location detail ("Ground floor", "Floor 1").
