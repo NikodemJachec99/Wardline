@@ -9,7 +9,9 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(appHarness(repo: demoRepository()));
-    await tester.pumpAndSettle();
+    // No pumpAndSettle: the dashboard's live pulse loops (motion.md).
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     final nav = find.byType(WlBottomNav);
     expect(nav, findsOneWidget);
@@ -28,14 +30,18 @@ void main() {
     }
 
     await tester.tap(find.descendant(of: nav, matching: find.text('History')));
-    await tester.pumpAndSettle();
+    // No pumpAndSettle: the dashboard's live pulse loops (motion.md).
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
     expect(tester.widget<WlBottomNav>(nav).currentIndex, 3);
   });
 
   testWidgets('Scan tab has an accessible label', (tester) async {
     final handle = tester.ensureSemantics();
     await tester.pumpWidget(appHarness(repo: demoRepository()));
-    await tester.pumpAndSettle();
+    // No pumpAndSettle: the dashboard's live pulse loops (motion.md).
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
     expect(find.bySemanticsLabel('Scan wristband or QR code'), findsOneWidget);
     handle.dispose();
   });
