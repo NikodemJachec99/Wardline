@@ -112,6 +112,29 @@ void main() {
       handle.dispose();
     });
 
+    testWidgets('swipe reveals actions that react to taps', (tester) async {
+      var map = 0;
+      var opened = 0;
+      await tester.pumpWidget(
+        _host(
+          WlPatientCard.compact(
+            name: 'Jan Kowalczyk',
+            age: 54,
+            status: PatientStatus.inTreatment,
+            subtitle: 'Laboratory',
+            onTap: () => opened++,
+            onShowOnMap: () => map++,
+          ),
+        ),
+      );
+      await tester.drag(find.byType(WlPatientCard), const Offset(-300, 0));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Show on map'));
+      await tester.pumpAndSettle();
+      expect(map, 1);
+      expect(opened, 0);
+    });
+
     testWidgets('expanded header keeps status and location separate', (
       tester,
     ) async {

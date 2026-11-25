@@ -85,3 +85,58 @@ Keys are suggestions for `l10n` (ARB). Times and names are filled at runtime. To
 | `notifications.empty` | You're all caught up |
 | `history.empty` | No transfers {direction} {department} today |
 | `perm.nurseOnly` | Only nurses can move patients. (Server error PT403; the UI never offers this action.) |
+
+## Added during implementation
+Strings taken from the artboards (or written where no artboard had one) while building the screens. Same tone rules as above.
+
+| Key | Text |
+|---|---|
+| `patients.searchCached` | Search cached patients |
+| `patients.filters.empty` | No patients match these filters |
+| `patients.filters.show` | Show {n} patients |
+| `patients.clearFilters` | Clear filters |
+| `patients.clearSearch` | Clear search |
+| `patients.notFound.title` | Patient not found |
+| `patients.notFound.body` | No patient has this ID. Check the band, or find the patient by name. |
+| `patients.back` | Back to patients |
+| `offline.connectToLoad` | Connect to load |
+| `profile.lastMoved` | Last moved {ago} by {name} |
+| `profile.statusSince` | {status} since {time} · set by {who} |
+| `scan.qr.title` | Scan QR code |
+| `scan.qr.rule` | It reads automatically. Scanning never moves the patient. |
+| `scan.switchToNfc` | Switch to NFC |
+| `scan.again` | Scan again |
+| `scan.useQr` | Use the QR code instead |
+| `scan.useNfc` | Use NFC instead |
+| `scan.useQrNow` | Use QR now |
+| `scan.switchingToQr` | Switching to QR… |
+| `scan.searchPatient` | Search patient |
+| `scan.noNfc.settings` | Open NFC settings |
+| `scan.camera.settings` | Open Settings |
+| `scan.summary.viewProfile` | View profile |
+| `scan.summary.nothingChanged` | Nothing has changed. |
+| `transfer.forbidden` | Only nurses can move patients. |
+| `status.conflict.title` | Status was already changed |
+| `status.timeout.title` | We couldn't confirm the status change |
+| `status.saving` | Saving… |
+| `history.showAll` | Show all activity |
+| `history.deptNotFound` | Department not found |
+| `history.timeline.empty` | No transfers today |
+| `history.timeline.list` | Show as list |
+| `map.listView` | List view |
+| `map.mapView` | Map view |
+| `map.findPatient` | Find patient |
+| `map.noPatients` | No patients here |
+| `chart.showTable` | Show as table |
+| `chart.showChart` | Show as chart |
+| `dashboard.noChange` | No change vs last hour |
+| `dashboard.nothingYet` | Nothing yet today |
+| `notifications.ownChanges` | Your own changes never notify you. |
+| `login.demoAccounts` | Demo accounts |
+| `login.offline` | You're offline · Signing in needs a connection. |
+| `login.forgot` | Forgot your password? Ask your ward admin. |
+| `profile.haptics` | Haptics |
+| `profile.simulateOffline` | Simulate offline |
+| `profile.signInAs` | Sign in as |
+| `demo.needsConnection` | Needs a connection |
+| `admin.tag.writing` | Writing… keep the tag still |

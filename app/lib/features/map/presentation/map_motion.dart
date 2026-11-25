@@ -1,20 +1,21 @@
-// Map animation timings from design/handoff/motion.md that have no WlMotion
-// token yet (map dot movement, route draw, arrival ring). Everything else
-// uses WlTokens.motion. Reduced motion fallbacks live in the widgets.
-// Candidate for WlMotionTokens (shared file) — see the PR notes.
+import '../../../core/theme/wl_tokens.dart';
 
+/// Map animation timings (design/handoff/motion.md). Values live in
+/// [WlMotionTokens]; this only names them for the map code.
 abstract final class MapMotion {
+  static WlMotionTokens get _m => WlTokens.light.motion;
+
   /// "Map dot movement": dot travels A→B once per event.
-  static const Duration dotTravel = Duration(milliseconds: 2600);
+  static Duration get dotTravel => _m.mapDotTravel;
 
   /// "then 2s ring on B" (also the reduced-motion highlight).
-  static const Duration arrivalRing = Duration(milliseconds: 2000);
+  static Duration get arrivalRing => _m.mapArrivalRing;
 
   /// "Route draw": polyline dash offset → 0.
-  static const Duration routeDraw = Duration(milliseconds: 900);
+  static Duration get routeDraw => _m.routeDraw;
 
   /// "stops pop in order": +80ms each.
-  static const Duration stopStagger = Duration(milliseconds: 80);
+  static Duration get stopStagger => _m.routeStopStagger;
 
   /// At most this many live dots at once; older ones are dropped.
   static const int maxMovements = 3;

@@ -38,6 +38,10 @@ abstract final class Routes {
 
   static String patient(String id) => '/patients/$id';
 
+  /// The same profile as a root-level page, pushed from modal/root screens
+  /// (Scan, Map) so Back returns to them.
+  static String patientRecord(String id) => '/record/$id';
+
   /// Confirm screen; the destination sheet opens from the profile.
   static String transferConfirm(String id, String to) =>
       '/patients/$id/transfer?to=$to';
@@ -158,6 +162,12 @@ final Provider<GoRouter> routerProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => const MaterialPage<void>(
           fullscreenDialog: true,
           child: ScanScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/record/:id',
+        builder: (context, state) => Scaffold(
+          body: PatientProfileScreen(patientId: state.pathParameters['id']!),
         ),
       ),
       GoRoute(

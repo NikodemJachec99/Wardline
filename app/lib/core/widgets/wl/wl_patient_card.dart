@@ -222,25 +222,25 @@ class _WlPatientCardState extends State<WlPatientCard> {
                 ),
               ),
             ),
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTapDown: (_) => setState(() => _pressed = true),
-            onTapCancel: () => setState(() => _pressed = false),
-            onTapUp: (_) => setState(() => _pressed = false),
-            onTap: () {
-              if (_offset != 0) {
-                setState(() => _offset = 0);
-              } else {
-                widget.onTap?.call();
-              }
-            },
-            onHorizontalDragUpdate: (d) => setState(
-              () => _offset = (_offset + d.delta.dx).clamp(-_actionsWidth, 0),
-            ),
-            onHorizontalDragEnd: (_) => _settle(),
-            child: AnimatedContainer(
-              duration: t.motion.fast,
-              transform: Matrix4.translationValues(_offset, 0, 0),
+          AnimatedContainer(
+            duration: t.motion.fast,
+            transform: Matrix4.translationValues(_offset, 0, 0),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTapDown: (_) => setState(() => _pressed = true),
+              onTapCancel: () => setState(() => _pressed = false),
+              onTapUp: (_) => setState(() => _pressed = false),
+              onTap: () {
+                if (_offset != 0) {
+                  setState(() => _offset = 0);
+                } else {
+                  widget.onTap?.call();
+                }
+              },
+              onHorizontalDragUpdate: (d) => setState(
+                () => _offset = (_offset + d.delta.dx).clamp(-_actionsWidth, 0),
+              ),
+              onHorizontalDragEnd: (_) => _settle(),
               child: card,
             ),
           ),

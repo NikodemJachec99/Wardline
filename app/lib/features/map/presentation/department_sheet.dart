@@ -394,7 +394,7 @@ class _PatientRow extends StatelessWidget {
         onTap: () {
           final router = GoRouter.of(context);
           Navigator.of(context).pop();
-          router.go(Routes.patient(patient.id));
+          router.push(Routes.patientRecord(patient.id));
         },
         child: Container(
           constraints: BoxConstraints(minHeight: t.space.touchMin),

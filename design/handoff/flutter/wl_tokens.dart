@@ -267,6 +267,16 @@ class WlMotionTokens {
   Curve get out => Curves.easeOutCubic;
   Curve get inOut => Curves.easeInOutCubic;
 
+  /// Map (motion.md): realtime dot travels A→B once per event.
+  Duration get mapDotTravel => const Duration(milliseconds: 2600);
+
+  /// Map: arrival ring on B (also the reduced-motion highlight).
+  Duration get mapArrivalRing => const Duration(milliseconds: 2000);
+
+  /// Map: route polyline draw; stops pop in [routeStopStagger] apart.
+  Duration get routeDraw => const Duration(milliseconds: 900);
+  Duration get routeStopStagger => const Duration(milliseconds: 80);
+
   /// Damping ratio ≈ 0.93: settles without a visible bounce.
   SpringDescription get sheetSpring =>
       const SpringDescription(mass: 1, stiffness: 420, damping: 38);

@@ -2,6 +2,7 @@
 // platform-and-a11y.md › Map).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wardline/features/patients/presentation/patient_profile_screen.dart';
 import 'package:wardline/app/router.dart';
 import 'package:wardline/app/state/providers.dart';
 import 'package:wardline/core/widgets/wl/wl.dart';
@@ -30,14 +31,6 @@ Future<void> _settle(WidgetTester tester) async {
   await tester.pump();
   await tester.pump(const Duration(seconds: 1));
 }
-
-String _location(WidgetTester tester) =>
-    container(tester)
-        .read(routerProvider)
-        .routerDelegate
-        .currentConfiguration
-        .uri
-        .toString();
 
 void main() {
   testWidgets('flow 5.1: 3D, three floors, 12 department buttons with '
@@ -110,7 +103,14 @@ void main() {
 
     await tester.tap(find.text('Adam Wójcik'));
     await _settle(tester);
-    expect(_location(tester), Routes.patient(_id(repo, 'Adam Wójcik')));
+    // Pushed as a root-level record page, so Back returns to the map.
+    final top = container(tester)
+        .read(routerProvider)
+        .routerDelegate
+        .currentConfiguration
+        .last;
+    expect(top.matchedLocation, Routes.patientRecord(_id(repo, 'Adam Wójcik')));
+    expect(find.byType(PatientProfileScreen), findsOneWidget);
     handle.dispose();
   });
 
