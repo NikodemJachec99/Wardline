@@ -19,6 +19,7 @@ Reduced motion is on when `MediaQuery.disableAnimations` **or** the in-app "Redu
 | Loading → checkmark | RPC returned 200 (never before) | circle stroke 0→1, then tick stroke | 380 + 260 @300ms | out | static check, 120ms fade | `CustomPainter`; driven by `AsyncData`, not by the tap |
 | Spinner | request in flight | rotate 360° | 800 loop | linear | kept (essential), 1600 loop | `CircularProgressIndicator.adaptive`, 20dp |
 | Live-update row highlight | Realtime event for a visible row | bg `primarySoft` hold, fade to surface | 2400 (hold 60%) @300ms | out | static "Updated" dot for 5s | `TweenAnimationBuilder<Color?>`; `ValueKey(patient.id)` keeps scroll |
+| Feed entry | New event in a visible activity feed (realtime, own write, refetch); not on first build | height 0→auto, opacity 0→1, y −8→0 | base 220 | out | appears at once; live highlight / "Updated" dot still marks it | `SizeTransition` + `FadeTransition`, keyed by event id so existing rows never replay |
 | Status colour cross-fade | status changed | chip bg/fg + 4dp status bar | base 220 | out | instant | `AnimatedContainer` / `ColorTween`; icon via `AnimatedSwitcher` |
 | Tab indicator slide | tab change | pill x-position + label weight | base 220 | out | instant | custom `WlBottomNav`, `AnimatedPositioned` |
 | Pull-to-refresh | overscroll ≥ 72dp | indicator follows finger, spins while loading | follows drag; settle 220 | out | platform default, no bounce | `RefreshIndicator.adaptive` |

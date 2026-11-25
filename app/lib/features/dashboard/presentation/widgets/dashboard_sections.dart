@@ -312,7 +312,10 @@ class ReadyCard extends StatelessWidget {
 
 /// "Recent transfers" (nurse) / "Recent status changes" (doctor). The row
 /// for the latest realtime event replays the live highlight.
-class ActivityFeedCard extends StatelessWidget {
+/// Live activity feed. Events that appear after the first build (realtime,
+/// own writes, refetch) slide in with [_FeedEntry]; the remote one is also
+/// highlighted. The first build does not animate (the card stagger does).
+class ActivityFeedCard extends StatefulWidget {
   const ActivityFeedCard({
     required this.title,
     required this.snapshot,
@@ -331,10 +334,26 @@ class ActivityFeedCard extends StatelessWidget {
   final ValueChanged<String> onOpenPatient;
 
   @override
+  State<ActivityFeedCard> createState() => _ActivityFeedCardState();
+}
+
+class _ActivityFeedCardState extends State<ActivityFeedCard> {
+  /// Event ids already shown; null before the first build.
+  Set<String>? _seen;
+
+  @override
   Widget build(BuildContext context) {
+    final ActivityFeedCard(:title, :snapshot, :events, :onSeeAll) = widget;
     final t = WlTokens.of(context);
     final c = t.colors;
     final live = snapshot.lastRemoteEvent?.id;
+    final seen = _seen;
+    final fresh = {
+      if (seen != null)
+        for (final e in events)
+          if (!seen.contains(e.id)) e.id,
+    };
+    _seen = {...?seen, for (final e in events) e.id};
     return Semantics(
       container: true,
       liveRegion: true,
@@ -369,13 +388,22 @@ class ActivityFeedCard extends StatelessWidget {
                   style: t.typography.subhead.copyWith(color: c.textSecondary),
                 ),
               ),
-            for (final (i, e) in events.indexed) ...[
-              if (i > 0) Divider(height: 1, thickness: 1, color: c.border),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: t.space.sm),
-                child: _feedItem(e, live == e.id),
+            for (final (i, e) in events.indexed)
+              _FeedEntry(
+                key: ValueKey(e.id),
+                animate: fresh.contains(e.id),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (i > 0)
+                      Divider(height: 1, thickness: 1, color: c.border),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: t.space.sm),
+                      child: _feedItem(e, live == e.id),
+                    ),
+                  ],
+                ),
               ),
-            ],
           ],
         ),
       ),
@@ -383,6 +411,7 @@ class ActivityFeedCard extends StatelessWidget {
   }
 
   Widget _feedItem(HistoryEvent e, bool isLive) {
+    final ActivityFeedCard(:snapshot, :now, :onOpenPatient) = widget;
     final p = snapshot.patient(e.patientId);
     String dept(String? code) =>
         code == null ? '' : (snapshot.department(code)?.name ?? code);
@@ -415,6 +444,72 @@ class ActivityFeedCard extends StatelessWidget {
       live: isLive,
       highlightKey: isLive ? e.id : null,
       onTap: p == null ? null : () => onOpenPatient(p.id),
+    );
+  }
+}
+
+/// Feed entry (motion.md "Feed entry"): a new row opens its height and
+/// slides down into place while fading in, over `motion.base`. Reduced
+/// motion: the row appears at once (the live highlight / "Updated" dot
+/// still marks it).
+class _FeedEntry extends StatefulWidget {
+  const _FeedEntry({required this.animate, required this.child, super.key});
+
+  final bool animate;
+  final Widget child;
+
+  @override
+  State<_FeedEntry> createState() => _FeedEntryState();
+}
+
+class _FeedEntryState extends State<_FeedEntry>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(vsync: this);
+  late final CurvedAnimation _curve;
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    _curve = CurvedAnimation(
+      parent: _c,
+      curve: WlTokens.of(context).motion.out,
+    );
+    if (widget.animate && !WlMotion.reduced(context)) {
+      _c.duration = WlTokens.of(context).motion.base;
+      _c.forward();
+    } else {
+      _c.value = 1;
+    }
+  }
+
+  @override
+  void dispose() {
+    _curve.dispose();
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WlTokens.of(context);
+    final curve = _curve;
+    return SizeTransition(
+      sizeFactor: curve,
+      alignment: Alignment.topCenter,
+      child: FadeTransition(
+        opacity: curve,
+        child: AnimatedBuilder(
+          animation: curve,
+          builder: (context, child) => Transform.translate(
+            offset: Offset(0, -t.space.xs * (1 - curve.value)),
+            child: child,
+          ),
+          child: widget.child,
+        ),
+      ),
     );
   }
 }
