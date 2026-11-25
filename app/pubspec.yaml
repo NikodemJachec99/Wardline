@@ -17,6 +17,8 @@ dependencies:
   lucide_icons_flutter: ^4.0.3
   nfc_manager: ^4.4.0
   nfc_manager_ndef: ^1.1.0
+  mobile_scanner: ^7.5.0
+  app_settings: ^9.0.1
 
 dev_dependencies:
   flutter_test:
