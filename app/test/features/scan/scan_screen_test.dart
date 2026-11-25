@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wardline/app/router.dart';
 import 'package:wardline/core/widgets/wl/wl.dart';
 import 'package:wardline/features/patients/presentation/patient_profile_screen.dart';
 import 'package:wardline/features/scan/data/nfc_reader.dart';
@@ -288,6 +289,20 @@ void main() {
       await ScanRig.settle(tester);
       expect(find.text(ScanCopy.hold), findsOneWidget);
       expect(rig.qr.disposed, isTrue);
+    });
+
+    testWidgets('opened with ?method=qr starts in QR mode', (tester) async {
+      final rig = ScanRig();
+      await rig.open(tester, route: Routes.scanQr);
+
+      expect(find.text(ScanCopy.qrHint), findsOneWidget);
+      expect(find.text(ScanCopy.switchToNfc), findsOneWidget);
+      expect(rig.qrSources, hasLength(1), reason: 'camera opened once');
+      expect(rig.reader.reads, 0, reason: 'NFC never started');
+
+      rig.qr.emit(const QrCodeRead(janCode));
+      await ScanRig.settle(tester);
+      expect(find.text('Jan Kowalczyk'), findsOneWidget);
     });
 
     testWidgets('close returns to the previous screen', (tester) async {

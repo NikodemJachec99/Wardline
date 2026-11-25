@@ -147,7 +147,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
           (
             icon: WlIcons.qr,
             label: 'Scan QR',
-            onTap: () => context.push(Routes.scan),
+            onTap: () => context.push(Routes.scanQr),
           ),
           (
             icon: WlIcons.search,

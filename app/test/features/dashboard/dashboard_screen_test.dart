@@ -7,6 +7,15 @@ import 'package:wardline/features/dashboard/application/clock.dart';
 import 'package:wardline/features/dashboard/application/dashboard_stats.dart';
 import 'package:wardline/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:wardline/features/notifications/presentation/notifications_screen.dart';
+import 'package:wardline/features/patients/presentation/patients_screen.dart';
+import 'package:wardline/features/scan/data/nfc_reader.dart';
+import 'package:wardline/features/scan/data/qr_source.dart';
+import 'package:wardline/features/scan/data/resolve_patient.dart';
+import 'package:wardline/features/scan/presentation/scan_copy.dart';
+import 'package:wardline/features/scan/presentation/scan_screen.dart';
+import 'package:wardline/features/scan/presentation/widgets/scan_method_toggle.dart';
+
+import '../scan/scan_fakes.dart';
 
 import '../../helpers/harness.dart';
 import 'dashboard_test_utils.dart';
@@ -111,6 +120,78 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('91% · Bottleneck'), findsNothing);
     expect(find.text('100% · Full'), findsOneWidget);
+  });
+
+  testWidgets('occupancy rows and chart summary follow a remote transfer', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    final repo = demoRepository();
+    await pumpDashboard(tester, repo: repo);
+    int occupiedOf(String code) =>
+        tester.widget<WlDeptOccupancyBar>(find.byKey(ValueKey(code))).occupied;
+    expect(
+      find.bySemanticsLabel(
+        '128 of 210 beds occupied. Fullest: Intensive Care, 100 percent, '
+        'full.',
+      ),
+      findsOneWidget,
+    );
+
+    final p = repo.current.patients.firstWhere((p) => p.location == 'INT');
+    final before = (int: occupiedOf('INT'), rad: occupiedOf('RAD'));
+    repo.simulateRemoteTransfer(patientId: p.id, to: 'RAD');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    expect(occupiedOf('INT'), before.int - 1);
+    expect(occupiedOf('RAD'), before.rad + 1);
+    expect(occupiedOf('INT'), repo.current.occupancy('INT'));
+    await tester.pump(const Duration(seconds: 5));
+    handle.dispose();
+  });
+
+  group('quick actions open the right screen', () {
+    // The real NFC plugin and camera are replaced by the scan fakes.
+    Future<void> tapAction(WidgetTester tester, String label) async {
+      usePhone(tester);
+      final repo = demoRepository();
+      await tester.pumpWidget(
+        dashboardApp(
+          repo: repo,
+          overrides: [
+            nfcReaderProvider.overrideWithValue(FakeNfcReader()),
+            qrSourceFactoryProvider.overrideWithValue(FakeQrSource.new),
+            scanClockProvider.overrideWithValue(() => demoNow),
+          ],
+        ),
+      );
+      await tester.pump(const Duration(seconds: 2));
+      await tester.tap(find.text(label));
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+    }
+
+    testWidgets('Scan NFC → scanner in NFC mode', (tester) async {
+      await tapAction(tester, 'Scan NFC');
+      final scan = tester.widget<ScanScreen>(find.byType(ScanScreen));
+      expect(scan.initialMethod, ScanMethod.nfc);
+      expect(find.text(ScanCopy.hold), findsOneWidget);
+    });
+
+    testWidgets('Scan QR → scanner in QR mode', (tester) async {
+      await tapAction(tester, 'Scan QR');
+      final scan = tester.widget<ScanScreen>(find.byType(ScanScreen));
+      expect(scan.initialMethod, ScanMethod.qr);
+      expect(find.text(ScanCopy.qrHint), findsOneWidget);
+    });
+
+    testWidgets('Search patient → Patients tab', (tester) async {
+      await tapAction(tester, 'Search patient');
+      expect(find.byType(PatientsScreen), findsOneWidget);
+      expect(find.byType(ScanScreen), findsNothing);
+    });
   });
 
   testWidgets('feed updates and highlights a simulated remote transfer', (

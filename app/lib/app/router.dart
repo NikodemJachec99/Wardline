@@ -18,6 +18,7 @@ import '../features/patients/presentation/patient_profile_screen.dart';
 import '../features/patients/presentation/patients_screen.dart';
 import '../features/profile/presentation/profile_screen.dart';
 import '../features/scan/presentation/scan_screen.dart';
+import '../features/scan/presentation/widgets/scan_method_toggle.dart';
 import '../features/transfer/presentation/transfer_confirm_screen.dart';
 import 'shell_scaffold.dart';
 import 'state/providers.dart';
@@ -28,6 +29,9 @@ abstract final class Routes {
   static const String dashboard = '/dashboard';
   static const String patients = '/patients';
   static const String scan = '/scan';
+
+  /// Scan opened straight in QR mode (dashboard "Scan QR").
+  static const String scanQr = '/scan?method=qr';
   static const String history = '/history';
   static const String profile = '/profile';
   static const String notifications = '/notifications';
@@ -159,9 +163,13 @@ final Provider<GoRouter> routerProvider = Provider<GoRouter>((ref) {
       // Scan opens as a full-screen modal over the shell.
       GoRoute(
         path: Routes.scan,
-        pageBuilder: (context, state) => const MaterialPage<void>(
+        pageBuilder: (context, state) => MaterialPage<void>(
           fullscreenDialog: true,
-          child: ScanScreen(),
+          child: ScanScreen(
+            initialMethod: state.uri.queryParameters['method'] == 'qr'
+                ? ScanMethod.qr
+                : ScanMethod.nfc,
+          ),
         ),
       ),
       GoRoute(

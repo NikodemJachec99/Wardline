@@ -131,6 +131,7 @@ Strings taken from the artboards (or written where no artboard had one) while bu
 | `chart.showChart` | Show as chart |
 | `dashboard.noChange` | No change vs last hour |
 | `dashboard.nothingYet` | Nothing yet today |
+| `dashboard.occupancy.summary` | {occupied} of {beds} beds occupied. Fullest: {department}, {percent} percent[, full / bottleneck]. (screen reader only) |
 | `notifications.ownChanges` | Your own changes never notify you. |
 | `login.demoAccounts` | Demo accounts |
 | `login.offline` | You're offline · Signing in needs a connection. |
