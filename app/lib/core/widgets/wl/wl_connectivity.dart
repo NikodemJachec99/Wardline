@@ -281,3 +281,70 @@ class _PulsePainter extends CustomPainter {
   @override
   bool shouldRepaint(_PulsePainter old) => old.v != v;
 }
+
+/// Offline replacement for a write action (product rule 5): the button is
+/// not shown disabled, it is replaced by this one-line explanation.
+class WlOfflineActionNote extends StatelessWidget {
+  const WlOfflineActionNote({
+    this.text = 'Changes need a connection',
+    this.detail,
+    super.key,
+  });
+
+  final String text;
+
+  /// e.g. "Transfers resume when you're back online."
+  final String? detail;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WlTokens.of(context);
+    final c = t.colors;
+    return Semantics(
+      liveRegion: true,
+      label: detail == null ? text : '$text. $detail',
+      excludeSemantics: true,
+      child: Container(
+        width: double.infinity,
+        constraints: BoxConstraints(minHeight: t.space.action),
+        padding: EdgeInsets.symmetric(
+          horizontal: t.space.md,
+          vertical: t.space.sm,
+        ),
+        decoration: BoxDecoration(
+          color: c.subtle,
+          borderRadius: t.radius.inputBr,
+          border: Border.all(color: c.border),
+        ),
+        child: Row(
+          children: [
+            Icon(WlIcons.wifiOff, size: 20, color: c.textSecondary),
+            SizedBox(width: t.space.sm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    text,
+                    style: t.typography.callout.copyWith(
+                      color: c.text,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  if (detail != null)
+                    Text(
+                      detail!,
+                      style: t.typography.subhead.copyWith(
+                        color: c.textSecondary,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
