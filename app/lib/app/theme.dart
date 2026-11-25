@@ -4,6 +4,15 @@ import '../core/theme/wl_tokens.dart';
 
 /// App theme built from the Wardline design tokens
 /// (PLAN.md §7.1, design/handoff/tokens.json, `WlTokens`).
+///
+/// Note on Material component themes:
+/// Custom Wardline components (`Wl*`, `WlLargeTitle`, `showWlBottomSheet`)
+/// remain the primary design implementation throughout the app.
+/// The Material component themes configured below (`cardTheme`, `inputDecorationTheme`,
+/// `bottomSheetTheme`, `dividerTheme`, `chipTheme`, `appBarTheme`) serve as consistent
+/// fallbacks for standard Flutter Material widgets, ensuring token alignment.
+/// Note that `bottomSheetTheme` provides fallback defaults and does not override the
+/// custom background and scrim implementation in `showWlBottomSheet`.
 ThemeData buildTheme() {
   const WlTokens tokens = WlTokens.light;
   final WlColors c = tokens.colors;
@@ -74,17 +83,17 @@ ThemeData buildTheme() {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: rad.inputBr,
-        borderSide: BorderSide(color: c.primary, width: 1.5),
+        borderSide: BorderSide(color: c.primary, width: 1),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: rad.inputBr,
         borderSide: BorderSide(color: c.danger, width: 1),
       ),
-      hintStyle: tokens.typography.subhead.copyWith(color: c.textDisabled),
+      hintStyle: tokens.typography.subhead.copyWith(color: c.textSecondary),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: c.surface,
-      surfaceTintColor: Colors.transparent,
+      surfaceTintColor: c.surface.withValues(alpha: 0),
       shape: RoundedRectangleBorder(borderRadius: rad.sheetBr),
       elevation: 0,
     ),

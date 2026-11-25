@@ -76,29 +76,13 @@ class WlColors {
   Color get page => const Color(0xFFFAFBFC);
   Color get surface => const Color(0xFFFFFFFF);
   Color get subtle => const Color(0xFFF3F5F8);
-
-  /// PLAN.md §7.1 direct token aliases
-  Color get bg => page;
-  Color get surface2 => subtle;
   Color get border => const Color(0xFFE4E8EE);
   Color get borderStrong => const Color(0xFFCBD2DB);
 
   Color get text => const Color(0xFF0F1720);
   Color get textSecondary => const Color(0xFF5B6675);
-  Color get textMuted => textSecondary;
   Color get textDisabled => const Color(0xFF9AA3AF);
   Color get onPrimary => const Color(0xFFFFFFFF);
-
-  /// Direct status colors from PLAN.md §7.1
-  Color get statusAdmitted => const Color(0xFF2F6FEB);
-  Color get statusInTreatment => const Color(0xFF7C4DDB);
-  Color get statusReadyForDischarge => const Color(0xFF14A35B);
-  Color get statusDischarged => const Color(0xFF8A94A3);
-
-  /// Direct heat colors from PLAN.md §7.1
-  Color get heatLow => const Color(0xFF22B573);
-  Color get heatMedium => const Color(0xFFF29A2E);
-  Color get heatHigh => const Color(0xFFE5484D);
 
   Color get danger => const Color(0xFFC9302C);
   Color get dangerPressed => const Color(0xFFA82622);
