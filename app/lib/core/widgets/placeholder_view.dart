@@ -13,15 +13,22 @@ class PlaceholderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = WlTokens.of(context);
+    final canPop = Navigator.of(context).canPop();
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (canPop)
+              IconButton(
+                tooltip: 'Back',
+                icon: Icon(WlIcons.back, color: t.colors.text),
+                onPressed: () => Navigator.of(context).maybePop(),
+              ),
             Padding(
               padding: EdgeInsets.fromLTRB(
                 t.space.gutter,
-                t.space.md,
+                canPop ? 0 : t.space.md,
                 t.space.gutter,
                 0,
               ),
