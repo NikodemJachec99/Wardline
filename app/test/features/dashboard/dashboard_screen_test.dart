@@ -113,6 +113,107 @@ void main() {
     expect(find.text('100% · Full'), findsOneWidget);
   });
 
+  group('live activity feed', () {
+    // Height factor of the feed row showing [eventId] (1 = fully in).
+    double entryOf(WidgetTester tester, String eventId) => tester
+        .widget<SizeTransition>(
+          find
+              .ancestor(
+                of: find.byWidgetPredicate(
+                  (w) => w is WlActivityFeedItem && w.key == ValueKey(eventId),
+                ),
+                matching: find.byType(SizeTransition),
+              )
+              .first,
+        )
+        .sizeFactor
+        .value;
+
+    List<WlActivityFeedItem> items(WidgetTester tester) => tester
+        .widgetList<WlActivityFeedItem>(find.byType(WlActivityFeedItem))
+        .toList();
+
+    testWidgets('a new transfer slides in at the top; old rows stay put', (
+      tester,
+    ) async {
+      final repo = demoRepository();
+      await pumpDashboard(tester, repo: repo);
+      final oldIds = [
+        for (final w in items(tester)) (w.key! as ValueKey).value,
+      ];
+      for (final id in oldIds) {
+        expect(entryOf(tester, id as String), 1, reason: 'no intro replay');
+      }
+
+      final evt = repo.simulateRemoteTransfer()!;
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 60));
+      expect(items(tester).first.key, ValueKey(evt.id));
+      expect(entryOf(tester, evt.id), inExclusiveRange(0, 1));
+      for (final id in oldIds.take(3)) {
+        expect(entryOf(tester, id as String), 1);
+      }
+
+      await tester.pump(const Duration(milliseconds: 250));
+      expect(entryOf(tester, evt.id), 1);
+      await tester.pump(const Duration(seconds: 5));
+    });
+
+    testWidgets('reduced motion: the new row is in at once', (tester) async {
+      useReducedMotion(tester);
+      final repo = demoRepository();
+      await pumpDashboard(tester, repo: repo);
+
+      final evt = repo.simulateRemoteTransfer()!;
+      await tester.pump();
+      await tester.pump(); // stream → rebuild; no animation time passes
+      expect(entryOf(tester, evt.id), 1);
+      await tester.pump(const Duration(seconds: 6));
+    });
+
+    testWidgets('doctor: a remote status change enters with the author '
+        'initials and role', (tester) async {
+      final repo = demoRepository();
+      await pumpDashboard(tester, repo: repo, as: 'Dr Piotr Zając');
+
+      final evt = repo.simulateRemoteStatus()!;
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      final row = items(tester).first;
+      expect(row.key, ValueKey(evt.id));
+      expect(row.action, 'updated');
+      expect(row.actorName, evt.byName);
+      expect(row.actorRole, UserRole.doctor);
+      expect(row.subline, contains('Doctor'));
+      expect(row.live, isTrue);
+      final avatar = tester.widget<WlInitialsAvatar>(
+        find.descendant(
+          of: find.byWidget(row),
+          matching: find.byType(WlInitialsAvatar),
+        ),
+      );
+      expect(avatar.role, UserRole.doctor);
+      expect(avatar.name, evt.byName);
+      await tester.pump(const Duration(seconds: 5));
+    });
+
+    testWidgets('nurse feed shows the author role of each transfer', (
+      tester,
+    ) async {
+      final repo = demoRepository();
+      await pumpDashboard(tester, repo: repo);
+      for (final row in items(tester)) {
+        final label = switch (row.actorRole) {
+          UserRole.nurse => 'Nurse',
+          UserRole.doctor => 'Doctor',
+          UserRole.admin => 'Admin',
+        };
+        expect(row.subline, endsWith(label));
+      }
+    });
+  });
+
   testWidgets('feed updates and highlights a simulated remote transfer', (
     tester,
   ) async {
