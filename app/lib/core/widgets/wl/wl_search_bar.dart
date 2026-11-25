@@ -74,8 +74,14 @@ class _WlSearchBarState extends State<WlSearchBar> {
               textInputAction: TextInputAction.search,
               style: t.typography.body.copyWith(color: c.text),
               decoration: InputDecoration(
+                // Own look from components.md: ignore the app-wide
+                // inputDecorationTheme (fill, padding, borders).
                 isCollapsed: true,
+                filled: false,
+                contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
                 hintText: widget.hint,
                 hintStyle: t.typography.body.copyWith(color: c.textSecondary),
                 semanticCounterText: '',
