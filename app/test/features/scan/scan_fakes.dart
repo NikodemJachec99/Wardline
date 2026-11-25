@@ -114,6 +114,7 @@ class ScanRig {
     double textScale = 1,
     bool reduceMotion = false,
     bool online = true,
+    String route = Routes.scan,
   }) async {
     tester.view.physicalSize = const Size(390 * 3, 844 * 3);
     tester.view.devicePixelRatio = 3;
@@ -148,7 +149,7 @@ class ScanRig {
     if (!online) {
       await container.read(connectivityProvider.notifier).setOnline(false);
     }
-    unawaited(container.read(routerProvider).push(Routes.scan));
+    unawaited(container.read(routerProvider).push(route));
     await settle(tester);
   }
 

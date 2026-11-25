@@ -546,6 +546,15 @@ class _OccupancySectionState extends State<OccupancySection> {
         ),
       ],
     );
+    // One-sentence chart summary (platform-and-a11y.md › Charts), for the
+    // rows on screen (the floor filter applies).
+    final fullest = rows.first;
+    final summary =
+        '${rows.fold(0, (n, d) => n + d.occupied)} of '
+        '${rows.fold(0, (n, d) => n + d.beds)} beds occupied. Fullest: '
+        '${fullest.department.name}, ${fullest.percent} percent'
+        '${fullest.flag == null ? '' : ', ${fullest.flag!.toLowerCase()}'}.';
+
     final open = LinkButton(
       label: 'Open',
       semanticsLabel: 'Open ${sel.department.name} history',
@@ -565,7 +574,11 @@ class _OccupancySectionState extends State<OccupancySection> {
                   '${widget.stats.patients} of ${widget.stats.beds} beds',
             ),
           ),
-          SizedBox(height: t.space.sm - 2),
+          Semantics(
+            container: true,
+            label: summary,
+            child: SizedBox(height: t.space.sm - 2),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: t.space.md),
             child: _FloorSegments(

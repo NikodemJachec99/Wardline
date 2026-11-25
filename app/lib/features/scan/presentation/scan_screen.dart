@@ -40,7 +40,10 @@ enum _NfcPhase { checking, idle, reading, unavailable }
 /// QR mode: camera with viewfinder. A read goes through [resolvePatient]
 /// (read only) and opens the quick summary. Scanning never writes.
 class ScanScreen extends ConsumerStatefulWidget {
-  const ScanScreen({super.key});
+  const ScanScreen({this.initialMethod = ScanMethod.nfc, super.key});
+
+  /// QR when opened from the dashboard "Scan QR" action (`/scan?method=qr`).
+  final ScanMethod initialMethod;
 
   @override
   ConsumerState<ScanScreen> createState() => _ScanScreenState();
@@ -75,6 +78,14 @@ class _ScanScreenState extends ConsumerState<ScanScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _method = widget.initialMethod;
+    if (_method == ScanMethod.qr) {
+      // _openQr calls setState, which is not allowed during initState.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _method == ScanMethod.qr && _qr == null) _openQr();
+      });
+    }
+    // In QR mode this only records NFC support; it never auto-switches.
     unawaited(_checkNfc(autoSwitch: true));
   }
 
