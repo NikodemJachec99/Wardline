@@ -16,11 +16,11 @@
 | Plik | Co | Issue |
 |---|---|---|
 | `0001_schema.sql` | enumy, `locations`, `profiles`, `patients`, `location_history`, `status_history`, indeksy, `current_user_role()`, **RLS włączony bez polityk** (domyślnie wszystko zablokowane) | #14, #17 |
-| `0002_rls.sql` | **jeszcze nie ma**: polityki odczytu, odebrane granty zapisu, triggery append-only (PLAN §5.2) | #27, #28 |
+| `0002_rls.sql` | read policies for `authenticated` on all 5 tables, all grants revoked from `anon`, write grants revoked from `authenticated` (PLAN §5.2). Append-only history: UPDATE/DELETE/TRUNCATE on both history tables fail with `PT403` for everyone, incl. the owner and `service_role` (#28) | #27, #28 |
 | `0003_rpc.sql` | `transfer_patient`, `set_patient_status` (PLAN §5.3) | #29, #30 |
 | `0004_realtime.sql` | **jeszcze nie ma**: publikacja realtime (PLAN §5.4) | #42 |
 
-RLS jest włączony od `0001`, ale bez polityk, więc `anon` i `authenticated` nie czytają ani nie piszą nic bezpośrednio. Działają tylko RPC (`SECURITY DEFINER`). Aplikacja zobaczy dane dopiero po politykach odczytu z `0002_rls.sql` (#27).
+RLS is on since `0001`. With `0002_rls.sql`, signed-in staff (`authenticated`) read all 5 tables and write nothing directly: a REST `PATCH /rest/v1/patients` fails with `permission denied` (42501). `anon` has no privileges at all. Writes go only through the `SECURITY DEFINER` RPCs in `0003`. Tests: `supabase/tests/0002_rls_test.sql`.
 
 ## Projekt w chmurze
 
@@ -30,7 +30,9 @@ Supabase, organizacja zespołu, projekt **Wardline**:
 - URL: `https://fqbyyrsmmhyvlakacioj.supabase.co`
 - Klucz `anon` (publishable) bierzecie z panelu (Project Settings › API) do `app/.env.json`. `service_role` nigdy do aplikacji ani do repo.
 
-Wgrane: `0001`, `0003`. Historia migracji w chmurze ma wersje `0001` i `0003`, czyli tak samo jak pliki w repo.
+Wgrane: `0001`, `0003`. Historia migracji w chmurze ma wersje `0001` i `0003`.
+
+**`0002_rls.sql` (#27) is in the repo but not yet applied to the cloud project.** Apply it with the `db push --include-all` below once the PR is merged.
 
 ```bash
 supabase link --project-ref fqbyyrsmmhyvlakacioj
