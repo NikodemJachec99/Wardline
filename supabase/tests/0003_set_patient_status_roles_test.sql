@@ -45,11 +45,11 @@ select throws_ok(
 --    (#27) it raises insufficient_privilege. Either way nothing changes,
 --    which is checked below.
 select lives_ok(
-  $$do $d$ begin
+  $q$ do $d$ begin
       update public.patients set status = 'discharged', version = version + 1
        where id = '00000000-0000-4000-8000-0000000000b1';
     exception when insufficient_privilege then null;
-    end $d$$$,
+    end $d$ $q$,
   'a nurse''s direct UPDATE on patients is not an error path into the data');
 
 -- 3. Admin manages people, not patients: PT403 too.
