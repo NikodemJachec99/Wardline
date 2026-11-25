@@ -6,7 +6,10 @@ import '../../theme/wl_tokens.dart';
 import 'wl_skeleton.dart';
 
 /// Dashboard KPI on the glass surface (no BackdropFilter).
-class WlKpiCard extends StatelessWidget {
+///
+/// Count-up (motion.md): 0 → value over `kpiCountUp` on first data, then
+/// old → new over `slow` on every live change. Reduced motion: no tween.
+class WlKpiCard extends StatefulWidget {
   const WlKpiCard({
     required this.label,
     required this.value,
@@ -33,11 +36,34 @@ class WlKpiCard extends StatelessWidget {
   final String? cachedSyncedAt;
 
   @override
+  State<WlKpiCard> createState() => _WlKpiCardState();
+}
+
+class _WlKpiCardState extends State<WlKpiCard> {
+  /// True once the first (non-loading) value has been shown.
+  bool _counted = false;
+
+  @override
   Widget build(BuildContext context) {
+    final WlKpiCard(
+      :label,
+      :value,
+      :trend,
+      :delta,
+      :deltaSpoken,
+      :loading,
+      :cachedSyncedAt,
+    ) = widget;
     final t = WlTokens.of(context);
     final c = t.colors;
     final cached = cachedSyncedAt != null;
     final reduced = WlMotion.reduced(context);
+    final countUp = reduced
+        ? Duration.zero
+        : _counted
+        ? t.motion.slow
+        : t.motion.kpiCountUp;
+    if (!loading) _counted = true;
 
     final body = loading
         ? Column(
@@ -65,9 +91,7 @@ class WlKpiCard extends StatelessWidget {
                   Expanded(
                     child: TweenAnimationBuilder<int>(
                       tween: IntTween(begin: reduced ? value : 0, end: value),
-                      duration: reduced
-                          ? Duration.zero
-                          : const Duration(milliseconds: 760),
+                      duration: countUp,
                       curve: t.motion.out,
                       builder: (context, v, _) => Text(
                         '$v',
@@ -107,7 +131,7 @@ class WlKpiCard extends StatelessWidget {
                 )
               else if (delta != null)
                 Text(
-                  delta!,
+                  delta,
                   style: t.typography
                       .tabular(t.typography.caption)
                       .copyWith(color: c.textSecondary),

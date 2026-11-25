@@ -267,6 +267,9 @@ class WlMotionTokens {
   Curve get out => Curves.easeOutCubic;
   Curve get inOut => Curves.easeInOutCubic;
 
+  /// KPI count-up on first data (motion.md); live changes use [slow].
+  Duration get kpiCountUp => const Duration(milliseconds: 760);
+
   /// Map (motion.md): realtime dot travels A→B once per event.
   Duration get mapDotTravel => const Duration(milliseconds: 2600);
 
