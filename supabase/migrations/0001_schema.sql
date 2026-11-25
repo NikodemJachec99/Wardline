@@ -1,9 +1,9 @@
 -- 0001_schema.sql — Wardline schema (docs/PLAN.md §5.1). Issue #14.
 -- SIMULATION ONLY: the app stores fictional patients.
 --
--- Security (RLS, revoked grants, append-only history) is 0002_rls.sql (#27,
--- #28). RPCs are 0003_rpc.sql (#29, #30). Until 0002 lands, Supabase's default
--- grants still allow direct writes; never point a real client at this alone.
+-- RLS is enabled at the end of this file with no policies (deny by default).
+-- Read policies, revoked grants and append-only history are 0002_rls.sql
+-- (#27, #28). RPCs are 0003_rpc.sql (#29, #30).
 
 create extension if not exists pg_trgm with schema extensions;
 
@@ -96,3 +96,13 @@ as $$ select role from public.profiles where id = auth.uid() $$;
 
 revoke all on function public.current_user_role() from public, anon;
 grant execute on function public.current_user_role() to authenticated;
+
+-- Locked by default: RLS on, no policies yet, so anon/authenticated read and
+-- write nothing directly (the RPCs in 0003 are SECURITY DEFINER and
+-- still work). Read policies, revoked grants and append-only triggers come
+-- in 0002_rls.sql (#27, #28).
+alter table public.locations        enable row level security;
+alter table public.profiles         enable row level security;
+alter table public.patients         enable row level security;
+alter table public.location_history enable row level security;
+alter table public.status_history   enable row level security;
