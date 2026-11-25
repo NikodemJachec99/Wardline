@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../theme/wl_tokens.dart';
@@ -30,6 +32,7 @@ class _WlLiveHighlightState extends State<WlLiveHighlight>
     duration: const Duration(milliseconds: 2700),
   );
   bool _dot = false;
+  Timer? _dotTimer;
 
   @override
   void initState() {
@@ -49,7 +52,8 @@ class _WlLiveHighlightState extends State<WlLiveHighlight>
     if (!mounted) return;
     if (WlMotion.reduced(context)) {
       setState(() => _dot = true);
-      Future<void>.delayed(const Duration(seconds: 5), () {
+      _dotTimer?.cancel();
+      _dotTimer = Timer(const Duration(seconds: 5), () {
         if (mounted) setState(() => _dot = false);
       });
       return;
@@ -59,6 +63,7 @@ class _WlLiveHighlightState extends State<WlLiveHighlight>
 
   @override
   void dispose() {
+    _dotTimer?.cancel();
     _c.dispose();
     super.dispose();
   }
