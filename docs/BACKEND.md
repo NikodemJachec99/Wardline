@@ -14,16 +14,23 @@
 
 `supabase/migrations/`: schemat, RLS i granty, RPC, realtime, analityka (PLAN §5.1–5.4, §8.2).
 
-## iOS: NFC entitlement (krok ręczny)
+## iOS: NFC entitlement (issue #11)
 
-API GitHub ani `flutter create` tego nie ustawią. Raz, na Macu, z płatnym kontem Apple Developer Program:
+Co już jest w repo:
 
-1. `open app/ios/Runner.xcworkspace`
-2. Target **Runner** → **Signing & Capabilities** → wybierz Team.
-3. **+ Capability** → **Near Field Communication Tag Reading**.
-4. Xcode utworzy `Runner/Runner.entitlements` z kluczem `com.apple.developer.nfc.readersession.formats` = `TAG` (dla NDEF wystarczy). Zacommituj ten plik i zmianę w `project.pbxproj`.
-5. `NFCReaderUsageDescription` jest już w `Info.plist`.
-6. Sprawdź na fizycznym iPhonie (XS lub nowszy): odczyt taga NDEF.
+- `app/ios/Runner/Runner.entitlements` z `com.apple.developer.nfc.readersession.formats` = `TAG` (NTAG213 przez sesję tagów `nfc_manager`).
+- `CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements` w Debug, Release i Profile targetu Runner (`project.pbxproj`).
+- `Info.plist`: `NFCReaderUsageDescription`, `NSCameraUsageDescription` i `com.apple.developer.nfc.readersession.iso7816.select-identifiers` (`D2760000850101`, aplikacja NDEF). CoreNFC wymaga tego klucza przy sesji ISO 14443.
 
-Darmowe konto Personal Team zwykle nie obsługuje tej capability. Sprawdzić w W1.
+Czego nie da się zrobić z repo (jednorazowo, na Macu):
 
+1. `open app/ios/Runner.xcworkspace`.
+2. Target **Runner** → **Signing & Capabilities** → wybierz **Team**.
+3. Sprawdź, czy na liście jest capability **Near Field Communication Tag Reading** (Xcode wczyta ją z `Runner.entitlements`). Jeśli Xcode pokazuje błąd "Personal development teams do not support the Near Field Communication Tag Reading capability", to konto jest darmowe (Personal Team) i **NFC na iPhonie nie zadziała**. Potrzebne płatne Apple Developer Program (99 USD/rok) albo konto zespołu uczelni.
+4. Nie commituj `DEVELOPMENT_TEAM` z prywatnego konta, jeśli zespół buduje z różnych kont. Ustaw go lokalnie w Xcode.
+5. Wpisz poniżej, z jakiego konta podpisujemy build.
+6. Test na fizycznym iPhonie (XS lub nowszy): Scan → **Start scanning** → przyłóż tag → ID na ekranie.
+
+**Konto do podpisu:** _do uzupełnienia (imię, typ konta: Personal Team / Apple Developer Program)._
+
+CI buduje iOS z `--no-codesign`, więc entitlement nie psuje pipeline'u.

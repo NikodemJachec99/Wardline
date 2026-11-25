@@ -4,6 +4,12 @@
 <dict>
 	<key>NFCReaderUsageDescription</key>
 	<string>Wardline reads the patient ID from the NFC wristband to open the patient record.</string>
+	<!-- Required by CoreNFC tag sessions (nfc_manager polls ISO 14443).
+	     D2760000850101 = NFC Forum NDEF application. -->
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>D2760000850101</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Wardline uses the camera to scan the patient QR code.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
