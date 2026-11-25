@@ -57,3 +57,8 @@ class WlStatusChip extends StatelessWidget {
     );
   }
 }
+
+/// Status labels without a BuildContext (toasts, semantics, tests).
+abstract final class WlStatusLabels {
+  static String of(PatientStatus s) => WlTokens.light.colors.status(s).label;
+}
