@@ -49,6 +49,29 @@ void main() {
     });
   });
 
+  group('Token logic used across the app', () {
+    test('every status has a label; the short form keeps the full one', () {
+      const WlColors c = WlColors();
+      for (final s in PatientStatus.values) {
+        expect(c.status(s).label, isNotEmpty);
+      }
+      expect(c.status(PatientStatus.readyForDischarge).shortLabel, 'Ready');
+      expect(
+        c.status(PatientStatus.readyForDischarge).label,
+        'Ready for Discharge',
+      );
+    });
+
+    test('occupancy thresholds: <60 low, 60–85 medium, >85 high', () {
+      const WlColors c = WlColors();
+      expect(c.occupancy(59).level, OccupancyLevel.low);
+      expect(c.occupancy(60).level, OccupancyLevel.medium);
+      expect(c.occupancy(85).level, OccupancyLevel.medium);
+      expect(c.occupancy(86).level, OccupancyLevel.high);
+      expect(c.occupancy(100).word, 'High');
+    });
+  });
+
   group('Material component theme fallbacks', () {
     testWidgets('Material Card receives the intended theme styling', (
       tester,
