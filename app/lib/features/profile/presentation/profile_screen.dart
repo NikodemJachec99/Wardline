@@ -63,7 +63,7 @@ class ProfileScreen extends ConsumerWidget {
               department: me.homeDepartment == null
                   ? null
                   : s.department(me.homeDepartment!)?.name,
-              shift: _shiftLine(me.shiftLabel, now),
+              shift: shiftLine(me.shiftLabel, now),
             ),
             const _GroupLabel('Display'),
             _Box(
@@ -180,21 +180,33 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  /// "Day shift 07:00–19:00 · ends in 8 h 14 min".
-  static String? _shiftLine(String? label, DateTime now) {
+  /// "Day shift 07:00–19:00 · ends in 8 h 14 min". A shift whose end is
+  /// not after its start runs past midnight ("Night shift 19:00–07:00"):
+  /// it ends the next day, or started the day before when it is after
+  /// midnight now.
+  @visibleForTesting
+  static String? shiftLine(String? label, DateTime now) {
     if (label == null || label.isEmpty) return null;
     final text = RegExp(r'^\d').hasMatch(label) ? 'Shift $label' : label;
     final times = RegExp(r'(\d{2}):(\d{2})').allMatches(label).toList();
     if (times.length < 2) return text;
-    DateTime at(RegExpMatch m) => DateTime(
+    // Calendar days (not 24 h Durations), so DST changes don't shift times.
+    DateTime at(RegExpMatch m, int dayOffset) => DateTime(
       now.year,
       now.month,
-      now.day,
+      now.day + dayOffset,
       int.parse(m.group(1)!),
       int.parse(m.group(2)!),
     );
-    final start = at(times.first);
-    final end = at(times.last);
+    var start = at(times.first, 0);
+    var end = at(times.last, 0);
+    if (!end.isAfter(start)) {
+      if (now.isBefore(end)) {
+        start = at(times.first, -1); // after midnight: started yesterday
+      } else {
+        end = at(times.last, 1); // before midnight: ends tomorrow
+      }
+    }
     if (now.isBefore(start) || !now.isBefore(end)) return text;
     return '$text · ends in ${duration(end.difference(now))}';
   }
