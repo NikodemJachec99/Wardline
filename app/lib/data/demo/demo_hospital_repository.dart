@@ -90,9 +90,13 @@ class DemoHospitalRepository implements HospitalRepository {
 
   /// Someone else changes the patient right before our write lands.
   void _applyConcurrentMove(Patient p) {
+    // Design scenario: Marek Kowal moved the patient first.
     final other = _staff.firstWhere(
-      (s) => s.role == UserRole.nurse && s.name != p.locationBy,
-      orElse: () => _staff.first,
+      (s) => s.name == 'Marek Kowal',
+      orElse: () => _staff.firstWhere(
+        (s) => s.role == UserRole.nurse && s.name != p.locationBy,
+        orElse: () => _staff.first,
+      ),
     );
     final options = _departments.where((d) => d.code != p.location).toList();
     final to = options.firstWhere(

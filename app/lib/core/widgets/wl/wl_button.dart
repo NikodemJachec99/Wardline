@@ -116,7 +116,7 @@ class _WlButtonState extends State<WlButton> {
               ? Border.all(color: borderColor)
               : null,
         ),
-        alignment: Alignment.center,
+        alignment: widget.fullWidth ? Alignment.center : null,
         child: content,
       ),
     );

@@ -381,11 +381,9 @@ class _ScanScreenState extends ConsumerState<ScanScreen>
       case null:
         _resume();
       case ScanSummaryAction.viewProfile || ScanSummaryAction.history:
-        // The profile lives inside the shell (Patients branch). Pushing a
-        // shell route from this root-level modal would build a second shell
-        // with the same navigator keys, so the scanner closes and the
-        // Patients branch opens the record (back → Patients list).
-        context.go(Routes.patient(current.id));
+        // Root-level record page: Back returns to the scanner.
+        await context.push(Routes.patientRecord(current.id));
+        _resume();
       case ScanSummaryAction.transfer:
         await showChooseDestinationSheet(
           context,

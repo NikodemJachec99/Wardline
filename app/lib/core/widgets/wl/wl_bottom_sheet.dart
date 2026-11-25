@@ -18,6 +18,7 @@ Future<T?> showWlBottomSheet<T>({
   final reduced = WlMotion.reduced(context);
   return showModalBottomSheet<T>(
     context: context,
+    useRootNavigator: true,
     isScrollControlled: isScrollControlled,
     useSafeArea: true,
     enableDrag: busy == null,
