@@ -15,12 +15,29 @@
 
 | Plik | Co | Issue |
 |---|---|---|
-| `0001_schema.sql` | enumy, `locations`, `profiles`, `patients`, `location_history`, `status_history`, indeksy, `current_user_role()` | #14, #17 |
-| `0002_rls.sql` | **jeszcze nie ma**: RLS, odebrane granty zapisu, triggery append-only (PLAN §5.2) | #27, #28 |
+| `0001_schema.sql` | enumy, `locations`, `profiles`, `patients`, `location_history`, `status_history`, indeksy, `current_user_role()`, **RLS włączony bez polityk** (domyślnie wszystko zablokowane) | #14, #17 |
+| `0002_rls.sql` | **jeszcze nie ma**: polityki odczytu, odebrane granty zapisu, triggery append-only (PLAN §5.2) | #27, #28 |
 | `0003_rpc.sql` | `transfer_patient`, `set_patient_status` (PLAN §5.3) | #29, #30 |
 | `0004_realtime.sql` | **jeszcze nie ma**: publikacja realtime (PLAN §5.4) | #42 |
 
-**Do czasu `0002_rls.sql` domyślne granty Supabase pozwalają na bezpośrednie zapisy do tabel.** Nie podłączajcie do tego prawdziwego klienta, dopóki #27 nie wejdzie.
+RLS jest włączony od `0001`, ale bez polityk, więc `anon` i `authenticated` nie czytają ani nie piszą nic bezpośrednio. Działają tylko RPC (`SECURITY DEFINER`). Aplikacja zobaczy dane dopiero po politykach odczytu z `0002_rls.sql` (#27).
+
+## Projekt w chmurze
+
+Supabase, organizacja zespołu, projekt **Wardline**:
+
+- ref: `fqbyyrsmmhyvlakacioj`, region `eu-west-2`
+- URL: `https://fqbyyrsmmhyvlakacioj.supabase.co`
+- Klucz `anon` (publishable) bierzecie z panelu (Project Settings › API) do `app/.env.json`. `service_role` nigdy do aplikacji ani do repo.
+
+Wgrane: `0001`, `0003`. Historia migracji w chmurze ma wersje `0001` i `0003`, czyli tak samo jak pliki w repo.
+
+```bash
+supabase link --project-ref fqbyyrsmmhyvlakacioj
+supabase db push --include-all   # --include-all, bo 0002 jest starsze niż wgrane 0003
+```
+
+Konta testowe w chmurze: `SUPABASE_URL` i `SUPABASE_SERVICE_ROLE_KEY` z panelu w `tools/seed_accounts/.env.local`, potem `bash tools/seed_accounts/seed_accounts.sh`.
 
 ### Kontrakt RPC
 

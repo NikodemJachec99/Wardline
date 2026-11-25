@@ -57,6 +57,7 @@ supabase/.env.local
 
 # --- Tools output ---
 tools/generate_tags/out/
+__pycache__/
 
 # --- IDE / OS ---
 .idea/
