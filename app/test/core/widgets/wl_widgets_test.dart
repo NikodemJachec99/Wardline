@@ -215,6 +215,52 @@ void main() {
       );
       expect(find.text('128'), findsOneWidget);
     });
+
+    // The number currently painted by the card.
+    int shown(WidgetTester tester) => tester
+        .widgetList<Text>(
+          find.descendant(
+            of: find.byType(WlKpiCard),
+            matching: find.byType(Text),
+          ),
+        )
+        .map((t) => int.tryParse(t.data ?? ''))
+        .nonNulls
+        .single;
+
+    testWidgets('first data counts up from 0 over kpiCountUp (760ms)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _host(const WlKpiCard(label: 'Patients', value: 0, loading: true)),
+      );
+      await tester.pumpWidget(
+        _host(const WlKpiCard(label: 'Patients', value: 42)),
+      );
+      await tester.pump(const Duration(milliseconds: 400));
+      expect(shown(tester), lessThan(42));
+      await tester.pump(const Duration(milliseconds: 400));
+      expect(shown(tester), 42);
+    });
+
+    testWidgets('live change counts old → new over slow (380ms)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _host(const WlKpiCard(label: 'Patients', value: 42)),
+      );
+      await tester.pump(const Duration(seconds: 1));
+      expect(shown(tester), 42);
+
+      await tester.pumpWidget(
+        _host(const WlKpiCard(label: 'Patients', value: 50)),
+      );
+      await tester.pump(const Duration(milliseconds: 100));
+      // Starts from the old value, not from 0.
+      expect(shown(tester), inInclusiveRange(42, 49));
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(shown(tester), 50);
+    });
   });
 
   group('connectivity', () {

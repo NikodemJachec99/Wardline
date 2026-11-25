@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wardline/app/state/providers.dart';
 import 'package:wardline/core/widgets/wl/wl.dart';
+import 'package:wardline/domain/models.dart';
 import 'package:wardline/features/dashboard/application/clock.dart';
 import 'package:wardline/features/dashboard/application/dashboard_stats.dart';
 import 'package:wardline/features/dashboard/presentation/dashboard_screen.dart';
@@ -140,6 +141,46 @@ void main() {
     // Transfers today counts the new one (count-up to 43).
     await tester.pump(const Duration(seconds: 1));
     expect(find.text('43'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('KPIs follow a remote status change live, no reload', (
+    tester,
+  ) async {
+    final repo = demoRepository();
+    await pumpDashboard(tester, repo: repo);
+    List<String> kpiTexts() => [
+      for (final c in tester.widgetList<WlKpiCard>(find.byType(WlKpiCard)))
+        '${c.label}=${c.value}',
+    ];
+    expect(kpiTexts(), [
+      'Total patients=128',
+      'In treatment=54',
+      'Ready for discharge=17',
+      'Transfers today=42',
+    ]);
+
+    final evt = repo.simulateRemoteStatus()!;
+    final expected = DashboardStats.from(repo.current, demoNow).kpis;
+    await tester.pump();
+    // Still the same screen: no skeleton, no intro replay.
+    expect(find.byType(WlSkeleton), findsNothing);
+    expect(kpiTexts(), [for (final k in expected) '${k.label}=${k.value}']);
+    // In treatment or Ready for discharge moved by exactly one.
+    final changed = evt.to == PatientStatus.inTreatment
+        ? 'In treatment=55'
+        : 'Ready for discharge=18';
+    expect(kpiTexts(), contains(changed));
+    // The live count-up (380ms) lands on the new value.
+    await tester.pump(const Duration(milliseconds: 400));
+    final [label, value] = changed.split('=');
+    expect(
+      find.descendant(
+        of: find.byKey(ValueKey(label)),
+        matching: find.text(value),
+      ),
+      findsOneWidget,
+    );
     await tester.pump(const Duration(seconds: 5));
   });
 
