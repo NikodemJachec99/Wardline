@@ -16,7 +16,7 @@
 | Plik | Co | Issue |
 |---|---|---|
 | `0001_schema.sql` | enumy, `locations`, `profiles`, `patients`, `location_history`, `status_history`, indeksy, `current_user_role()`, **RLS włączony bez polityk** (domyślnie wszystko zablokowane) | #14, #17 |
-| `0002_rls.sql` | read policies for `authenticated` on all 5 tables, all grants revoked from `anon`, write grants revoked from `authenticated` (PLAN §5.2). Append-only history triggers: not yet (#28) | #27, #28 |
+| `0002_rls.sql` | read policies for `authenticated` on all 5 tables, all grants revoked from `anon`, write grants revoked from `authenticated` (PLAN §5.2). Append-only history: UPDATE/DELETE/TRUNCATE on both history tables fail with `PT403` for everyone, incl. the owner and `service_role` (#28) | #27, #28 |
 | `0003_rpc.sql` | `transfer_patient`, `set_patient_status` (PLAN §5.3) | #29, #30 |
 | `0004_realtime.sql` | **jeszcze nie ma**: publikacja realtime (PLAN §5.4) | #42 |
 

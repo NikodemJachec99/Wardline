@@ -1,5 +1,5 @@
--- 0002_rls.sql — read policies and revoked write grants (docs/PLAN.md §5.2).
--- Issue #27. Append-only history triggers are #28.
+-- 0002_rls.sql — read policies, revoked write grants (#27) and append-only
+-- history (#28). docs/PLAN.md §5.2.
 --
 -- After this migration:
 --   anon           reads nothing and writes nothing (no grants at all).
@@ -41,3 +41,31 @@ grant select on public.locations, public.profiles, public.patients,
 -- Tables added by later migrations don't become readable by anon by
 -- accident (a new table without RLS would otherwise be public).
 alter default privileges in schema public revoke all on tables from anon;
+
+-- History is append-only, for everyone (#28, PLAN §2 req. 22). The grants
+-- above already stop app users; these triggers also stop the table owner and
+-- anyone holding the service_role key "by accident" (dashboard, scripts).
+-- Rows are only ever added, by the RPCs in 0003_rpc.sql.
+create function public.forbid_history_mutation()
+returns trigger
+language plpgsql
+set search_path = public, pg_temp
+as $$
+begin
+  raise exception 'History is append-only' using errcode = 'PT403',
+    hint = format('%s on %s is not allowed; history rows are never changed or removed.',
+                  tg_op, tg_table_name);
+end
+$$;
+
+-- UPDATE and DELETE, row by row.
+create trigger lhist_no_mutation before update or delete on public.location_history
+  for each row execute function public.forbid_history_mutation();
+create trigger shist_no_mutation before update or delete on public.status_history
+  for each row execute function public.forbid_history_mutation();
+
+-- TRUNCATE skips row triggers, so it needs its own statement trigger.
+create trigger lhist_no_truncate before truncate on public.location_history
+  for each statement execute function public.forbid_history_mutation();
+create trigger shist_no_truncate before truncate on public.status_history
+  for each statement execute function public.forbid_history_mutation();
