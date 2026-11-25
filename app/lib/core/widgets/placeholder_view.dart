@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../theme/wl_tokens.dart';
+import 'wl/wl.dart';
+
 /// Temporary body for screens that are not implemented yet.
 class PlaceholderView extends StatelessWidget {
   const PlaceholderView({required this.title, required this.icon, super.key});
@@ -9,18 +12,36 @@ class PlaceholderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme text = Theme.of(context).textTheme;
+    final t = WlTokens.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
+      body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(icon, size: 48),
-            const SizedBox(height: 16),
-            Text(title, style: text.titleLarge),
-            const SizedBox(height: 8),
-            Text('SIMULATION ONLY — fictional data', style: text.bodySmall),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                t.space.gutter,
+                t.space.md,
+                t.space.gutter,
+                0,
+              ),
+              child: Semantics(
+                header: true,
+                child: Text(
+                  title,
+                  style: t.typography.title1.copyWith(color: t.colors.text),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: WlEmptyState(
+                  icon: icon,
+                  title: title,
+                  body: 'Simulation · fictional data',
+                ),
+              ),
+            ),
           ],
         ),
       ),
