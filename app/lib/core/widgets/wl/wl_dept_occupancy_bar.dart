@@ -104,6 +104,8 @@ class WlDeptOccupancyBar extends StatelessWidget {
                           children: [
                             Positioned.fill(child: ColoredBox(color: c.subtle)),
                             FractionallySizedBox(
+                              heightFactor: 1,
+                              alignment: AlignmentDirectional.centerStart,
                               widthFactor: (percent / 100).clamp(0.0, 1.0),
                               child: ColoredBox(color: o.fill),
                             ),
