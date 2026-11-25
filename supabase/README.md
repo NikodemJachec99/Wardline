@@ -4,7 +4,7 @@ Lokalny backend Supabase. Szczegóły i kolejność migracji: [docs/BACKEND.md](
 
 ```
 config.toml     konfiguracja lokalnego stacku (supabase init)
-migrations/     0001_schema.sql, 0002_rls.sql, 0003_rpc.sql, 0004_realtime.sql, ...
+migrations/     0001_schema.sql, 0003_rpc.sql (0002_rls.sql: #27, 0004_realtime.sql: #42)
 seed.sql        oddziały + fikcyjni pacjenci (dane, nie RLS)
 tests/          pgTAP: RLS, RPC, konflikty, idempotencja
 functions/      Edge Functions: admin-set-role, demo-reset (rozszerzenia)

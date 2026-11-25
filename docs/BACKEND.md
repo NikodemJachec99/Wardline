@@ -1,18 +1,72 @@
 # Backend (Supabase)
 
-> Stub. Uzupełnia osoba odpowiedzialna w ramach swojego issue. Źródło: [PLAN.md](PLAN.md#5-model-danych-i-backend-sql-gotowy-do-migracji).
+> Źródło: [PLAN.md](PLAN.md#5-model-danych-i-backend-sql-gotowy-do-migracji).
 
 ## Od zera do działającego projektu
 
 1. Zainstaluj Supabase CLI 3.0.0 i Docker.
 2. `supabase start` w katalogu głównym repo.
-3. `supabase db reset` (migracje + `seed.sql`).
-4. Konta testowe: skrypt przez Admin API (TODO, hasła tylko lokalnie).
+3. `supabase db reset` (migracje + `seed.sql`, jeśli jest).
+4. Konta testowe (#18): `bash tools/seed_accounts/seed_accounts.sh` (niżej).
 5. Skopiuj URL i **anon key** do `app/.env.json`. `service_role` nigdy nie trafia do aplikacji.
+6. `supabase test db` (pgTAP z `supabase/tests/`).
 
 ## Migracje
 
-`supabase/migrations/`: schemat, RLS i granty, RPC, realtime, analityka (PLAN §5.1–5.4, §8.2).
+| Plik | Co | Issue |
+|---|---|---|
+| `0001_schema.sql` | enumy, `locations`, `profiles`, `patients`, `location_history`, `status_history`, indeksy, `current_user_role()` | #14, #17 |
+| `0002_rls.sql` | **jeszcze nie ma**: RLS, odebrane granty zapisu, triggery append-only (PLAN §5.2) | #27, #28 |
+| `0003_rpc.sql` | `transfer_patient`, `set_patient_status` (PLAN §5.3) | #29, #30 |
+| `0004_realtime.sql` | **jeszcze nie ma**: publikacja realtime (PLAN §5.4) | #42 |
+
+**Do czasu `0002_rls.sql` domyślne granty Supabase pozwalają na bezpośrednie zapisy do tabel.** Nie podłączajcie do tego prawdziwego klienta, dopóki #27 nie wejdzie.
+
+### Kontrakt RPC
+
+Jedyne ścieżki zapisu. Obie są `SECURITY DEFINER`, wykonywalne tylko przez `authenticated` (nie `anon`). Czas i autor pochodzą z serwera (`now()`, `auth.uid()`).
+
+```sql
+transfer_patient(p_patient_id uuid, p_to text, p_expected_version int,
+                 p_request_id uuid, p_identified_by text default null)   -- tylko nurse
+set_patient_status(p_patient_id uuid, p_status patient_status, p_expected_version int,
+                   p_request_id uuid, p_reason text default null)        -- tylko doctor
+```
+
+| Kod | Kiedy |
+|---|---|
+| `PT401` | brak sesji (`auth.uid()` null) |
+| `PT403` | zła rola (nurse dla transferu, doctor dla statusu) |
+| `PT404` | nieznany pacjent |
+| `PT409` | `p_expected_version` nieaktualna; `detail` = JSON `{current_location, status, version}`. Klient pokazuje ekran konfliktu, **bez auto-retry**. |
+| `PT422` | zły / ten sam oddział, ten sam status, wypis bez powodu, brak `p_request_id`, request id użyte dla innego pacjenta |
+
+Ten sam `p_request_id` zwraca to samo zdarzenie (podwójny tap, "Check status" po timeoucie). `version` jest wspólna dla lokalizacji i statusu (decyzja z PLAN §5.3).
+
+## Konta testowe (#18)
+
+`tools/seed_accounts/seed_accounts.sh` tworzy przez Admin API pięć fikcyjnych kont z profilami:
+
+| Login | Osoba | Rola | Oddział |
+|---|---|---|---|
+| `nurse1@wardline.test` | Anna Nowak | nurse | INT |
+| `nurse2@wardline.test` | Marek Kowal | nurse | ER |
+| `doctor1@wardline.test` | Dr Piotr Zając | doctor | INT |
+| `doctor2@wardline.test` | Dr Julia Wróbel | doctor | CAR |
+| `admin@wardline.test` | Katarzyna Wilk | admin | — |
+
+```bash
+cat > tools/seed_accounts/.env.local <<'ENV'
+WARDLINE_PASSWORD=wymysl-wlasne-haslo
+ENV
+bash tools/seed_accounts/seed_accounts.sh
+```
+
+- URL i klucz `service_role` skrypt bierze z `supabase status` (lokalnie) albo z `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY`.
+- Hasła i klucz tylko w `.env.local` albo w zmiennych środowiskowych. `.env.*` jest w `.gitignore`. **Nigdy w repo.**
+- Można puszczać wielokrotnie: istniejące konto dostaje nowe hasło i zaktualizowany profil.
+- Rolę nadaje tylko ten skrypt (service role) albo admin. Aplikacja nie ma ścieżki do zmiany roli; brak polityki UPDATE dochodzi w `0002_rls.sql` (#27).
+- `home_location` ustawia się tylko wtedy, gdy oddział już istnieje (seed oddziałów to #19).
 
 ## iOS: NFC entitlement (issue #11)
 
