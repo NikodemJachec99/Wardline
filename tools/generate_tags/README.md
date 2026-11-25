@@ -1,60 +1,60 @@
 # tools/generate_tags
 
-> SIMULATION ONLY. Wszystkie imiona i ID są fikcyjne.
+> SIMULATION ONLY. Every name and ID is fictional.
 
-Generuje materiały do druku i kodowania tagów (PLAN §14, §9.13):
+Generates print and tag-encoding material (PLAN §14, §9.13):
 
-- `out/tags.csv`: `patient_code`, `name` (imię tylko do kontroli przez człowieka), `kind` (`patient` / `test`), `expected_scan_result`.
-- `out/qr_sheet.pdf`: A4, 8 kart na stronę. Każda karta: QR, kod tekstem, fikcyjne imię i zaznaczone miejsce na naklejkę NTAG213 (Ø 25 mm). Linia przerywana to linia cięcia.
+- `out/tags.csv`: `patient_code`, `name` (for a human cross-check only), `kind` (`patient` / `test`), `expected_scan_result`.
+- `out/qr_sheet.pdf`: A4, 8 cards per page. Each card has the QR, the code as text, the fictional name and a marked spot for an NTAG213 sticker (Ø 25 mm). The dashed line is the cut line.
 
-**QR i tag NFC zawierają wyłącznie identyfikator `HPT-XXXXXXXX`** ([ID_FORMAT.md](../../docs/ID_FORMAT.md)). Imię jest tylko nadrukowane obok, nigdy zakodowane. `out/` jest w `.gitignore`.
+**The QR and the NFC tag hold only the ID `HPT-XXXXXXXX`** ([ID_FORMAT.md](../../docs/ID_FORMAT.md)). The name is printed next to it, never encoded. `out/` is git-ignored.
 
-## Uruchomienie
+## Running
 
-Z katalogu głównego repo (Python 3.10+):
+From the repo root (Python 3.10+):
 
 ```bash
-python3 -m pip install -r tools/generate_tags/requirements.txt   # reportlab, jednorazowo
+python3 -m pip install -r tools/generate_tags/requirements.txt   # reportlab, once
 python3 tools/generate_tags/generate_tags.py
 ```
 
-Opcje:
+Options:
 
-| Flaga | Domyślnie | Co robi |
+| Flag | Default | What it does |
 |---|---|---|
-| `--input PLIK` | `app/assets/demo/sample-data.json` | Pacjenci z JSON-a (format danych demo) albo z CSV z kolumnami `patient_code,name`. |
-| `--out KATALOG` | `tools/generate_tags/out` | Gdzie zapisać wyniki. |
-| `--csv-only` | wyłączone | Tylko CSV, bez PDF (nie wymaga `reportlab`). |
+| `--input FILE` | `app/assets/demo/sample-data.json` | Patients from JSON (demo data format) or from CSV with columns `patient_code,name`. |
+| `--out DIR` | `tools/generate_tags/out` | Where to write the output. |
+| `--csv-only` | off | CSV only, no PDF (does not need `reportlab`). |
 
-Domyślnie pacjenci pochodzą z danych demo aplikacji, więc wydrukowane kody otwierają pacjentów w trybie demo. Gdy powstanie `supabase/seed.sql`, wyeksportuj pacjentów do CSV i podaj go przez `--input`, np.:
+By default patients come from the app's demo data, so the printed codes open patients in demo mode. Once `supabase/seed.sql` exists, export the patients to CSV and pass it with `--input`, for example:
 
 ```sql
 \copy (select patient_code, first_name || ' ' || last_name as name from patients order by patient_code) to 'patients.csv' csv header
 ```
 
-Skrypt waliduje każdy kod tą samą regułą co aplikacja i baza (`^HPT-[0-9A-HJKMNP-TV-Z]{8}$`, po `trim` i wielkich literach) i przerywa przy błędnym albo zduplikowanym kodzie.
+The script validates every code with the same rule as the app and the database (`^HPT-[0-9A-HJKMNP-TV-Z]{8}$`, after trimming and upper-casing) and stops on an invalid or duplicate code.
 
-## Tagi testowe (test akceptacyjny 6)
+## Test tags (acceptance test 6)
 
-Zawsze dopisywane na końcu CSV i PDF:
+Always appended to the end of the CSV and the PDF:
 
-| Payload | Po co | Oczekiwany wynik w aplikacji |
+| Payload | Purpose | Expected result in the app |
 |---|---|---|
-| `HPT-ZZZZZZZZ` | poprawny format, brak pacjenta | `scan.unknown`: „HPT-ZZZZZZZZ isn't registered” |
-| `HELLO` | zły format | `scan.invalid` |
-| *(pusty)* | pusty tag NFC, karta bez QR | `scan.invalid` |
-| `https://example.com/HPT-7K3M9QX2` | URL zamiast ID | `scan.invalid` |
+| `HPT-ZZZZZZZZ` | valid format, no such patient | `scan.unknown`: "HPT-ZZZZZZZZ isn't registered" |
+| `HELLO` | wrong format | `scan.invalid` |
+| *(empty)* | empty NFC tag, card without a QR | `scan.invalid` |
+| `https://example.com/HPT-7K3M9QX2` | URL instead of an ID | `scan.invalid` |
 
-Skrypt odmówi działania, jeśli `HPT-ZZZZZZZZ` należy do prawdziwego pacjenta.
+The script refuses to run if `HPT-ZZZZZZZZ` belongs to a real patient.
 
-## Kodowanie tagów NFC
+## Encoding the NFC tags
 
-1. Wydrukuj `qr_sheet.pdf` w skali 100% (bez „dopasuj do strony”).
-2. Naklej NTAG213 na kółko na karcie.
-3. W aplikacji **NFC Tools** (Android/iOS): *Write → Add a record → Text*, wpisz dokładnie payload z karty (dla pustego tagu: *Other → Erase tag* albo zapis pustej wiadomości), *Write* i przyłóż tag. Nie używaj rekordu *URL*: aplikacja czyta tylko rekord NDEF **Text**.
-4. Sprawdź: skan tagu i QR z tej samej karty w aplikacji ma otworzyć tego samego pacjenta. Kolumna `expected_scan_result` w CSV mówi, czego się spodziewać.
+1. Print `qr_sheet.pdf` at 100% scale (no "fit to page").
+2. Stick an NTAG213 on the circle on each card.
+3. In **NFC Tools** (Android/iOS): *Write → Add a record → Text*, enter exactly the payload from the card (for the empty tag: *Other → Erase tag*, or write an empty message), tap *Write* and hold the tag to the phone. Do not use a *URL* record: the app only reads an NDEF **Text** record.
+4. Check: scanning the tag and the QR from the same card must open the same patient. The `expected_scan_result` column in the CSV says what to expect.
 
-## Testy
+## Tests
 
 ```bash
 python3 -m unittest discover tools/generate_tags -v
